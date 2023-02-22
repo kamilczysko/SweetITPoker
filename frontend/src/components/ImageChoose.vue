@@ -1,5 +1,5 @@
 <template>
-    <div class='grid grid-cols-inputGrid align-middle bg-none'>
+    <div class='grid grid-cols-inputGrid items-center bg-none'>
         <p class='text-left'>{{ label }} : </p>
         <div class='flex justify-center align-middle cursor-pointer relative' v-on:click="toggle">
             <div class='rounded-full w-14 h-14 overflow-hidden hover:shadow-bg3 hover: shadow-md'>
