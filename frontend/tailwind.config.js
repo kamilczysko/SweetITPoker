@@ -15,7 +15,7 @@ module.exports = {
     },
     fontFamily: {
       main: 'Lobster',
-      secondary: 'Roboto'
+      secondary: ['Poppins']
     },
     extend: {
     },
