@@ -1,19 +1,58 @@
 <template>
-    <div class='w-full h-full grid grid-cols-pokerMain'>
-        <div class='grid grid-rows-pokerTable'>
-            <GameTable/>
-            <MyCards/>
+    <div class='grid grid-rows-nav w-full h-full'>
+        <nav class='w-full h-full bg-slate-500 grid grid-cols-3 items-center'>
+            <a href="#" class='w-fit text-left ml-10 hover:text-xl active:mb-1 active:shadow-xl'>logout</a>
+            <h1 class='text-4xl text-center'>{{ roomName }}</h1>
+            <Player :player="roomState[0]" class='absolute right-10 bg-white rounded-xl bg-opacity-50'  @setAdmin="setAdmin" @setObserver="setObserver"/>
+        </nav>
+        <div class='grid grid-cols-pokerMain'>
+            <div class='grid grid-rows-pokerTable'>
+                <GameTable />
+                <MyCards />
+            </div>
+            <UsersList :roomState="roomState" @setAdmin="setAdmin" @setObserver="setObserver"/>
         </div>
-        <UsersList/>
-    </div>
-</template>
+    </div></template>
 <script>
+const avatars = import.meta.globEager('../assets/avatars/*.png')
+
 import UsersList from '../components/UsersList.vue'
 import MyCards from '../components/table/MyCards.vue'
 import GameTable from '../components/table/GameTable.vue'
+import Player from '../components/Player.vue'
 export default {
     name: "PokerTableView",
-    components: {UsersList, GameTable, MyCards}
+    components: { UsersList, GameTable, MyCards, Player },
+    data(){
+        return {
+            roomName: "R00m",
+            roomState: [
+            {uid: 1, playerName: "czesiek", selectedCard: null, avatar:1, role: "developer", isAdmin:false, isObserver: true},
+            {uid: 2, playerName: "grzesiek", selectedCard: {value: 4, unit:"h"}, avatar:2, role: "developer", isAdmin:false, isObserver: false},
+            {uid: 3, playerName: "franciszek", selectedCard: null, avatar:11, role: "developer", isAdmin:false, isObserver: false},
+            {uid: 4, playerName: "pczemek", selectedCard: {value: 5, unit: "d"}, avatar:21, role: "tester", isAdmin:false, isObserver: true},
+            {uid: 5, playerName: "janina", selectedCard: null, avatar:8, role: "tester", isAdmin:true, isObserver: false}
+            ],
+            avatars: []
+        }
+    },
+    methods: {
+        prepareAvatars() {
+            return Object.values(avatars)
+                .map(a => a.default).sort()
+        },
+        setAdmin(data) {
+            this.roomState.filter(u => u.uid === data.player)
+            .forEach(u => u.isAdmin = data.isAdmin)
+        },
+        setObserver(data) {
+            this.roomState.filter(u => u.uid === data.player)
+            .forEach(u => u.isObserver = data.isObserver) 
+        }
+    },
+    created() {
+        this.avatars = this.prepareAvatars
+    }
 
 }
 </script>

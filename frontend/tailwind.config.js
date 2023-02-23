@@ -13,12 +13,13 @@ module.exports = {
       },
       gridTemplateColumns: {
         inputGrid: '1fr 3fr',
-        pokerMain: '9fr 2fr',
+        pokerMain: '7fr 1fr',
         deck: 'repeat(11, minmax(0, 1fr))',
         '3':  'repeat(3, minmax(0, 1fr))'
       },
       gridTemplateRows: {
-        pokerTable: '7fr 2fr'
+        pokerTable: '9fr 3fr',
+        nav: '1fr 8fr'
       },
       fontFamily: {
         main: 'Lobster',

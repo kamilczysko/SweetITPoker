@@ -1,5 +1,5 @@
 <template>
-    <div class='grid grid-cols-deck gap-2 p-2 items-center'>
+    <div class='grid grid-cols-deck p-2 items-center'>
             <Card v-for="card in getDeck" :isSelected="selectedCard == card.id" :key="card.id" :data="card" :isVisible="true" v-on:selectCard="selectCard"/>
     </div>
 </template>

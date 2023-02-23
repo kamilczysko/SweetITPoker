@@ -1,20 +1,20 @@
 <template>
     <div
-         class='rounded-md h-[90%] px-2 py-2 font-secondary cursor-pointer bg-card-bg-2 z-40 border border-cyan-800 brightness-75' :class="{'mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 hover:brightness-100 ':isSelected}, {' hover:shadow-md hover:shadow-black active:shadow-xl active:shadow-black active:mb-1':!isSelected}"
+         class='rounded-md h-[90%] px-2 w-10/12 py-2 font-secondary cursor-pointer bg-card-bg-2 z-40 border border-cyan-800 brightness-75' :class="{'mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 hover:brightness-100 ':isSelected}, {' hover:shadow-md hover:shadow-black active:shadow-xl active:shadow-black active:mb-1':!isSelected}"
         v-on:click="selectCard">
         <div
             class="h-full w-full rounded-lg flex flex-col items-center justify-center bg-card-bg-3 bg-small z-50 border border-cyan-800">
             <div v-if="isVisible" class='w-full'>
-                <div v-if="showUnit" class='flex justify-center items-center flex-col w-full'>
-                    <p class='text-2xl'>{{ data.value }}</p>
+                <div v-if="showUnit" class='flex justify-center items-center gap-3 flex-col w-full'>
+                    <p class='text-4xl'>{{ data.value }}</p>
                     <div class='text-lg relative cursor-pointer grid grid-cols-3 items-center w-full font-extralight'
                         v-on:click="toggleUnit" @click.stop>
                         <p class='scale-x-[-1] text-sm  hover:text-lg active:text-xl'>▶</p>
-                        <p class='text-center'>{{ this.unit }}</p>
+                        <p class='text-center font-medium'>{{ this.unit }}</p>
                         <p class='text-sm hover:text-lg active:text-xl'>▶</p>
                     </div>
                 </div>
-                <div v-else>
+                <div v-else class='flex items-center justify-center'>
                     <img v-if="isCoffeCard" src="../../assets/coffe.png">
                     <img v-else src="../../assets/questionmark.png">
                 </div>
