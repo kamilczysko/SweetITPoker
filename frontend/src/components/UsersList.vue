@@ -1,6 +1,6 @@
 <template>
-    <div class='mt-3 m-auto'>
-            <Player v-for="player in roomState" :key="player.id" :player="player" @setAdmin="setAdmin" @setObserver="setObserver"/>
+    <div class='mt-5'>
+            <Player class='absoulte' v-for="player in roomState" :key="player.id" :player="player" @setAdmin="setAdmin" @setObserver="setObserver"/>
     </div>
 </template>
 <script>
