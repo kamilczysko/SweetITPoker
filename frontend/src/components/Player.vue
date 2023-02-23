@@ -1,6 +1,6 @@
 <template>
     <div class='flex items-center gap-4 mt-3' >
-        <div class='rounded-full overflow-hidden w-16 h-16 ml-1'>
+        <div class='rounded-full overflow-hidden w-16 h-16 ml-1' :class="{['shadow-round'] : player.selectedCard!=null}">
             <img :src="getAvatar(player.avatar)" class='ml-1 mt-3'>
         </div>
         <div class='relative' :class="{ ['blur-[1px]']: player.isObserver }">

@@ -51,6 +51,9 @@ module.exports = {
     },
     backgroundSize: {
       'small': '90%'
+    },
+    boxShadow: {
+      'round':'0 0 30px hotpink'
     }
   },
 },
