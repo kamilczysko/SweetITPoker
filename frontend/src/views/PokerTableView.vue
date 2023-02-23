@@ -8,7 +8,6 @@
     </div>
 </template>
 <script>
-import deck from '../assets/carddeck.js' 
 import UsersList from '../components/UsersList.vue'
 import MyCards from '../components/table/MyCards.vue'
 import GameTable from '../components/table/GameTable.vue'
