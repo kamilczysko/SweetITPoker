@@ -1,5 +1,5 @@
 <template>
-    <div class='w-screen h-screen flex flex-col items-center justify-center font-secondary'>
+    <div class='w-full h-full flex flex-col items-center justify-center font-secondary'>
         <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
         <div class='h-3/6 w-2/6 relative'>
             <img src="../assets/sad.png" class='w-7 h-7 absolute right-5 -top-6 translate-x-full'>
