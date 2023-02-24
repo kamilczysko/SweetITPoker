@@ -1,5 +1,5 @@
 <template>
-    <div class='mt-5'>
+    <div class='mt-5 lg:pl-2'>
             <Player class='absoulte' v-for="player in roomState" :key="player.id" :player="player" @setAdmin="setAdmin" @setObserver="setObserver"/>
     </div>
 </template>
