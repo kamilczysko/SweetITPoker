@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <Result v-if="isVotingFinished" :data="resultData" />
+        <Result v-if="isVotingFinished" :data="resultData"  @reset="resetVotes" />
     </div>
 </template>
 <script>

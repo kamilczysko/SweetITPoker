@@ -13,7 +13,7 @@
                 <CustomButton class='w-1/4' label="Copy to clipboard"
                     @clicked="copyToClipboard(getProperTimeFromat(row.time))" />
             </div>
-            <CustomButton label="reset" @clicked="reset" />
+            <CustomButton label="reset" @clicked="reset" class='mt-3'/>
             <p class="info" id="info">Copied to clipboard!</p>
         </div>
     </div>
@@ -33,7 +33,7 @@ export default {
             this.$refs.target.style.transform = transform;
         },
         reset() {
-            this.$store.commit("setVotingFinished", false)
+            this.$emit("reset")
         },
         copyToClipboard(value) {
             this.unsecuredCopyToClipboard(value)
