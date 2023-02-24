@@ -11,9 +11,15 @@ export default {
     props: ["roomState"],
     methods: {
         setAdmin(data) {
+            if (this.$store.state.isVotingFinished) {
+                return
+            }
             this.$emit("setAdmin", data)
         },
         setObserver(data) {
+            if (this.$store.state.isVotingFinished) {
+                return
+            }
             this.$emit("setObserver", data)
         }
     }

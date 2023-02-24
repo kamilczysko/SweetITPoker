@@ -1,6 +1,7 @@
 <template>
     <div class='grid grid-cols-deck p-1 items-center'>
-            <Card v-for="card in getDeck" :isSelected="selectedCard == card.id" :key="card.id" :data="card" :isVisible="true" v-on:selectCard="selectCard"/>
+        <Card v-for="card in getDeck" :isSelected="selectedCard == card.id" :key="card.id" :data="card" :isVisible="true"
+            v-on:selectCard="selectCard" />
     </div>
 </template>
 <script>
@@ -16,8 +17,11 @@ export default {
     },
     methods: {
         selectCard(id) {
-                this.selectedCard = id
+            if (this.$store.state.isVotingFinished) {
+                return
             }
+            this.selectedCard = id
+        }
     },
     computed: {
         getDeck() {

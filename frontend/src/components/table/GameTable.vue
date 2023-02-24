@@ -1,7 +1,7 @@
 <template>
     <div class='flex items-center flex-wrap justify-center gap-4'>
-        <div v-for="player in players" :key="player.uid" class='flex flex-col items-center'>
-            <Card :data="player.selectedCard" :isSelected="player.selectedCard!=null" class='w-[6rem] h-[9rem]'/>
+        <div v-for="player in getPlayers" :key="player.uid" class='flex flex-col items-center'>
+            <Card :data="player.selectedCard" :isVisible="showCards" :isSelected="player.selectedCard!=null" :isUserSelection="true" class='w-[6rem] h-[9rem]'/>
             <p>{{ player.playerName }}</p>
         </div>
     </div>
@@ -11,7 +11,42 @@ import Card from './Card.vue';
 export default {
     name: "GameTable",
     props: ["players"],
-    components: { Card }
+    components: { Card },
+    data() {
+        return {
+            savedState: []
+        }
+    },  
+    methods: {
+      
+    },
+    computed:{ 
+        getPlayers() {
+            this.savedState = this.players.filter(p => !p.isObserver)
+            return this.savedState 
+        },
+        showCards() {
+            console.log("voting finished")
+            console.log(this.$store.state.isVotingFinished)
+            if(this.$store.state.isVotingFinished) {
+                console.log("get true")
+                    return true
+            } else {
+                console.log("not done yet")
+                this.savedState = this.players
+                const isDone = this.players
+                .filter(p => !p.isObserver)
+                .filter(p => p.selectedCard == null).length == 0
+                if(isDone) {
+                    this.$store.commit("setVotingFinished", true)
+                }
+                return isDone
+            }
+        }
+    },
+    created() {
+        this.savedState = this.players.filter(p => !p.isObserver)
+    }
 }
 </script>
 <style lang="">

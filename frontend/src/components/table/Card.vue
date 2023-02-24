@@ -7,7 +7,10 @@
             <div v-if="isVisible" class='w-full'>
                 <div v-if="showUnit" class='flex justify-center items-center gap-3 flex-col w-full'>
                     <p class='text-4xl'>{{ data.value }}</p>
-                    <div class='text-lg relative cursor-pointer grid grid-cols-3 items-center w-full font-extralight'
+                    <div v-if="isUserSelection" class='text-lg flex justify-center items-center w-full font-extralight'>
+                        <p class='text-center font-medium'>{{ this.unit }}</p>
+                    </div>
+                    <div v-else class='text-lg relative cursor-pointer grid grid-cols-3 items-center w-full font-extralight'
                         v-on:click="toggleUnit" @click.stop>
                         <p class='scale-x-[-1] text-sm  hover:text-lg active:text-xl'>▶</p>
                         <p class='text-center font-medium'>{{ this.unit }}</p>
@@ -25,7 +28,7 @@
 <script>
 export default {
     name: "Card",
-    props: ["data", "isVisible", "isSelected"],
+    props: ["data", "isVisible", "isSelected", "isUserSelection"],
     data() {
         return {
             unit: "h"
