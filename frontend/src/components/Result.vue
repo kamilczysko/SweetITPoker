@@ -7,10 +7,10 @@
             class='rounded-2xl w-[30vw] min-h-[10vw] bg-gradient-to-tr from-[#FBDA61] to-[#FF5ACD] bg-opacity-10 flex flex-col items-center justify-center py-2'>
             <h1 class='text-center font-secondary text-xl font-bold'>Results</h1>
             <div v-for="row in data" :key="row.role"
-                class='flex items-center justify-between w-full font-secondary font-extralight cursor-pointer hover:bg-red-400 hover:bg-opacity-40 px-4 py-1 mb-1 rounded-lg active:bg-opacity-70'>
+                class='grid grid-cols-3 items-center w-full font-secondary font-extralight cursor-pointer hover:bg-red-400 hover:bg-opacity-40 px-4 py-1 mb-1 rounded-lg active:bg-opacity-70'>
                 <p>{{ row.role }}s</p>
                 <p>{{ getProperTimeFromat(row.time) }}</p>
-                <CustomButton class='w-1/4' label="Copy to clipboard"
+                <CustomButton class='w-full' label="Copy to clipboard"
                     @clicked="copyToClipboard(getProperTimeFromat(row.time))" />
             </div>
             <CustomButton label="reset" @clicked="reset" class='mt-3'/>
