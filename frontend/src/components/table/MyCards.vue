@@ -1,6 +1,6 @@
 <template>
     <div class='grid grid-cols-deck p-1 items-center'>
-        <Card v-for="card in getDeck" :isSelected="selectedCard == card.id" :key="card.id" :data="card" :isVisible="true"
+        <Card v-for="card in getDeck" :isSelected="getSelectedCard == card.id" :key="card.id" :data="card" :isVisible="true"
             v-on:selectCard="selectCard" />
     </div>
 </template>
@@ -10,22 +10,29 @@ import deck from '../../assets/carddeck';
 export default {
     name: "MyCards",
     components: { Card },
-    data() {
-        return {
-            selectedCard: null
-        }
-    },
     methods: {
-        selectCard(id) {
+        selectCard(data) {
             if (this.$store.state.isVotingFinished) {
                 return
             }
-            this.selectedCard = id
+            this.$store.commit("selectCard", data)
+            this.selectedCard = Array.from(this.$store.state.players)
+                .filter(p => p.id == this.$store.state.myId)
+                .map(p => p.selectedCard)[0].id
         }
     },
     computed: {
         getDeck() {
             return deck
+        },
+        getSelectedCard() {
+            const selectedCard = Array.from(this.$store.state.players)
+                .filter(p => p.id == this.$store.state.myId)
+                .map(p => p.selectedCard)[0]
+            if(selectedCard == null) {
+                return null
+            }
+            return selectedCard.cardId
         }
     }
 }

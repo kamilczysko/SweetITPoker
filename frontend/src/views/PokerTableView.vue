@@ -2,20 +2,20 @@
     <div class='grid grid-rows-nav w-full h-full'>
         <nav class='w-full h-full grid grid-cols-3 items-center'>
             <a href="#" class='w-fit text-left ml-10 hover:text-xl active:mb-1 active:shadow-xl'>logout</a>
-            <h1 class='text-4xl text-center'>{{ roomName }}</h1>
-            <Player :player="roomState[0]" class='absolute right-10' @setAdmin="setAdmin" @setObserver="setObserver" />
+            <h1 class='text-4xl text-center'>{{ getRoomName }}</h1>
+            <Player :player="getMyPlayer" class='absolute right-10' @setAdmin="setAdmin" @setObserver="setObserver" />
         </nav>
         <div class='grid 2xl:grid-cols-pokerMain lg:grid-cols-pokerMainSmaller grid-cols-pokerMainEvenSmaller '>
             <div class='grid grid-rows-pokerTable'>
-                <GameTable :players="roomState" />
-                <MyCards />
+                <GameTable :players="getAllPlayers" />
+                <MyCards v-show="!getMyPlayer.isObserver" />
             </div>
             <div class='h-full grid '>
-                <UsersList :roomState="roomState" @setAdmin="setAdmin" @setObserver="setObserver"
+                <UsersList :palyers="getPlayersForList" @setAdmin="setAdmin" @setObserver="setObserver"
                     class='overflow-x-auto h-[35rem] scroll-smooth' />
                 <div class='flex flex-col items-center justify-center gap-4'>
                     <CustomButton label="Copy link!" class='w-3/4' @clicked="copyToClipboard"/>
-                    <CustomButton label="Reset!" class='w-3/4' @clicked="resetVotes" />
+                    <CustomButton v-if="getMyPlayer.isAdmin" label="Reset!" class='w-3/4' @clicked="resetVotes" />
                     <p class="info" id="pokerRoomInfo">Copied!</p>
                 </div>
             </div>
@@ -32,29 +32,13 @@ import GameTable from '../components/table/GameTable.vue'
 import Player from '../components/Player.vue'
 import CustomButton from '../components/CustomButton.vue'
 import Result from '../components/Result.vue'
+import StompClient from '../StompClient.js'
+
 export default {
     name: "PokerTableView",
     components: { UsersList, GameTable, MyCards, Player, CustomButton, Result },
     data() {
         return {
-            roomName: "R00m",
-            roomState: [
-                { uid: 1, playerName: "czesiek", selectedCard: null, avatar: 1, role: "developer", isAdmin: false, isObserver: true },
-                { uid: 2, playerName: "grzesiek", selectedCard: { value: 4, unit: "h" }, avatar: 2, role: "developer", isAdmin: false, isObserver: false },
-                { uid: 3, playerName: "franciszek", selectedCard: null, avatar: 11, role: "developer", isAdmin: false, isObserver: false }
-                // { uid: 4, playerName: "pczemek", selectedCard: { value: 5, unit: "d" }, avatar: 21, role: "tester", isAdmin: false, isObserver: true },
-                // { uid: 5, playerName: "janina", selectedCard: null, avatar: 8, role: "tester", isAdmin: true, isObserver: false },
-                // { uid: 11, playerName: "czesiek", selectedCard: null, avatar: 1, role: "developer", isAdmin: false, isObserver: true },
-                // { uid: 21, playerName: "grzesiek", selectedCard: { value: 4, unit: "h" }, avatar: 2, role: "developer", isAdmin: false, isObserver: false },
-                // { uid: 31, playerName: "franciszek", selectedCard: null, avatar: 11, role: "developer", isAdmin: false, isObserver: false },
-                // {uid: 41, playerName: "pczemek", selectedCard: {value: 5, unit: "d"}, avatar:21, role: "tester", isAdmin:false, isObserver: true},
-                // {uid: 51, playerName: "janina", selectedCard: null, avatar:8, role: "tester", isAdmin:true, isObserver: false},
-                // {uid: 12, playerName: "czesiek", selectedCard: null, avatar:1, role: "developer", isAdmin:false, isObserver: true},
-                // {uid: 22, playerName: "grzesiek", selectedCard: {value: 4, unit:"h"}, avatar:2, role: "developer", isAdmin:false, isObserver: false},
-                // {uid: 32, playerName: "franciszek", selectedCard: null, avatar:11, role: "developer", isAdmin:false, isObserver: false},
-                // {uid: 42, playerName: "pczemek", selectedCard: {value: 5, unit: "d"}, avatar:21, role: "tester", isAdmin:false, isObserver: true},
-                // {uid: 52, playerName: "janina", selectedCard: null, avatar:8, role: "tester", isAdmin:true, isObserver: false}
-            ],
             avatars: [],
             resultData: [{ role: "Developer", time: 13.4 },
             { role: "Tester", time: 19.43423 },
@@ -67,31 +51,48 @@ export default {
                 .map(a => a.default).sort()
         },
         setAdmin(data) {
-            this.roomState.filter(u => u.uid === data.player)
-                .forEach(u => u.isAdmin = data.isAdmin)
+            this.$store.commit("setAdmin", data.isAdmin)
         },
         setObserver(data) {
-            this.roomState.filter(u => u.uid === data.player)
-                .forEach(u => u.isObserver = data.isObserver)
+            console.log(this.$store.state.players)
+            this.$store.commit("setObserver", data.isObserver)
+            console.log(this.$store.state.players)
         },
         resetVotes() {
             this.$store.commit("setVotingFinished", false)
-            this.roomState.forEach(u => u.selectedCard = null)
+            this.$store.commit("cleanVotes")
         },
         copyToClipboard() {
             document.getElementById("pokerRoomInfo").classList.remove("hideninfo")
             document.getElementById("pokerRoomInfo").classList.add("visibleinfo")
             setTimeout(() => { document.getElementById("pokerRoomInfo").classList.add("hideninfo") }, 1000);
+        },
+        onConnected() {
+            console.log("Connect...")
+            const connection =  new StompClient("/poker")
         }
     },
     computed: {
         isVotingFinished() {
             return this.$store.state.isVotingFinished
+        },
+        getRoomName() {
+            return this.$store.state.roomName
+        },
+        getMyPlayer() {
+            return Array.from(this.$store.state.players).filter(p => p.id == this.$store.state.myId)[0]
+        },
+        getPlayersForList() {
+            return Array.from(this.$store.state.players).filter(p => p.id != this.$store.state.myId).sort()
+        },
+        getAllPlayers() {
+            return Array.from(this.$store.state.players)
         }
     },
     created() {
         this.avatars = this.prepareAvatars
-    }
+        this.onConnected()
+    }   
 
 }
 </script>

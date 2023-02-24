@@ -31,7 +31,7 @@ import CustomButton from '../components/CustomButton.vue'
 import Choose from '../components/Choose.vue';
 import ImageChoose from '../components/ImageChoose.vue';
 import TextInput from '../components/TextInput.vue';
-
+import axios from 'axios'
 export default {
     name: "NewRoomView",
     components: { TextInput, Choose, ImageChoose, CustomButton },
@@ -43,6 +43,7 @@ export default {
             selectedRole: null,
             selectedAvatar: null,
             errorMessage: null,
+            host: "http://localhost:8080"
         }
     },
     methods: {
@@ -56,14 +57,26 @@ export default {
             return Object.values(avatars)
                 .map(a => a.default)
         },
-        selectAvatar(avatar) {
-            this.selectedAvatar = avatar
+        selectAvatar(avatarIdx) {
+            this.selectedAvatar = avatarIdx
         },
         getRoles() {
             return roles
         },
         setRoomName(roomName) {
             this.roomName = roomName
+        },
+        initPlayer(palyerId){
+            const player = {
+                id: palyerId,
+                name: this.name,
+                avatarIdx: this.selectedAvatar,
+                isAdmin: true,
+                isObserver: false,
+                selectedCard: null,
+                role: this.selectedRole
+            }
+            this.$store.commit("setPlayers", [player])
         },
         create() {
             if (this.roomName == null || this.roomName == "") {
@@ -75,14 +88,31 @@ export default {
                 return
             }
 
+            axios.post(this.host + '/rest/room/create', {
+                roomName: this.roomName,
+                roomFounder: {
+                    name: this.name,
+                    avatarIdx: this.selectedAvatar,
+                    role: this.selectedRole
+                }
+            }
+            ).then(result => {
+                this.$store.commit("initNewRoom", result.data)
+                this.initPlayer(result.data.playerId)    
+            })
+                .then(() => this.$router.push({ name: "game" }))
+                .catch((error) => this.errorMessage = "Network error! Refresh page" + error)
+
             this.errorMessage = null
         }
     },
 
     created() {
-        this.selectedRole = this.roles[0]
-        this.selectedAvatar = this.prepareAvatars[0]
         this.roles = Array.from(roles)
+        this.selectedRole = this.roles[0]
+        this.selectedAvatar = 0
+        this.selectedRole = this.roles[0]
+
     },
     computed: {
         getErrorMessage() {

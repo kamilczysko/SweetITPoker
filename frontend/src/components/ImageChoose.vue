@@ -6,7 +6,7 @@
                 <img v-show="!isOpen" class='scale-100 ml-2 mt-2 hover:scale-110 ' :src="getIconUrl(value)" alt="">
             </div>
             <div v-show="isOpen" class='flex flex-wrap gap-1 bg-bg2 rounded-xl p-5 bg-opacity-70 absolute' v-on:mouseleave="hide">
-                <div v-for="img in images()" class='rounded-full w-11 h-11 overflow-hidden hover: shadow-md hover:shadow-bg3 focus:scale-xl' v-on:click="select(img)">
+                <div v-for=" img, index in images()" class='rounded-full w-11 h-11 overflow-hidden hover: shadow-md hover:shadow-bg3 focus:scale-xl' v-on:click="select(img, index)">
                     <img class='scale-100 ml-1  mt-2 hover: shadow-xl hover:scale-110 focus:scale-120' :src="getIconUrl(img)">
                 </div>
             </div>
@@ -24,9 +24,9 @@ export default {
         }
     },
     methods: {
-        select(image) {
+        select(image, imageIdx) {
             this.value = image
-            this.$emit("select", image)
+            this.$emit("select", imageIdx)
         },
         getIconUrl(path) {
             return "../" + path
