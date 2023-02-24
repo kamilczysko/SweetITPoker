@@ -18,6 +18,7 @@
                 </div>
             </div>
         </div>
+        <Result/>
     </div>
 </template>
 <script>
@@ -28,9 +29,10 @@ import MyCards from '../components/table/MyCards.vue'
 import GameTable from '../components/table/GameTable.vue'
 import Player from '../components/Player.vue'
 import CustomButton from '../components/CustomButton.vue'
+import Result from '../components/Result.vue'
 export default {
     name: "PokerTableView",
-    components: { UsersList, GameTable, MyCards, Player, CustomButton },
+    components: { UsersList, GameTable, MyCards, Player, CustomButton, Result },
     data() {
         return {
             roomName: "R00m",

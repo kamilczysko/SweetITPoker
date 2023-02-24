@@ -53,7 +53,7 @@ module.exports = {
       'small': '90%'
     },
     boxShadow: {
-      'round':'0 0 30px hotpink'
+      'round':'0 0 15px hotpink'
     }
   },
 },
