@@ -14,12 +14,13 @@
                 <UsersList :roomState="roomState" @setAdmin="setAdmin" @setObserver="setObserver"
                     class='overflow-x-auto h-[35rem] scroll-smooth' />
                 <div class='flex flex-col items-center justify-center gap-4'>
-                    <CustomButton label="Copy link!" class='w-3/4' />
+                    <CustomButton label="Copy link!" class='w-3/4' @clicked="copyToClipboard"/>
                     <CustomButton label="Reset!" class='w-3/4' @clicked="resetVotes" />
+                    <p class="info" id="pokerRoomInfo">Copied!</p>
                 </div>
             </div>
         </div>
-        <Result v-if="isVotingFinished" :data="resultData"  @reset="resetVotes" />
+        <Result v-if="isVotingFinished" :data="resultData" @reset="resetVotes" />
     </div>
 </template>
 <script>
@@ -55,9 +56,9 @@ export default {
                 // {uid: 52, playerName: "janina", selectedCard: null, avatar:8, role: "tester", isAdmin:true, isObserver: false}
             ],
             avatars: [],
-            resultData: [{role: "Developer", time: 13.4},
-            {role: "Tester", time: 19.43423},
-            {role: "Wututu", time: 25.54423}]
+            resultData: [{ role: "Developer", time: 13.4 },
+            { role: "Tester", time: 19.43423 },
+            { role: "Wututu", time: 25.54423 }]
         }
     },
     methods: {
@@ -76,6 +77,11 @@ export default {
         resetVotes() {
             this.$store.commit("setVotingFinished", false)
             this.roomState.forEach(u => u.selectedCard = null)
+        },
+        copyToClipboard() {
+            document.getElementById("pokerRoomInfo").classList.remove("hideninfo")
+            document.getElementById("pokerRoomInfo").classList.add("visibleinfo")
+            setTimeout(() => { document.getElementById("pokerRoomInfo").classList.add("hideninfo") }, 1000);
         }
     },
     computed: {
@@ -89,6 +95,17 @@ export default {
 
 }
 </script>
-<style lang="">
-    
+<style scoped>
+.info {
+    visibility: hidden;
+}
+
+.visibleinfo {
+    visibility: visible;
+}
+
+.hideninfo {
+    opacity: 0;
+    transition: visibility .5s .5s, opacity .5s ease;
+}
 </style>

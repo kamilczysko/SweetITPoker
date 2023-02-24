@@ -57,7 +57,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 .target {
     position: absolute;
     bottom: 12vw;
