@@ -26,13 +26,9 @@ export default {
             return this.savedState 
         },
         showCards() {
-            console.log("voting finished")
-            console.log(this.$store.state.isVotingFinished)
             if(this.$store.state.isVotingFinished) {
-                console.log("get true")
                     return true
             } else {
-                console.log("not done yet")
                 this.savedState = this.players
                 const isDone = this.players
                 .filter(p => !p.isObserver)

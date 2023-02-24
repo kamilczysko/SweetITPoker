@@ -7,18 +7,19 @@
         </nav>
         <div class='grid 2xl:grid-cols-pokerMain lg:grid-cols-pokerMainSmaller grid-cols-pokerMainEvenSmaller '>
             <div class='grid grid-rows-pokerTable'>
-                <GameTable :players="roomState"/>
+                <GameTable :players="roomState" />
                 <MyCards />
             </div>
             <div class='h-full grid '>
-                <UsersList :roomState="roomState" @setAdmin="setAdmin" @setObserver="setObserver" class='overflow-x-auto h-[35rem] scroll-smooth' />
+                <UsersList :roomState="roomState" @setAdmin="setAdmin" @setObserver="setObserver"
+                    class='overflow-x-auto h-[35rem] scroll-smooth' />
                 <div class='flex flex-col items-center justify-center gap-4'>
                     <CustomButton label="Copy link!" class='w-3/4' />
-                    <CustomButton label="Reset!" class='w-3/4' @clicked="resetVotes"/>
+                    <CustomButton label="Reset!" class='w-3/4' @clicked="resetVotes" />
                 </div>
             </div>
         </div>
-        <Result/>
+        <Result v-if="isVotingFinished" :data="resultData" />
     </div>
 </template>
 <script>
@@ -53,7 +54,10 @@ export default {
                 // {uid: 42, playerName: "pczemek", selectedCard: {value: 5, unit: "d"}, avatar:21, role: "tester", isAdmin:false, isObserver: true},
                 // {uid: 52, playerName: "janina", selectedCard: null, avatar:8, role: "tester", isAdmin:true, isObserver: false}
             ],
-            avatars: []
+            avatars: [],
+            resultData: [{role: "Developer", time: 13.4},
+            {role: "Tester", time: 19.43423},
+            {role: "Wututu", time: 25.54423}]
         }
     },
     methods: {
@@ -72,6 +76,11 @@ export default {
         resetVotes() {
             this.$store.commit("setVotingFinished", false)
             this.roomState.forEach(u => u.selectedCard = null)
+        }
+    },
+    computed: {
+        isVotingFinished() {
+            return this.$store.state.isVotingFinished
         }
     },
     created() {
