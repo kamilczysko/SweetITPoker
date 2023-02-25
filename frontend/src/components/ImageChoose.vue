@@ -1,5 +1,5 @@
 <template>
-    <div class='flex items-center justify-center bg-none'>
+    <div class='flex items-center justify-between bg-none'>
         <p class='text-left font-light'>{{ label }} : </p>
         <div class='flex justify-center w-3/5 align-middle cursor-pointer relative' v-on:click="toggle">
             <div class='rounded-full w-14 h-14 overflow-hidden hover:shadow-bg3 hover: shadow-md'>
