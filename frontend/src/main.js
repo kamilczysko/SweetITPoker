@@ -56,6 +56,14 @@ const store = new Vuex.Store({
             state.myId = null
             state.roomName = null
             state.players = []
+        },
+        setPlayerAdmin(state, data) {
+            state.players.filter(p => p.id == data.player)
+                .forEach(p => p.isAdmin = data.isAdmin)
+        },
+        setPlayerObserver(state, data) {
+            state.players.filter(p => p.id == data.player)
+                .forEach(p => p.isObserver = data.isObserver)
         }
     },
     plugins: [new VuexPersistence().plugin]

@@ -6,9 +6,7 @@ import com.walczak.itpoker.domain.participant.PlayerService;
 import com.walczak.itpoker.domain.room.Room;
 import com.walczak.itpoker.domain.room.RoomService;
 import com.walczak.itpoker.dto.PlayerActionDTO;
-import com.walczak.itpoker.dto.RoomDTO;
 import com.walczak.itpoker.dto.RoomLeaveDTO;
-import com.walczak.itpoker.dto.RoomModificationDTO;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -32,21 +30,16 @@ public class RoomController {
 
     @MessageMapping("/leave")
     public void leave(@Payload RoomLeaveDTO roomLeaveDTO) {
-        playerService.removeParticipant(roomLeaveDTO.participantId());
+        playerService.removeParticipant(roomLeaveDTO.playerId());
         Room room = roomService.getExistingById(roomLeaveDTO.roomId());
         if(room.getPlayers().isEmpty()) {
             System.out.println("remove room: "+room.getId());
             roomService.deleteRoom(room.getId());
             return;
         }
-        Mapper.mapToRoomDTO(room);
-        simpMessagingTemplate.convertAndSend("/topic/leave/" + roomLeaveDTO.roomId(), roomLeaveDTO.participantId());
-    }
-
-    @MessageMapping("/room/notify")
-    public void updateRoomState(@Payload String roomId) {
-        Room existingRoom = roomService.getExistingById(roomId);
-        simpMessagingTemplate.convertAndSend("/topic/room/" + roomId, Mapper.mapToRoomDTO(existingRoom));
+        Optional<Room> roomState = roomService.getById(roomLeaveDTO.roomId());
+        roomState.map(Mapper::mapToRoomDTO)
+                .ifPresent(state -> simpMessagingTemplate.convertAndSend("/topic/room/" + roomLeaveDTO.roomId(), state));
     }
 
     @MessageMapping("/room")

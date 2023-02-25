@@ -1,9 +1,9 @@
 <template>
     <div class='grid grid-rows-nav w-full h-full'>
         <nav class='w-full h-full grid grid-cols-3 items-center'>
-            <a href="#" class='w-fit text-left ml-10 hover:text-xl active:mb-1 active:shadow-xl'>logout</a>
+            <a href="/" class='w-fit text-left ml-10 hover:text-xl active:mb-1 active:shadow-xl' v-on:click="logoutPlayer(this.$store.state.myId)">logout</a>
             <h1 class='text-4xl text-center'>{{ getRoomName }}</h1>
-            <Player :player="getMyPlayer" class='absolute right-10' @setObserver="setMyObserver" />
+            <Player :player="getMyPlayer" class='absolute right-10' @setObserver="setObserver" />
         </nav>
         <div class='grid 2xl:grid-cols-pokerMain lg:grid-cols-pokerMainSmaller grid-cols-pokerMainEvenSmaller '>
             <div class='grid grid-rows-pokerTable'>
@@ -40,9 +40,7 @@ export default {
     data() {
         return {
             avatars: [],
-            resultData: [{ role: "Developer", time: 13.4 },
-            { role: "Tester", time: 19.43423 },
-            { role: "Wututu", time: 25.54423 }],
+            resultData: [],
             client: null
         }
     },
@@ -51,21 +49,31 @@ export default {
             return Object.values(avatars)
                 .map(a => a.default).sort()
         },
-        setObserver() {
-
+        setObserver(data) {
+            if(this.amIAdmin || data.player == this.$store.myId) {
+                this.$store.commit("setPlayerObserver", data)
+                this.sendPlayerInfo(data.player)
+            }
         },
-        setAdmin() {
-
+        setAdmin(data) {
+            if(this.amIAdmin) {
+                this.$store.commit("setPlayerAdmin", data)
+                this.sendPlayerInfo(data.player)
+            }
         },
-        setMyObserver(data) {
-            this.$store.commit("setObserver", data.isObserver)
+        logoutPlayer(playerId) {
+            this.client.send("/app/leave", JSON.stringify({
+                playerId: playerId,
+                roomId: this.$store.state.roomId
+            }))
+        },
+        sendPlayerInfo(playerId) {
             this.client.send('/app/room',
                 JSON.stringify({
                     roomId: this.$store.state.roomId,
                     modifiedPlayer:
-                        Array.from(this.$store.state.players).filter(p => p.id == this.$store.state.myId)[0]
+                        Array.from(this.$store.state.players).filter(p => p.id == playerId)[0]
                 }))
-
         },
         resetVotes() {
             this.$store.commit("setVotingFinished", false)

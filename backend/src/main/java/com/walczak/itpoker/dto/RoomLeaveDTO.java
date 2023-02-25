@@ -2,6 +2,6 @@ package com.walczak.itpoker.dto;
 
 public record RoomLeaveDTO(
         String roomId,
-        String participantId
+        String playerId
 ) {
 }
