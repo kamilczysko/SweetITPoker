@@ -54,7 +54,7 @@ export default {
             return this.data.isQuestionCard
         },
         isImageCard() {
-            return (this.data.isCoffeCard) || (this.data.isQuestionCard)
+            return this.data != null && ((this.data.isCoffeCard) || (this.data.isQuestionCard))
         },
         getUnit() {
             return this.unit

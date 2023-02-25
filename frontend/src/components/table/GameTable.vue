@@ -1,7 +1,8 @@
 <template>
     <div class='flex items-center flex-wrap justify-center gap-4'>
         <div v-for="player in getPlayers" :key="player.uid" class='flex flex-col items-center'>
-            <Card :data="player.selectedCard" :isVisible="showCards" :isSelected="player.selectedCard!=null" :isUserSelection="true" class='w-[6rem] h-[9rem]'/>
+            <Card :data="player.selectedCard" :isVisible="showCards" :isSelected="player.selectedCard != null"
+                :isUserSelection="true" class='w-[6rem] h-[9rem]' />
             <p>{{ player.playerName }}</p>
         </div>
     </div>
@@ -16,28 +17,22 @@ export default {
         return {
             savedState: []
         }
-    },  
-    methods: {
-      
     },
-    computed:{ 
+    methods: {
+
+    },
+    computed: {
         getPlayers() {
             this.savedState = this.players.filter(p => !p.isObserver)
-            return this.savedState 
+            return this.savedState
         },
         showCards() {
-            if(this.$store.state.isVotingFinished) {
-                    return true
-            } else {
-                this.savedState = this.players
-                const isDone = this.players
+            this.savedState = this.players
+            const isDone = this.players
                 .filter(p => !p.isObserver)
                 .filter(p => p.selectedCard == null).length == 0
-                if(isDone) {
-                    this.$store.commit("setVotingFinished", true)
-                }
-                return isDone
-            }
+            this.$store.commit("setVotingFinished", isDone)
+            return isDone
         }
     },
     created() {

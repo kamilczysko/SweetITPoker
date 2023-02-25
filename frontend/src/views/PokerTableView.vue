@@ -15,7 +15,7 @@
                     class='overflow-x-auto h-[35rem] scroll-smooth' />
                 <div class='flex flex-col items-center justify-center gap-4'>
                     <CustomButton label="Copy link!" class='w-3/4' @clicked="copyToClipboard" />
-                    <CustomButton v-if="getMyPlayer.isAdmin" label="Reset!" class='w-3/4' @clicked="resetVotes" />
+                    <CustomButton v-if="amIAdmin" label="Reset!" class='w-3/4' @clicked="resetVotes" />
                     <p class="info" id="pokerRoomInfo">Copied!</p>
                 </div>
             </div>
@@ -65,7 +65,11 @@ export default {
         },
         resetVotes() {
             this.$store.commit("setVotingFinished", false)
-            this.$store.commit("cleanVotes")
+            // this.$store.commit("cleanVotes")
+            this.client.send("/app/room", JSON.stringify({
+                roomId: this.$store.state.roomId,
+                resetAllVotes: true
+            }))
         },
         copyToClipboard() {
             const url = navigator.clipboard.writeText(window.location.origin + "/join/" + this.$store.state.roomId)
@@ -111,6 +115,8 @@ export default {
             return this.$store.state.roomName
         },
         getMyPlayer() {
+            console.log("My player")
+            console.log(Array.from(this.$store.state.players).filter(p => p.id == this.$store.state.myId)[0])
             return Array.from(this.$store.state.players).filter(p => p.id == this.$store.state.myId)[0]
         },
         getPlayersForList() {
@@ -125,6 +131,13 @@ export default {
                 return true
             }
             return player[0].isObserver
+        },
+        amIAdmin() {
+            const player = Array.from(this.$store.state.players).filter(p => p.id == this.$store.state.myId)
+            if (player.length == 0) {
+                return true
+            }
+            return player[0].isAdmin
         }
     },
     created() {
