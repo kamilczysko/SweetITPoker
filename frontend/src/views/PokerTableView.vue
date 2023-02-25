@@ -65,7 +65,7 @@ export default {
                     modifiedPlayer:
                         Array.from(this.$store.state.players).filter(p => p.id == this.$store.state.myId)[0]
                 }))
-            
+
         },
         resetVotes() {
             this.$store.commit("setVotingFinished", false)
@@ -73,6 +73,7 @@ export default {
                 roomId: this.$store.state.roomId,
                 resetAllVotes: true
             }))
+            // this.$store.commit("cleanVotes")
         },
         copyToClipboard() {
             const url = navigator.clipboard.writeText(window.location.origin + "/join/" + this.$store.state.roomId)
@@ -108,11 +109,59 @@ export default {
                     modifiedPlayer:
                         Array.from(this.$store.state.players).filter(p => p.id == this.$store.state.myId)[0]
                 }))
-        }
+        },
+        calculateResult() {
+            const rolesByTimesList = Array.from(this.$store.state.players)
+                .filter(u => !u.isObserver)
+                .map(u => {
+                    return {
+                        role: u.role,
+                        value: u.selectedCard.value,
+                        unit: u.selectedCard.unit
+                    }
+                })
+            const rolesToTimes = this.groupBy(rolesByTimesList, d => d.role)
+            return Array.from(rolesToTimes.keys()).map(key => {
+                const items = Array.from(rolesToTimes.get(key))
+                const resultMean = this.sum(items) / items.length
+                return {
+                    role: key,
+                    time: resultMean
+                }
+            })
+        },
+
+        sum(records){
+            let result = 0
+            Array.from(records).forEach(data =>{
+                let factor = 1;
+                if(data.unit == "d") {factor = 8}
+                result += (data.value * factor)
+            })
+            
+            return result
+        },
+        groupBy(list, keyGetter) {
+            const map = new Map();
+            list.forEach((item) => {
+                const key = keyGetter(item);
+                const collection = map.get(key);
+                if (!collection) {
+                    map.set(key, [item]);
+                } else {
+                    collection.push(item);
+                }
+            });
+            return map;
+        },
     },
     computed: {
         isVotingFinished() {
-            return this.$store.state.isVotingFinished
+            const finished = this.$store.state.isVotingFinished
+            if (finished) {
+                this.resultData = this.calculateResult()
+            }
+            return finished
         },
         getRoomName() {
             return this.$store.state.roomName
