@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <Result v-if="showResult" :isAdmin="amIAdmin" :data="resultData" @reset="resetVotes" />
+        <Result v-if="isVotingFinished" :isAdmin="amIAdmin" :data="resultData" @reset="resetVotes" />
     </div>
 </template>
 <script>
@@ -43,8 +43,7 @@ export default {
         return {
             avatars: [],
             resultData: [],
-            client: null,
-            showResult: false
+            client: null
         }
     },
     methods: {
@@ -119,9 +118,7 @@ export default {
 
                 if(this.isVotingFinished) {
                     axios.get("/rest/room/result/"+this.$store.state.roomId)
-                    .then(a => {
-                        this.resultData = a.data
-                        this.showResult = true})
+                    .then(a => this.resultData = a.data)
                 } else {
                     this.showResult = false
                 }

@@ -1,7 +1,7 @@
 <template>
     <div class='rounded-md h-[90%] px-2 w-10/12 py-2 font-secondary cursor-pointer bg-card-bg-2 z-40 border border-cyan-800 brightness-75'
         :class="{ 'mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 hover:brightness-100 ': isSelected }, { ' hover:shadow-md hover:shadow-black active:shadow-xl active:shadow-black active:mb-1': !isSelected }"
-        v-on:click="selectCard">
+         v-on:click="selectCard">
         <div
             class="h-full w-full rounded-lg flex flex-col items-center justify-center bg-card-bg-3 bg-small z-50 border border-cyan-800">
             <div v-if="isVisible" class='w-full'>
@@ -43,7 +43,9 @@ export default {
             } else {
                 this.unit = "h"
             }
-            this.selectCard()
+            if(this.isSelected) {
+                this.selectCard()
+            }
         },
         selectCard() {
             this.$emit("selectCard", { cardId: this.data.cardId, isCoffeCard: this.data.isCoffeCard, isQuestionCard: this.isQuestionCard, unit: this.unit, value: this.data.value })
