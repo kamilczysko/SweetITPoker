@@ -3,7 +3,7 @@
         <div v-for="player in getPlayers" :key="player.uid" class='flex flex-col items-center'>
             <Card :data="player.selectedCard" :isVisible="showCards" :isSelected="player.selectedCard != null"
                 :isUserSelection="true" class='w-[6rem] h-[9rem]' />
-            <p>{{ player.playerName }}</p>
+            <p>{{ player.name }}</p>
         </div>
     </div>
 </template>
