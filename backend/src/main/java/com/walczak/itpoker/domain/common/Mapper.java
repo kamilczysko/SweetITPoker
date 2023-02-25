@@ -47,11 +47,12 @@ public class Mapper {
     public static RoomDTO mapToRoomDTO(Room data) {
         return new RoomDTO(data.getId(),
                 data.getName(),
-                mapToParticipantsDTO(data.getPlayers()));
+                mapToPlayersDTO(data.getPlayers()));
     }
 
-    public static List<PlayerDTO> mapToParticipantsDTO(List<Player> playerData) {
+    public static List<PlayerDTO> mapToPlayersDTO(List<Player> playerData) {
         return playerData.stream()
+                .filter(player -> !player.isObsoleted())
                 .map(Mapper::mapToParticipantDTO)
                 .collect(Collectors.toList());
     }

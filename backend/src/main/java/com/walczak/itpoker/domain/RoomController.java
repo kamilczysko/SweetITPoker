@@ -32,7 +32,7 @@ public class RoomController {
     public void leave(@Payload RoomLeaveDTO roomLeaveDTO) {
         playerService.removeParticipant(roomLeaveDTO.playerId());
         Room room = roomService.getExistingById(roomLeaveDTO.roomId());
-        if(room.getPlayers().isEmpty()) {
+        if(room.getPlayers().stream().allMatch(Player::isObsoleted)) {
             System.out.println("remove room: "+room.getId());
             roomService.deleteRoom(room.getId());
             return;

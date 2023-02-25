@@ -25,6 +25,8 @@ public class Player {
     @JoinColumn
     private SelectedCard selectedCard;
     private String role;
+    @Column(columnDefinition = "boolean default false")
+    private boolean obsoleted;
 
     private Player(Builder builder) {
         setId(builder.id);
@@ -34,6 +36,7 @@ public class Player {
         setAdmin(builder.isAdmin);
         setSelectedCard(builder.selectedCard);
         setRole(builder.role);
+        setObsoleted(builder.obsoleted);
     }
 
     public static Builder builder(Player copy) {
@@ -45,13 +48,13 @@ public class Player {
         builder.isAdmin = copy.isAdmin();
         builder.selectedCard = copy.getSelectedCard();
         builder.role = copy.getRole();
+        builder.obsoleted = copy.isObsoleted();
         return builder;
     }
 
     public boolean hasVoted() {
         return Optional.ofNullable(selectedCard).isPresent();
     }
-
 
     public static final class Builder {
         private String id;
@@ -61,6 +64,7 @@ public class Player {
         private boolean isAdmin;
         private SelectedCard selectedCard;
         private String role;
+        private boolean obsoleted;
 
         private Builder() {
         }
@@ -101,6 +105,11 @@ public class Player {
 
         public Builder role(String role) {
             this.role = role;
+            return this;
+        }
+
+        public Builder obsoleted(boolean obsoleted) {
+            this.obsoleted = obsoleted;
             return this;
         }
 

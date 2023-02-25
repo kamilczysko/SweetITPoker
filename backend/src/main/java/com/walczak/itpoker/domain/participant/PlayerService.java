@@ -5,6 +5,7 @@ import com.walczak.itpoker.dto.PlayerDTO;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PlayerService {
@@ -28,6 +29,7 @@ public class PlayerService {
     }
 
     public void removeParticipant(String id) {
-        playerRepository.deleteById(id);
+        playerRepository.findById(id).map(p -> Player.builder(p).obsoleted(true).build())
+                        .ifPresent(playerRepository::save);
     }
 }
