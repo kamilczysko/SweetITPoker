@@ -1,7 +1,8 @@
 <template>
     <div class='grid grid-rows-nav w-full h-full'>
         <nav class='w-full h-full grid grid-cols-3 items-center'>
-            <a href="/" class='w-fit text-left ml-10 hover:text-xl active:mb-1 active:shadow-xl' v-on:click="logoutPlayer(this.$store.state.myId)">logout</a>
+            <a href="/" class='w-fit text-left ml-10 hover:text-xl active:mb-1 active:shadow-xl'
+                v-on:click="logoutPlayer(this.$store.state.myId)">logout</a>
             <h1 class='text-4xl text-center'>{{ getRoomName }}</h1>
             <Player :player="getMyPlayer" class='absolute right-10' @setObserver="setObserver" />
         </nav>
@@ -11,8 +12,8 @@
                 <MyCards v-show="!amIObserver" @selectCard="selectCard" />
             </div>
             <div class='h-full grid '>
-                <UsersList :isAdmin="amIAdmin" :players="getPlayersForList" @leave="logoutPlayer" @setAdmin="setAdmin" @setObserver="setObserver"
-                    class='overflow-x-auto h-[35rem] scroll-smooth' />
+                <UsersList :isAdmin="amIAdmin" :players="getPlayersForList" @leave="logoutPlayer" @setAdmin="setAdmin"
+                    @setObserver="setObserver" class='overflow-x-auto h-[35rem] scroll-smooth' />
                 <div class='flex flex-col items-center justify-center gap-4'>
                     <CustomButton label="Copy link!" class='w-3/4' @clicked="copyToClipboard" />
                     <CustomButton v-if="amIAdmin" label="Reset!" class='w-3/4' @clicked="resetVotes" />
@@ -50,13 +51,13 @@ export default {
                 .map(a => a.default).sort()
         },
         setObserver(data) {
-            if(this.amIAdmin || data.player == this.$store.myId) {
+            if (this.amIAdmin || data.player == this.$store.myId) {
                 this.$store.commit("setPlayerObserver", data)
                 this.sendPlayerInfo(data.player)
             }
         },
         setAdmin(data) {
-            if(this.amIAdmin) {
+            if (this.amIAdmin) {
                 this.$store.commit("setPlayerAdmin", data)
                 this.sendPlayerInfo(data.player)
             }
@@ -81,7 +82,6 @@ export default {
                 roomId: this.$store.state.roomId,
                 resetAllVotes: true
             }))
-            // this.$store.commit("cleanVotes")
         },
         copyToClipboard() {
             const url = navigator.clipboard.writeText(window.location.origin + "/join/" + this.$store.state.roomId)
@@ -107,7 +107,15 @@ export default {
             this.client = new StompClient("/poker")
             this.client.subscribe("/topic/room/" + this.$store.state.roomId, (data) => {
                 const roomData = JSON.parse(data.body)
+                console.log(roomData.players)
+                const amILoggedOut = Array.from(roomData.players).filter(player => player.id == this.$store.state.myId).length == 0
+                if(amILoggedOut) {
+                    this.$router.push("/")
+                    return
+                }
+                
                 this.$store.commit("setPlayers", Array.from(roomData.players))
+                
             })
         },
         selectCard() {
@@ -140,14 +148,14 @@ export default {
             })
         },
 
-        sum(records){
+        sum(records) {
             let result = 0
-            Array.from(records).forEach(data =>{
+            Array.from(records).forEach(data => {
                 let factor = 1;
-                if(data.unit == "d") {factor = 8}
+                if (data.unit == "d") { factor = 8 }
                 result += (data.value * factor)
             })
-            
+
             return result
         },
         groupBy(list, keyGetter) {
