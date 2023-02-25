@@ -11,7 +11,7 @@
                 <MyCards v-show="!amIObserver" @selectCard="selectCard" />
             </div>
             <div class='h-full grid '>
-                <UsersList :players="getPlayersForList" @setAdmin="setAdmin" @setObserver="setObserver"
+                <UsersList :isAdmin="amIAdmin" :players="getPlayersForList" @leave="logoutPlayer" @setAdmin="setAdmin" @setObserver="setObserver"
                     class='overflow-x-auto h-[35rem] scroll-smooth' />
                 <div class='flex flex-col items-center justify-center gap-4'>
                     <CustomButton label="Copy link!" class='w-3/4' @clicked="copyToClipboard" />
