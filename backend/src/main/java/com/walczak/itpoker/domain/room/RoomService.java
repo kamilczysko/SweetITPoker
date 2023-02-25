@@ -4,10 +4,7 @@ import com.walczak.itpoker.domain.participant.Player;
 import com.walczak.itpoker.domain.participant.SelectedCard;
 import org.springframework.stereotype.Controller;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -65,6 +62,9 @@ public class RoomService {
     }
 
     private float calculateTotalTimeByPlayer(Player player) {
+        if (Objects.isNull(player.getSelectedCard())){
+            return 0f;
+        }
         SelectedCard selectedCard = player.getSelectedCard();
         short value = selectedCard.value();
         String unit = selectedCard.unit();
