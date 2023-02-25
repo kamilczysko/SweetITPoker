@@ -19,6 +19,9 @@ export default {
             this.selectedCard = Array.from(this.$store.state.players)
                 .filter(p => p.id == this.$store.state.myId)
                 .map(p => p.selectedCard)[0].id
+            console.log("selected  card")
+            console.log(data)
+            this.$emit("selectCard", data)
         }
     },
     computed: {

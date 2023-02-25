@@ -43,15 +43,6 @@ public class RoomController {
         simpMessagingTemplate.convertAndSend("/topic/leave/" + roomLeaveDTO.roomId(), roomLeaveDTO.participantId());
     }
 
-    @MessageMapping("/room-modification")
-    public void modifyRoom(@Payload RoomModificationDTO dto) {
-        Room foundRoom = roomService.getExistingById(dto.roomId());
-        Room modifiedRoom = Room.builder(foundRoom)
-                .build();
-        RoomDTO roomState = Mapper.mapToRoomDTO(roomService.updateRoom(modifiedRoom));
-        simpMessagingTemplate.convertAndSend("/topic/room-modification/" + dto.roomId(), roomState);
-    }
-
     @MessageMapping("/room/notify")
     public void updateRoomState(@Payload String roomId) {
         Room existingRoom = roomService.getExistingById(roomId);

@@ -8,7 +8,7 @@
         <div class='grid 2xl:grid-cols-pokerMain lg:grid-cols-pokerMainSmaller grid-cols-pokerMainEvenSmaller '>
             <div class='grid grid-rows-pokerTable'>
                 <GameTable :players="getAllPlayers" />
-                <MyCards v-show="!amIObserver" />
+                <MyCards v-show="!amIObserver" @selectCard="selectCard" />
             </div>
             <div class='h-full grid '>
                 <UsersList :players="getPlayersForList" @setAdmin="setAdmin" @setObserver="setObserver"
@@ -51,7 +51,7 @@ export default {
             return Object.values(avatars)
                 .map(a => a.default).sort()
         },
-        setObserver(){
+        setObserver() {
 
         },
         setAdmin() {
@@ -87,7 +87,6 @@ export default {
             }
             document.body.removeChild(textArea);
         },
-
         onConnected() {
             this.client = new StompClient("/poker")
             this.client.subscribe("/topic/room/" + this.$store.state.roomId, (data) => {
@@ -95,8 +94,13 @@ export default {
                 this.$store.commit("setPlayers", Array.from(roomData.players))
             })
         },
-        notifyAll() {
-            this.client.send("/app/room/notify", this.$store.state.roomId)
+        selectCard() {
+            this.client.send('/app/room',
+                JSON.stringify({
+                    roomId: this.$store.state.roomId,
+                    modifiedPlayer:
+                        Array.from(this.$store.state.players).filter(p => p.id == this.$store.state.myId)[0]
+                }))
         }
     },
     computed: {
@@ -117,7 +121,7 @@ export default {
         },
         amIObserver() {
             const player = Array.from(this.$store.state.players).filter(p => p.id == this.$store.state.myId)
-            if(player.length == 0) {
+            if (player.length == 0) {
                 return true
             }
             return player[0].isObserver
