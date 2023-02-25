@@ -1,9 +1,14 @@
 package com.walczak.itpoker.domain.room;
 
 import com.walczak.itpoker.domain.participant.Player;
+import com.walczak.itpoker.domain.participant.SelectedCard;
 import org.springframework.stereotype.Controller;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class RoomService {
@@ -31,9 +36,6 @@ public class RoomService {
         System.out.println(room);
         return roomRepository.save(room);
     }
-    public Room updateRoom(Room room) {
-        return roomRepository.save(room);
-    }
     public Room getExistingById(String roomId) {
         return roomRepository.findById(roomId).orElseThrow(() -> new IllegalStateException("Room not found."));
     }
@@ -46,5 +48,29 @@ public class RoomService {
 
     public void deleteRoom(String id) {
         roomRepository.deleteById(id);
+    }
+
+    public Map<String, Double> calculateResult(String roomId) {
+        List<Player> players = roomRepository.findById(roomId).map(Room::getPlayers).orElse(Collections.emptyList());
+        Map<String, List<Player>> roleToPlayers = players.stream()
+                .collect(Collectors.groupingBy(Player::getRole));
+        return roleToPlayers.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> calculateMeanTime(entry.getValue())));
+    }
+
+    private double calculateMeanTime (List<Player> players) {
+        List<Float> times = players.stream().map(this::calculateTotalTimeByPlayer).toList();
+        double sum = times.stream().mapToDouble(Float::floatValue).sum();
+        return sum / times.size();
+    }
+
+    private float calculateTotalTimeByPlayer(Player player) {
+        SelectedCard selectedCard = player.getSelectedCard();
+        short value = selectedCard.value();
+        String unit = selectedCard.unit();
+        if (unit.equals("d")) {
+            return value * 8.0f;
+        }
+        return value * 1.0f;
     }
 }

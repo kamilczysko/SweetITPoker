@@ -34,6 +34,7 @@ import Player from '../components/Player.vue'
 import CustomButton from '../components/CustomButton.vue'
 import Result from '../components/Result.vue'
 import StompClient from '../StompClient.js'
+import axios from 'axios'
 
 export default {
     name: "PokerTableView",
@@ -114,6 +115,11 @@ export default {
                 }
                 
                 this.$store.commit("setPlayers", Array.from(roomData.players))
+
+                if(this.isVotingFinished) {
+                    axios.get("/rest/room/result/"+this.$store.state.roomId)
+                    .then(a => this.resultData = a.data)
+                }
                 
             })
         },

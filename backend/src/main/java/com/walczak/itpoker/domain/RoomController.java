@@ -30,7 +30,9 @@ public class RoomController {
 
     @MessageMapping("/leave")
     public void leave(@Payload RoomLeaveDTO roomLeaveDTO) {
-        playerService.removeParticipant(roomLeaveDTO.playerId());
+
+        removeUser(roomLeaveDTO);
+
         Room room = roomService.getExistingById(roomLeaveDTO.roomId());
         if(room.getPlayers().stream().allMatch(Player::isObsoleted)) {
             System.out.println("remove room: "+room.getId());
@@ -40,6 +42,14 @@ public class RoomController {
         Optional<Room> roomState = roomService.getById(roomLeaveDTO.roomId());
         roomState.map(Mapper::mapToRoomDTO)
                 .ifPresent(state -> simpMessagingTemplate.convertAndSend("/topic/room/" + roomLeaveDTO.roomId(), state));
+    }
+
+    private void removeUser(RoomLeaveDTO roomLeaveDTO) {
+        if(isVotingFinished(roomLeaveDTO.roomId())){
+            playerService.obsoletePlayer(roomLeaveDTO.playerId());
+        }else {
+            playerService.removePlayer(roomLeaveDTO.playerId());
+        }
     }
 
     @MessageMapping("/room")
@@ -72,6 +82,6 @@ public class RoomController {
                 .stream()
                 .map(Mapper::getParticipantWithClearVote)
                 .collect(Collectors.toList());
-        playerService.updateAllParticipants(participantsWithClearedVotes);
+        playerService.updateAllPlayers(participantsWithClearedVotes);
     }
 }
