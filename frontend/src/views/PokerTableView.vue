@@ -51,7 +51,7 @@ export default {
                 .map(a => a.default).sort()
         },
         setObserver(data) {
-            if (this.amIAdmin || data.player == this.$store.myId) {
+            if (this.amIAdmin || data.player == this.$store.state.myId) {
                 this.$store.commit("setPlayerObserver", data)
                 this.sendPlayerInfo(data.player)
             }
