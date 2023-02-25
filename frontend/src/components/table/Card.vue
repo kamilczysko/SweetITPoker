@@ -43,6 +43,7 @@ export default {
             } else {
                 this.unit = "h"
             }
+            this.selectCard()
         },
         selectCard() {
             this.$emit("selectCard", { cardId: this.data.cardId, isCoffeCard: this.data.isCoffeCard, isQuestionCard: this.isQuestionCard, unit: this.unit, value: this.data.value })
