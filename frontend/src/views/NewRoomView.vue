@@ -79,6 +79,7 @@ export default {
             this.$store.commit("setPlayers", [player])
         },
         create() {
+            this.$store.commit("clearData")
             if (this.roomName == null || this.roomName == "") {
                 this.errorMessage = "Room name is empty!"
                 return

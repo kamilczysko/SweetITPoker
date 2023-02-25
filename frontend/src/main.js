@@ -42,6 +42,20 @@ const store = new Vuex.Store({
         setObserver(state, isObserver) {
             state.players.filter(p => p.id == state.myId)
                 .forEach(p => p.isObserver = isObserver)
+        },
+        join(state, data) {
+            state.myId = data.playerId
+            state.roomId = data.roomId
+        },
+        setRoomName(state, name) {
+            state.roomName = name
+        },
+        clearData(state) {
+            state.isVotingFinished = false
+            state.roomId = null
+            state.myId = null
+            state.roomName = null
+            state.players = []
         }
     },
     plugins: [new VuexPersistence().plugin]

@@ -14,7 +14,7 @@ public class RoomService {
         this.roomRepository = roomRepository;
     }
 
-    public Optional<Room> addParticipant(Player player, String roomId) {
+    public Optional<Room> addPlayer(Player player, String roomId) {
         Optional<Room> foundRoom = roomRepository.findById(roomId);
         return foundRoom
                 .map(room -> prepareRoomUpdate(player, room))

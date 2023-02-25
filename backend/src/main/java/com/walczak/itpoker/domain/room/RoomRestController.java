@@ -3,7 +3,7 @@ package com.walczak.itpoker.domain.room;
 import com.walczak.itpoker.domain.common.Mapper;
 import com.walczak.itpoker.domain.participant.Player;
 import com.walczak.itpoker.dto.*;
-import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -14,9 +14,11 @@ import java.util.UUID;
 public class RoomRestController {
 
     private RoomService roomService;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
-    public RoomRestController(RoomService roomService) {
+    public RoomRestController(RoomService roomService, SimpMessagingTemplate simpMessagingTemplate) {
         this.roomService = roomService;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
     @GetMapping("/exists/{id}")
@@ -41,13 +43,15 @@ public class RoomRestController {
     }
 
     @PostMapping("/join/{id}")
-    public RoomJoinResponseDTO join(@RequestBody NewParticipantDTO newParticipant, @PathVariable("id") String roomId) {
-        String participantId = UUID.randomUUID().toString();
-        Player newPlayer = Mapper.mapToParticipantData(newParticipant, participantId);
-        Optional<Room> updatedRoom = roomService.addParticipant(newPlayer, roomId);
+    public RoomJoinResponseDTO join(@RequestBody NewPlayerDTO playerToAdd, @PathVariable("id") String roomId) {
+        String playerId = UUID.randomUUID().toString();
+        Player newPlayer = Mapper.mapToPlayerData(playerToAdd, playerId);
+        Optional<Room> updatedRoom = roomService.addPlayer(newPlayer, roomId);
+        Room existingRoom = roomService.getExistingById(roomId);
+        simpMessagingTemplate.convertAndSend("/topic/room/" + roomId, Mapper.mapToRoomDTO(existingRoom));
         return updatedRoom
                 .map(Mapper::mapToRoomDTO)
-                .map(data -> new RoomJoinResponseDTO(participantId, data, null))
+                .map(data -> new RoomJoinResponseDTO(playerId, data.roomId(), null))
                 .orElse(new RoomJoinResponseDTO(null, null, "This room probably doesn't exist"));
     }
 

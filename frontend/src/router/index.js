@@ -15,7 +15,7 @@ const router = createRouter({
       component: PokerTableView
     },
     {
-      path: '/join',
+      path: '/join/:id',
       name: 'join',
       component: JoinView
     }

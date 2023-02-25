@@ -5,7 +5,7 @@ import com.walczak.itpoker.domain.participant.Player;
 import com.walczak.itpoker.domain.participant.PlayerService;
 import com.walczak.itpoker.domain.room.Room;
 import com.walczak.itpoker.domain.room.RoomService;
-import com.walczak.itpoker.dto.ParticipantModificationDTO;
+import com.walczak.itpoker.dto.PlayerActionDTO;
 import com.walczak.itpoker.dto.RoomDTO;
 import com.walczak.itpoker.dto.RoomLeaveDTO;
 import com.walczak.itpoker.dto.RoomModificationDTO;
@@ -52,19 +52,25 @@ public class RoomController {
         simpMessagingTemplate.convertAndSend("/topic/room-modification/" + dto.roomId(), roomState);
     }
 
-    @MessageMapping("/room-state")
-    public void updateRoomState(@Payload ParticipantModificationDTO dto) {
+    @MessageMapping("/room/notify")
+    public void updateRoomState(@Payload String roomId) {
+        Room existingRoom = roomService.getExistingById(roomId);
+        simpMessagingTemplate.convertAndSend("/topic/room/" + roomId, Mapper.mapToRoomDTO(existingRoom));
+    }
+
+    @MessageMapping("/room")
+    public void updateRoomState(@Payload PlayerActionDTO dto) {
         if(Optional.ofNullable(dto).isEmpty()) {
             return;
         }
         if(dto.resetAllVotes()) {
             clearVotesForAllParticipants(dto.roomId());
         } else if (!isVotingFinished(dto.roomId())) {
-            playerService.updateParticipant(dto.modifiedParticipant());
+            playerService.updateParticipant(dto.modifiedPlayer());
         }
         Optional<Room> roomState = roomService.getById(dto.roomId());
         roomState.map(Mapper::mapToRoomDTO)
-                        .ifPresent(state -> simpMessagingTemplate.convertAndSend("/topic/room-state/" + dto.roomId(), state));
+                        .ifPresent(state -> simpMessagingTemplate.convertAndSend("/topic/room/" + dto.roomId(), state));
     }
 
     private boolean isVotingFinished(String roomId) {

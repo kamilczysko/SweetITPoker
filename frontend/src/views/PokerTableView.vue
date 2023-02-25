@@ -3,18 +3,18 @@
         <nav class='w-full h-full grid grid-cols-3 items-center'>
             <a href="#" class='w-fit text-left ml-10 hover:text-xl active:mb-1 active:shadow-xl'>logout</a>
             <h1 class='text-4xl text-center'>{{ getRoomName }}</h1>
-            <Player :player="getMyPlayer" class='absolute right-10' @setAdmin="setAdmin" @setObserver="setObserver" />
+            <Player :player="getMyPlayer" class='absolute right-10' @setAdmin="setMyAdmin" @setObserver="setMyObserver" />
         </nav>
         <div class='grid 2xl:grid-cols-pokerMain lg:grid-cols-pokerMainSmaller grid-cols-pokerMainEvenSmaller '>
             <div class='grid grid-rows-pokerTable'>
                 <GameTable :players="getAllPlayers" />
-                <MyCards v-show="!getMyPlayer.isObserver" />
+                <MyCards v-show="!amIObserver" />
             </div>
             <div class='h-full grid '>
-                <UsersList :palyers="getPlayersForList" @setAdmin="setAdmin" @setObserver="setObserver"
+                <UsersList :players="getPlayersForList" @setAdmin="setAdmin" @setObserver="setObserver"
                     class='overflow-x-auto h-[35rem] scroll-smooth' />
                 <div class='flex flex-col items-center justify-center gap-4'>
-                    <CustomButton label="Copy link!" class='w-3/4' @clicked="copyToClipboard"/>
+                    <CustomButton label="Copy link!" class='w-3/4' @clicked="copyToClipboard" />
                     <CustomButton v-if="getMyPlayer.isAdmin" label="Reset!" class='w-3/4' @clicked="resetVotes" />
                     <p class="info" id="pokerRoomInfo">Copied!</p>
                 </div>
@@ -42,7 +42,8 @@ export default {
             avatars: [],
             resultData: [{ role: "Developer", time: 13.4 },
             { role: "Tester", time: 19.43423 },
-            { role: "Wututu", time: 25.54423 }]
+            { role: "Wututu", time: 25.54423 }],
+            client: null
         }
     },
     methods: {
@@ -50,26 +51,52 @@ export default {
             return Object.values(avatars)
                 .map(a => a.default).sort()
         },
-        setAdmin(data) {
+        setObserver(){
+
+        },
+        setAdmin() {
+
+        },
+        setMyAdmin(data) {
             this.$store.commit("setAdmin", data.isAdmin)
         },
-        setObserver(data) {
-            console.log(this.$store.state.players)
+        setMyObserver(data) {
             this.$store.commit("setObserver", data.isObserver)
-            console.log(this.$store.state.players)
         },
         resetVotes() {
             this.$store.commit("setVotingFinished", false)
             this.$store.commit("cleanVotes")
         },
         copyToClipboard() {
+            const url = navigator.clipboard.writeText(window.location.origin + "/join/" + this.$store.state.roomId)
+            this.unsecuredCopyToClipboard(url)
             document.getElementById("pokerRoomInfo").classList.remove("hideninfo")
             document.getElementById("pokerRoomInfo").classList.add("visibleinfo")
             setTimeout(() => { document.getElementById("pokerRoomInfo").classList.add("hideninfo") }, 1000);
         },
+        unsecuredCopyToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+            } catch (err) {
+                console.error('Unable to copy to clipboard', err);
+            }
+            document.body.removeChild(textArea);
+        },
+
         onConnected() {
-            console.log("Connect...")
-            const connection =  new StompClient("/poker")
+            this.client = new StompClient("/poker")
+            this.client.subscribe("/topic/room/" + this.$store.state.roomId, (data) => {
+                const roomData = JSON.parse(data.body)
+                this.$store.commit("setPlayers", Array.from(roomData.players))
+            })
+        },
+        notifyAll() {
+            this.client.send("/app/room/notify", this.$store.state.roomId)
         }
     },
     computed: {
@@ -87,12 +114,19 @@ export default {
         },
         getAllPlayers() {
             return Array.from(this.$store.state.players)
+        },
+        amIObserver() {
+            const player = Array.from(this.$store.state.players).filter(p => p.id == this.$store.state.myId)
+            if(player.length == 0) {
+                return true
+            }
+            return player[0].isObserver
         }
     },
     created() {
         this.avatars = this.prepareAvatars
         this.onConnected()
-    }   
+    }
 
 }
 </script>

@@ -30,7 +30,7 @@ import CustomButton from '../components/CustomButton.vue'
 import Choose from '../components/Choose.vue';
 import ImageChoose from '../components/ImageChoose.vue';
 import TextInput from '../components/TextInput.vue';
-
+import axios from 'axios';
 export default {
     name: "JoinView",
     components: { TextInput, Choose, ImageChoose, CustomButton },
@@ -54,17 +54,50 @@ export default {
             return Object.values(avatars)
                 .map(a => a.default)
         },
-        selectAvatar(avatar) {
-            this.selectedAvatar = avatar
+        selectAvatar(avatarIdx) {
+            this.selectedAvatar = avatarIdx
         },
         getRoles() {
             return roles
         },
+        initPlayer(palyerId){
+            const player = {
+                id: palyerId,
+                name: this.name,
+                avatarIdx: this.selectedAvatar,
+                isAdmin: true,
+                isObserver: false,
+                selectedCard: null,
+                role: this.selectedRole
+            }
+            this.$store.commit("setPlayers", [player])
+        },
+        initRoom() {
+            axios.get("http://localhost:8080/rest/room/" + this.$route.params.id)
+            .then(response => response.data)
+            .then(data => {
+                this.$store.commit("setRoomName", data.roomName)
+                this.$store.commit("setPlayers", Array.from(data.players))
+            })
+            .catch(error => this.errorMessage = "Init room error! "+error)
+        },
         join() {
+            this.$store.commit("clearData")
             if (this.name == null || this.name === "") {
                 this.errorMessage = "Yor name is empty!"
                 return
             }
+            
+            axios.post("http://localhost:8080/rest/room/join/" + this.$route.params.id, { 
+                    name: this.name,
+                    avatarIdx: this.selectedAvatar,
+                    role: this.selectedRole})
+            .then(response => response.data)
+            .then(data => this.$store.commit("join", data))
+            .then(() => this.initRoom())
+            .then(() => this.$router.push({name: "game"}))
+            .catch(error => this.errorMessage = "Join room error! "+error)
+
             this.errorMessage = null
         },
         newRoom() {
@@ -76,6 +109,7 @@ export default {
         this.selectedRole = this.roles[0]
         this.selectedAvatar = this.prepareAvatars[0]
         this.roles = Array.from(roles)
+        this.selectedRole = this.roles[0]
     }
 }
 </script>

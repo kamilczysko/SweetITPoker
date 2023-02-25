@@ -4,7 +4,7 @@ import java.util.List;
 
 public record RoomDTO(
         String roomId,
-        String name,
-        List<PlayerDTO> participants
+        String roomName,
+        List<PlayerDTO> players
 ) {
 }

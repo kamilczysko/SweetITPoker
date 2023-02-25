@@ -5,8 +5,8 @@ import org.apache.logging.log4j.util.Strings;
 import java.util.Objects;
 
 public record RoomJoinResponseDTO(
-        String participantId,
-        RoomDTO roomState,
+        String playerId,
+        String roomId,
         String validation
 ) {
     public boolean isValid() {

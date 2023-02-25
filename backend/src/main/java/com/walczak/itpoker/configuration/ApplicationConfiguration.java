@@ -17,7 +17,8 @@ public class ApplicationConfiguration implements WebSocketMessageBrokerConfigure
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.enableSimpleBroker("/topic", "/queue")
-                .setTaskScheduler(heartBeatTaskScheduler());
+                .setTaskScheduler(heartBeatTaskScheduler())
+                .setSelectorHeaderName("cfel");
         registry.setApplicationDestinationPrefixes("/app");
         registry.setUserDestinationPrefix("/user");
 

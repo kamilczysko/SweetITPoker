@@ -33,7 +33,7 @@ public class Mapper {
                 .build();
     }
 
-    public static Player mapToFounderPlayer(NewParticipantDTO roomFounderDTO, String participantId) {
+    public static Player mapToFounderPlayer(NewPlayerDTO roomFounderDTO, String participantId) {
         return Player.Builder.builder()
                 .avatarIdx(roomFounderDTO.avatarIdx())
                 .role(roomFounderDTO.role())
@@ -64,7 +64,7 @@ public class Mapper {
         return new PlayerDTO(player.getId(), player.getName(), player.getAvatarIdx(), player.isAdmin(), player.isObserver(), null, player.getRole());
     }
 
-    public static Player mapToParticipantData(NewParticipantDTO newParticipant, String participantId) {
+    public static Player mapToPlayerData(NewPlayerDTO newParticipant, String participantId) {
         return Player.Builder.builder()
                 .avatarIdx(newParticipant.avatarIdx())
                 .role(newParticipant.role())

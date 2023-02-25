@@ -3,7 +3,6 @@ export default class StompClient {
         const prefix = "http://localhost:8080"
         const socket = new SockJS(prefix + host)
         this.client = Stomp.over(socket)
-        this.client.reconnect_delay = 200
     }
 
     subscribe(listenPath, callback) {

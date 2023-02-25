@@ -2,7 +2,7 @@ package com.walczak.itpoker.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record NewParticipantDTO(
+public record NewPlayerDTO(
         String name,
         short avatarIdx,
         @JsonProperty("isAdmin")
