@@ -1,7 +1,7 @@
 <template>
-    <div class='grid grid-cols-inputGrid align-middle bg-none relative'>
-        <p class='text-left'>{{ label }} : </p>
-        <div  v-on:click="toggle" class='cursor-pointer'>
+    <div class='flex items-center justify-center align-middle bg-none relative'>
+        <p class='text-left font-light'>{{ label }} : </p>
+        <div  v-on:click="toggle" class='cursor-pointer w-3/5'>
             <div v-show="isOpen" class='hover:font-bold flex align-middle w-full'>
                 <p class='m-auto'>{{ value }}</p>
                 <p class='text-right mr-5'>▼</p>

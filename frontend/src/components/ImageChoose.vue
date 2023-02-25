@@ -1,7 +1,7 @@
 <template>
-    <div class='grid grid-cols-inputGrid items-center bg-none'>
-        <p class='text-left'>{{ label }} : </p>
-        <div class='flex justify-center align-middle cursor-pointer relative' v-on:click="toggle">
+    <div class='flex items-center justify-center bg-none'>
+        <p class='text-left font-light'>{{ label }} : </p>
+        <div class='flex justify-center w-3/5 align-middle cursor-pointer relative' v-on:click="toggle">
             <div class='rounded-full w-14 h-14 overflow-hidden hover:shadow-bg3 hover: shadow-md'>
                 <img v-show="!isOpen" class='scale-100 ml-2 mt-2 hover:scale-110 ' :src="getIconUrl(value)" alt="">
             </div>
