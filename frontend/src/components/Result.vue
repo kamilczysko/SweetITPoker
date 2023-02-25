@@ -13,7 +13,7 @@
                 <CustomButton class='w-full' label="Copy to clipboard"
                     @clicked="copyToClipboard(getProperTimeFromat(row.time))" />
             </div>
-            <CustomButton label="reset" @clicked="reset" class='mt-3'/>
+            <CustomButton v-show="isAdmin" label="reset" @clicked="reset" class='mt-3'/>
             <p class="info" id="info">Copied to clipboard!</p>
         </div>
     </div>
@@ -24,7 +24,7 @@ import CustomButton from "./CustomButton.vue";
 export default {
     name: "Result",
     components: { Moveable, CustomButton },
-    props: ['data'],
+    props: ['data', "isAdmin"],
     methods: {
         getProperTimeFromat(timeInHours) {
             return (Math.round(timeInHours * 100) / 100) + "h"

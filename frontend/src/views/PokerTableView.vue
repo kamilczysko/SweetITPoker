@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <Result v-if="isVotingFinished" :data="resultData" @reset="resetVotes" />
+        <Result v-if="isVotingFinished" :isAdmin="amIAdmin" :data="resultData" @reset="resetVotes" />
     </div>
 </template>
 <script>
