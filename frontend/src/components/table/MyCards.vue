@@ -1,6 +1,6 @@
 <template>
     <div class='grid grid-cols-deck p-1 items-center'>
-        <Card v-for="card in getDeck" :isSelected="getSelectedCard == card.id" :key="card.id" :data="card" :isVisible="true"
+        <Card v-for="card in getDeck" :isSelected="getSelectedCard == card.cardId" :key="card.id" :data="card" :isVisible="true"
             v-on:selectCard="selectCard" />
     </div>
 </template>
@@ -18,9 +18,7 @@ export default {
             this.$store.commit("selectCard", data)
             this.selectedCard = Array.from(this.$store.state.players)
                 .filter(p => p.id == this.$store.state.myId)
-                .map(p => p.selectedCard)[0].id
-            console.log("selected  card")
-            console.log(data)
+                .map(p => p.selectedCard)[0].cardId
             this.$emit("selectCard", data)
         }
     },

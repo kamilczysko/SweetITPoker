@@ -26,6 +26,8 @@
     </div>
 </template>
 <script>
+import deck from '../../assets/carddeck';
+
 export default {
     name: "Card",
     props: ["data", "isVisible", "isSelected", "isUserSelection"],
@@ -43,18 +45,34 @@ export default {
             }
         },
         selectCard() {
-            this.$emit("selectCard", {cardId: this.data.id, isCoffeCard: this.data.isCoffeCard, isQuestionCard: this.isQuestionCard,  unit: this.unit, value: this.data.value})
+            this.$emit("selectCard", { cardId: this.data.cardId, isCoffeCard: this.data.isCoffeCard, isQuestionCard: this.isQuestionCard, unit: this.unit, value: this.data.value })
+        },
+        getCoffeeCardId() {
+            const res = Array.from(deck).filter(card => card.isCoffeCard)
+            if (res.length == 0) {
+                return false
+            }
+            return res[0].cardId
+        },
+        getQuestionCardId() {
+            const res = Array.from(deck).filter(card => card.isQuestionCard)
+            if (res.length == 0) {
+                return false
+            }
+            return res[0].cardId
         }
     },
     computed: {
         isCoffeCard() {
-            return this.data.isCoffeCard
+            return this.getCoffeeCardId() == this.data.cardId
         },
         isQuestionCard() {
-            return this.data.isQuestionCard
+            return this.getQuestionCardId() == this.data.cardId
         },
         isImageCard() {
-            return this.data != null && ((this.data.isCoffeCard) || (this.data.isQuestionCard))
+            console.log(this.data)
+            console.log(((this.getCoffeeCardId() == this.data.cardId) || (this.getQuestionCardId() == this.data.cardId)))
+            return ((this.getCoffeeCardId() == this.data.cardId) || (this.getQuestionCardId() == this.data.cardId))
         },
         getUnit() {
             return this.unit
@@ -62,6 +80,4 @@ export default {
     }
 }
 </script>
-<style>
-    
-</style>
+<style></style>

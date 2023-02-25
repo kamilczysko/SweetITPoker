@@ -3,7 +3,7 @@
         <nav class='w-full h-full grid grid-cols-3 items-center'>
             <a href="#" class='w-fit text-left ml-10 hover:text-xl active:mb-1 active:shadow-xl'>logout</a>
             <h1 class='text-4xl text-center'>{{ getRoomName }}</h1>
-            <Player :player="getMyPlayer" class='absolute right-10' @setAdmin="setMyAdmin" @setObserver="setMyObserver" />
+            <Player :player="getMyPlayer" class='absolute right-10' @setObserver="setMyObserver" />
         </nav>
         <div class='grid 2xl:grid-cols-pokerMain lg:grid-cols-pokerMainSmaller grid-cols-pokerMainEvenSmaller '>
             <div class='grid grid-rows-pokerTable'>
@@ -57,15 +57,18 @@ export default {
         setAdmin() {
 
         },
-        setMyAdmin(data) {
-            this.$store.commit("setAdmin", data.isAdmin)
-        },
         setMyObserver(data) {
             this.$store.commit("setObserver", data.isObserver)
+            this.client.send('/app/room',
+                JSON.stringify({
+                    roomId: this.$store.state.roomId,
+                    modifiedPlayer:
+                        Array.from(this.$store.state.players).filter(p => p.id == this.$store.state.myId)[0]
+                }))
+            
         },
         resetVotes() {
             this.$store.commit("setVotingFinished", false)
-            // this.$store.commit("cleanVotes")
             this.client.send("/app/room", JSON.stringify({
                 roomId: this.$store.state.roomId,
                 resetAllVotes: true

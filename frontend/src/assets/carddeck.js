@@ -1,47 +1,47 @@
 const deck = [
     {
-        "id": 1,
+        "cardId": 1,
         "value": 1,
         "unit": "h",
     }, {
-        "id": 2,
+        "cardId": 2,
         "value": 2,
         "unit": "h",
     }, {
-        "id": 3,
+        "cardId": 3,
         "value": 3,
         "unit": "h",
     }, {
-        "id": 4,
+        "cardId": 4,
         "value": 5,
         "unit": "h",
     }, {
-        "id": 5,
+        "cardId": 5,
         "value": 8,
         "unit": "h",
     }, {
-        "id": 6,
+        "cardId": 6,
         "value": 13,
         "unit": "h",
     }, {
-        "id": 7,
+        "cardId": 7,
         "value": 20,
         "unit": "h",
     }, {
-        "id": 8,
+        "cardId": 8,
         "value": 40,
         "unit": "h",
     }, {
-        "id": 9,
+        "cardId": 9,
         "value": 100,
         "unit": "h",
     }, {
-        "id": 10,
+        "cardId": 10,
         "isCoffeCard": true,
         "value": 0,
         "unit": "h"
     }, {
-        "id": 11,
+        "cardId": 11,
         "isQuestionCard": true,
         "value": 0,
         "unit": "h"
