@@ -113,6 +113,7 @@ export default {
         calculateResult() {
             const rolesByTimesList = Array.from(this.$store.state.players)
                 .filter(u => !u.isObserver)
+                .filter(u => u.selectedCard != null)
                 .map(u => {
                     return {
                         role: u.role,
