@@ -84,7 +84,7 @@ export default {
             }))
         },
         copyToClipboard() {
-            const url = navigator.clipboard.writeText(window.location.origin + "/join/" + this.$store.state.roomId)
+            const url = window.location.origin + "/join/" + this.$store.state.roomId
             this.unsecuredCopyToClipboard(url)
             document.getElementById("pokerRoomInfo").classList.remove("hideninfo")
             document.getElementById("pokerRoomInfo").classList.add("visibleinfo")
@@ -107,7 +107,6 @@ export default {
             this.client = new StompClient("/poker")
             this.client.subscribe("/topic/room/" + this.$store.state.roomId, (data) => {
                 const roomData = JSON.parse(data.body)
-                console.log(roomData.players)
                 const amILoggedOut = Array.from(roomData.players).filter(player => player.id == this.$store.state.myId).length == 0
                 if(amILoggedOut) {
                     this.$router.push("/")
@@ -126,8 +125,12 @@ export default {
                         Array.from(this.$store.state.players).filter(p => p.id == this.$store.state.myId)[0]
                 }))
         },
-        calculateResult() {
-            const rolesByTimesList = Array.from(this.$store.state.players)
+        getPlayers() {
+            return this.$store.state.players
+        },
+        calculateResult(players) {
+            const allPlayers = Array.from(players)
+            const rolesByTimesList = allPlayers
                 .filter(u => !u.isObserver)
                 .filter(u => u.selectedCard != null)
                 .map(u => {
@@ -176,7 +179,7 @@ export default {
         isVotingFinished() {
             const finished = this.$store.state.isVotingFinished
             if (finished) {
-                this.resultData = this.calculateResult()
+                this.resultData = this.calculateResult(this.$store.state.players)
             }
             return finished
         },
@@ -184,8 +187,6 @@ export default {
             return this.$store.state.roomName
         },
         getMyPlayer() {
-            console.log("My player")
-            console.log(Array.from(this.$store.state.players).filter(p => p.id == this.$store.state.myId)[0])
             return Array.from(this.$store.state.players).filter(p => p.id == this.$store.state.myId)[0]
         },
         getPlayersForList() {

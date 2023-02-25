@@ -43,7 +43,7 @@ export default {
             selectedRole: null,
             selectedAvatar: null,
             errorMessage: null,
-            host: "http://localhost:8080"
+            host: ""
         }
     },
     methods: {

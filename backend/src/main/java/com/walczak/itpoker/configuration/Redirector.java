@@ -7,24 +7,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class Redirector {
-//    @GetMapping(value = "/join/{roomId}")
-//    public String redirectPokerPage(@PathVariable("roomId") String roomId) {
-//        return "forward:/";
-//    }
+    @RequestMapping(value = "/join/{.*}")
+    public String redirectPokerPage() {
+        return "forward:/";
+    }
 
-    @RequestMapping(value = "/ohno")
+    @RequestMapping(value = "")
     public String redirectErrorPage() {
         return "forward:/";
     }
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/create")
     public String redirectJoinRoomPage() {
         return "forward:/";
     }
-
-//    @RequestMapping(value = "/game/")
-//    public String redirectGameRoomPage() {
-//        return "forward:/";
-//    }
 
 }

@@ -73,7 +73,7 @@ export default {
             this.$store.commit("setPlayers", [player])
         },
         initRoom() {
-            axios.get("http://localhost:8080/rest/room/" + this.$route.params.id)
+            axios.get("/rest/room/" + this.$route.params.id)
             .then(response => response.data)
             .then(data => {
                 this.$store.commit("setRoomName", data.roomName)
@@ -88,7 +88,7 @@ export default {
                 return
             }
             
-            axios.post("http://localhost:8080/rest/room/join/" + this.$route.params.id, { 
+            axios.post("/rest/room/join/" + this.$route.params.id, { 
                     name: this.name,
                     avatarIdx: this.selectedAvatar,
                     role: this.selectedRole})
