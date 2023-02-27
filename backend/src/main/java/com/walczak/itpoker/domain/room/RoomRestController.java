@@ -58,14 +58,4 @@ public class RoomRestController {
                 .map(data -> new RoomJoinResponseDTO(playerId, data.roomId(), null))
                 .orElse(new RoomJoinResponseDTO(null, null, "This room probably doesn't exist"));
     }
-
-    @GetMapping("/result/{id}")
-    public List<ResultDTO> getResult(@PathVariable("id") String roomId) {
-        Map<String, Double> stringDoubleMap = roomService.calculateResult(roomId);
-        return stringDoubleMap.entrySet().stream()
-                .map(entry -> new ResultDTO(entry.getKey(), entry.getValue()))
-                .collect(Collectors.toList());
-    }
-
-
 }

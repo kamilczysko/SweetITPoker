@@ -6,6 +6,7 @@ import com.walczak.itpoker.domain.participant.PlayerService;
 import com.walczak.itpoker.domain.room.Room;
 import com.walczak.itpoker.domain.room.RoomService;
 import com.walczak.itpoker.dto.PlayerActionDTO;
+import com.walczak.itpoker.dto.ResultDTO;
 import com.walczak.itpoker.dto.RoomLeaveDTO;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -13,6 +14,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -34,8 +36,8 @@ public class RoomController {
         removeUser(roomLeaveDTO);
 
         Room room = roomService.getExistingById(roomLeaveDTO.roomId());
-        if(room.getPlayers().stream().allMatch(Player::isObsoleted)) {
-            System.out.println("remove room: "+room.getId());
+        if (room.getPlayers().stream().allMatch(Player::isObsoleted)) {
+            System.out.println("remove room: " + room.getId());
             roomService.deleteRoom(room.getId());
             return;
         }
@@ -45,26 +47,39 @@ public class RoomController {
     }
 
     private void removeUser(RoomLeaveDTO roomLeaveDTO) {
-        if(isVotingFinished(roomLeaveDTO.roomId())){
+        if (isVotingFinished(roomLeaveDTO.roomId())) {
             playerService.obsoletePlayer(roomLeaveDTO.playerId());
-        }else {
+        } else {
             playerService.removePlayer(roomLeaveDTO.playerId());
         }
     }
 
     @MessageMapping("/room")
     public void updateRoomState(@Payload PlayerActionDTO dto) {
-        if(Optional.ofNullable(dto).isEmpty()) {
+        if (Optional.ofNullable(dto).isEmpty()) {
             return;
         }
-        if(dto.resetAllVotes()) {
+        if (dto.resetAllVotes()) {
             clearVotesForAllParticipants(dto.roomId());
         } else if (!isVotingFinished(dto.roomId())) {
             playerService.updateParticipant(dto.modifiedPlayer());
         }
+
+        if (isVotingFinished(dto.roomId())) {
+            List<ResultDTO> result = getResult(dto.roomId());
+            simpMessagingTemplate.convertAndSend("/topic/room/result/" + dto.roomId(), result);
+        }
+
         Optional<Room> roomState = roomService.getById(dto.roomId());
         roomState.map(Mapper::mapToRoomDTO)
-                        .ifPresent(state -> simpMessagingTemplate.convertAndSend("/topic/room/" + dto.roomId(), state));
+                .ifPresent(state -> simpMessagingTemplate.convertAndSend("/topic/room/" + dto.roomId(), state));
+    }
+
+    private List<ResultDTO> getResult(String roomId) {
+        Map<String, Double> stringDoubleMap = roomService.calculateResult(roomId);
+        return stringDoubleMap.entrySet().stream()
+                .map(entry -> new ResultDTO(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toList());
     }
 
     private boolean isVotingFinished(String roomId) {

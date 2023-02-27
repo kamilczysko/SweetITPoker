@@ -104,26 +104,37 @@ export default {
             }
             document.body.removeChild(textArea);
         },
+        updateRoom(data) {
+            const roomData = JSON.parse(data.body)
+            const amILoggedOut = Array.from(roomData.players).filter(player => player.id == this.$store.state.myId).length == 0
+            if (amILoggedOut) {
+                this.$router.push("/")
+                return
+            }
+
+            this.$store.commit("setPlayers", Array.from(roomData.players))
+
+            if (!this.isVotingFinished) {
+                this.showResult = false
+            }
+
+        },
+        fetchScore(data) {
+            this.resultData = JSON.parse(data.body)
+        },
         onConnected() {
             this.client = new StompClient("/poker")
-            this.client.subscribe("/topic/room/" + this.$store.state.roomId, (data) => {
-                const roomData = JSON.parse(data.body)
-                const amILoggedOut = Array.from(roomData.players).filter(player => player.id == this.$store.state.myId).length == 0
-                if(amILoggedOut) {
-                    this.$router.push("/")
-                    return
+            const subscriptions = [
+                {
+                    path: "/topic/room/" + this.$store.state.roomId,
+                    callback: (data) => this.updateRoom(data)
+                },
+                {
+                    path: "/topic/room/result/" + this.$store.state.roomId,
+                    callback: (data) => this.fetchScore(data)
                 }
-                
-                this.$store.commit("setPlayers", Array.from(roomData.players))
-
-                if(this.isVotingFinished) {
-                    axios.get("/rest/room/result/"+this.$store.state.roomId)
-                    .then(a => this.resultData = a.data)
-                } else {
-                    this.showResult = false
-                }
-                
-            })
+            ]
+            this.client.bulkSubscribe(subscriptions)
         },
         selectCard() {
             this.client.send('/app/room',
