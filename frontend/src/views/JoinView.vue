@@ -73,15 +73,15 @@ export default {
             }
             this.$store.commit("setPlayers", [player])
         },
-        initRoom() {
-            axios.get("/rest/room/" + this.$route.params.id)
-            .then(response => response.data)
-            .then(data => {
-                this.$store.commit("setRoomName", data.roomName)
-                this.$store.commit("setPlayers", Array.from(data.players))
-            })
-            .catch(error => this.errorMessage = "Init room error! "+error)
-        },
+        // initRoom() {
+        //     axios.get("/rest/room/" + this.$route.params.id)
+        //     .then(response => response.data)
+        //     .then(data => {
+        //         this.$store.commit("setRoomName", data.roomName)
+        //         this.$store.commit("setPlayers", Array.from(data.players))
+        //     })
+        //     .catch(error => this.errorMessage = "Init room error! "+error)
+        // },
         join() {
             this.$store.commit("clearData")
             if (this.name == null || this.name === "") {
@@ -95,7 +95,7 @@ export default {
                     role: this.selectedRole})
             .then(response => response.data)
             .then(data => this.$store.commit("join", data))
-            .then(() => this.initRoom())
+            // .then(() => this.initRoom())
             .then(() => this.$router.push({name: "game"}))
             .catch(error => this.errorMessage = "Join room error! "+error)
 

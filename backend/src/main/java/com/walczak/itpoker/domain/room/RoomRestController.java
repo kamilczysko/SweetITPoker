@@ -3,15 +3,11 @@ package com.walczak.itpoker.domain.room;
 import com.walczak.itpoker.domain.common.Mapper;
 import com.walczak.itpoker.domain.participant.Player;
 import com.walczak.itpoker.dto.*;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/rest/room")
@@ -23,11 +19,6 @@ public class RoomRestController {
     public RoomRestController(RoomService roomService, SimpMessagingTemplate simpMessagingTemplate) {
         this.roomService = roomService;
         this.simpMessagingTemplate = simpMessagingTemplate;
-    }
-
-    @GetMapping("/exists/{id}")
-    public boolean checkIfRoomExists(@PathVariable("id") String id) {
-        return roomService.getById(id).isPresent();
     }
 
     @GetMapping("/{id}")

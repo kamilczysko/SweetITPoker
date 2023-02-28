@@ -73,8 +73,6 @@ export default {
             return this.getQuestionCardId() == this.data.cardId
         },
         isImageCard() {
-            console.log(this.data)
-            console.log(((this.getCoffeeCardId() == this.data.cardId) || (this.getQuestionCardId() == this.data.cardId)))
             return ((this.getCoffeeCardId() == this.data.cardId) || (this.getQuestionCardId() == this.data.cardId))
         },
         getUnit() {

@@ -24,5 +24,4 @@ public class Redirector {
     public String redirectGameRoomPage() {
         return "forward:/";
     }
-
 }

@@ -143,6 +143,15 @@ export default {
                     modifiedPlayer:
                         Array.from(this.$store.state.players).filter(p => p.id == this.$store.state.myId)[0]
                 }))
+        },
+        initRoom() {
+            axios.get("/rest/room/" + this.$store.state.roomId)
+            .then(response => response.data)
+            .then(data => {
+                this.$store.commit("setRoomName", data.roomName)
+                this.$store.commit("setPlayers", Array.from(data.players))
+            })
+            .catch(error => this.errorMessage = "Init room error! "+error)
         }
     },
     computed: {
@@ -179,6 +188,7 @@ export default {
     created() {
         this.avatars = this.prepareAvatars
         this.onConnected()
+        this.initRoom()
     }
 
 }
