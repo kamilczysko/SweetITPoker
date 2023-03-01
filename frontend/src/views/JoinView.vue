@@ -1,7 +1,7 @@
 <template>
     <div class='w-full h-full flex flex-col items-center justify-center font-secondary'>
         <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
-        <div class='h-3/6 w-1/4 relative'>
+        <div class='h-3/6 w-2/5 relative'>
             <img src="../assets/sad.png" class='w-7 h-7 absolute right-0 -top-6'>
             <div class='flex flex-col items-center rounded-lg py-10 shadow-bg3 shadow-xl 
                 bg-gradient-to-tr from-bg1 to-bg2'>
