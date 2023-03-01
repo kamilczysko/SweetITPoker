@@ -85,8 +85,10 @@ export default {
                     avatarIdx: this.selectedAvatar,
                     role: this.selectedRole})
             .then(response => response.data)
-            .then(data => this.$store.commit("join", data))
-            // .then(() => this.initRoom())
+            .then(data => {
+                this.initPlayer(data.playerId)    
+                this.$store.commit("join", data)
+            })
             .then(() => this.$router.push({name: "game"}))
             .catch(error => this.errorMessage = "Join room error! "+error)
 

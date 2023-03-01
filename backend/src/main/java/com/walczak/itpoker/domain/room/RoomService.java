@@ -48,7 +48,11 @@ public class RoomService {
     }
 
     public Map<String, Double> calculateResult(String roomId) {
-        List<Player> players = roomRepository.findById(roomId).map(Room::getPlayers).orElse(Collections.emptyList());
+        List<Player> players = roomRepository.findById(roomId).map(Room::getPlayers).orElse(Collections.emptyList()).stream()
+                .filter(player -> !player.isObserver())
+                .filter(player -> player.getSelectedCard().value() != 0)
+                .toList();
+
         Map<String, List<Player>> roleToPlayers = players.stream()
                 .collect(Collectors.groupingBy(Player::getRole));
         return roleToPlayers.entrySet().stream()

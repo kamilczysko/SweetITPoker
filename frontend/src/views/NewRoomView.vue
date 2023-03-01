@@ -42,8 +42,7 @@ export default {
             roles: [],
             selectedRole: null,
             selectedAvatar: null,
-            errorMessage: null,
-            host: ""
+            errorMessage: null
         }
     },
     methods: {
@@ -89,7 +88,7 @@ export default {
                 return
             }
 
-            axios.post(this.host + '/rest/room/create', {
+            axios.post('/rest/room/create', {
                 roomName: this.roomName,
                 roomFounder: {
                     name: this.name,
@@ -100,8 +99,8 @@ export default {
             ).then(result => {
                 this.$store.commit("initNewRoom", result.data)
                 this.initPlayer(result.data.playerId)    
+                this.$router.push({ name: "game" })
             })
-                .then(() => this.$router.push({ name: "game" }))
                 .catch((error) => this.errorMessage = "Network error! Refresh page" + error)
 
             this.errorMessage = null
