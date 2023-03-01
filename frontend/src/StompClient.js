@@ -1,8 +1,13 @@
 export default class StompClient {
     constructor (host) {
         const prefix = "http://localhost:8080"
-        const socket = new SockJS(host)
-        this.client = Stomp.over(socket)
+        this.socket = new SockJS(host)
+        this.client = Stomp.over(this.socket)
+    }
+
+    isConnected() {
+        return this.socket != null && 
+            (this.socket.readyState === 1 || this.socket.readyState === 0)
     }
 
     subscribe(listenPath, callback) {

@@ -146,12 +146,12 @@ export default {
         },
         initRoom() {
             axios.get("/rest/room/" + this.$store.state.roomId)
-            .then(response => response.data)
-            .then(data => {
-                this.$store.commit("setRoomName", data.roomName)
-                this.$store.commit("setPlayers", Array.from(data.players))
-            })
-            .catch(error => this.errorMessage = "Init room error! "+error)
+                .then(response => response.data)
+                .then(data => {
+                    this.$store.commit("setRoomName", data.roomName)
+                    this.$store.commit("setPlayers", Array.from(data.players))
+                })
+                .catch(error => this.errorMessage = "Init room error! " + error)
         }
     },
     computed: {
@@ -189,6 +189,13 @@ export default {
         this.avatars = this.prepareAvatars
         this.onConnected()
         this.initRoom()
+        
+        window.addEventListener('focus', (event) => {
+            if (!this.client.isConnected()) {
+                this.onConnected()
+                this.initRoom()
+            }
+        });
     }
 
 }

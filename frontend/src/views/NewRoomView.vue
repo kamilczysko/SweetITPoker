@@ -113,7 +113,6 @@ export default {
         this.selectedRole = this.roles[0]
         this.selectedAvatar = 0
         this.selectedRole = this.roles[0]
-
     },
     computed: {
         getErrorMessage() {
