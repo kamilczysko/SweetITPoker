@@ -53,8 +53,9 @@ public class RoomController {
         boolean isAnyAdminInRoom = room.getPlayers().stream().anyMatch(Player::isAdmin);
         if(!isAnyAdminInRoom) {
             System.out.println("change admin for room: "+room.getId());
-            room.getPlayers().stream().filter(player -> !player.isObsoleted())
-                    .min(Comparator.comparing(player -> !player.isObserver()))
+            room.getPlayers().stream()
+                    .filter(player -> !player.isObsoleted())
+                    .min(Comparator.comparing(Player::isObserver))
                     .map(player -> Player.builder(player).isAdmin(true).build())
                     .map(Mapper::mapToParticipantDTO)
                     .ifPresent(playerService::updateParticipant);
