@@ -8,11 +8,13 @@ import com.walczak.itpoker.domain.room.RoomService;
 import com.walczak.itpoker.dto.PlayerActionDTO;
 import com.walczak.itpoker.dto.ResultDTO;
 import com.walczak.itpoker.dto.RoomLeaveDTO;
+import org.slf4j.Logger;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -36,6 +38,7 @@ public class RoomController {
         removeUser(roomLeaveDTO);
 
         Room room = roomService.getExistingById(roomLeaveDTO.roomId());
+        setAdminIfNotPresent(room);
         if (room.getPlayers().stream().allMatch(Player::isObsoleted)) {
             System.out.println("remove room: " + room.getId());
             roomService.deleteRoom(room.getId());
@@ -44,6 +47,18 @@ public class RoomController {
         Optional<Room> roomState = roomService.getById(roomLeaveDTO.roomId());
         roomState.map(Mapper::mapToRoomDTO)
                 .ifPresent(state -> simpMessagingTemplate.convertAndSend("/topic/room/" + roomLeaveDTO.roomId(), state));
+    }
+
+    private void setAdminIfNotPresent(Room room) {
+        boolean isAnyAdminInRoom = room.getPlayers().stream().anyMatch(Player::isAdmin);
+        if(!isAnyAdminInRoom) {
+            System.out.println("change admin for room: "+room.getId());
+            room.getPlayers().stream().filter(player -> !player.isObsoleted())
+                    .min(Comparator.comparing(player -> !player.isObserver()))
+                    .map(player -> Player.builder(player).isAdmin(true).build())
+                    .map(Mapper::mapToParticipantDTO)
+                    .ifPresent(playerService::updateParticipant);
+        }
     }
 
     private void removeUser(RoomLeaveDTO roomLeaveDTO) {
