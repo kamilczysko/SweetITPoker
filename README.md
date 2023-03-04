@@ -12,6 +12,7 @@ Here you can find working app http://kamil.alwaysdata.net/
 Project is created with:
 * Java 17
 * Vue 3
+* Tailwind
 * npm 9.2.0
 
 
