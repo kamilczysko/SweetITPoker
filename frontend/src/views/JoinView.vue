@@ -1,7 +1,7 @@
 <template>
     <div class='grid grid-rows-[1fr 10fr]'>
         <div>
-            <h1 class='font-main text-[3vw] text-center mt-16'>UwUstimates</h1>
+            <h1 class='font-main text-[3vw] text-center mt-11'>UwUstimates</h1>
             <h2 class='font-main text-sm underline text-center mt-0'>Cutest Agile Planning Poker</h2>
         </div>
         <div class='w-full h-full flex flex-col items-center justify-center font-secondary'>
