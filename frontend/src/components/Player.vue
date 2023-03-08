@@ -7,8 +7,8 @@
             <p class='text-xl'> {{ getPlayer.name }} </p>
             <span class='font-secondary font-extralight text-[10px] absolute -top-2'>{{ getPlayer.role }}</span>
             <div class='grid grid-cols-2 p-1'>
-                <Checkbox label="Admin" :selected="getPlayer.isAdmin" @select="setAdmin"/>
-                <Checkbox label="Observer" :selected="getPlayer.isObserver" @select="setObserver" />
+                <Checkbox label="Senpai (Admin)" :selected="getPlayer.isAdmin" @select="setAdmin"/>
+                <Checkbox label="Observer-chan" :selected="getPlayer.isObserver" @select="setObserver" />
             </div>
         </div>
     </div>

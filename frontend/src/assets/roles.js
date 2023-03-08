@@ -1,7 +1,7 @@
 const roles = [
-    "Developer",
-    "Tester",
-    "Wutututu"
+    "Developer-kun",
+    "Tester-san",
+    "Observer-chan"
 ]
 
 export default roles
