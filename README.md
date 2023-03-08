@@ -6,11 +6,13 @@
 ## General info
 This is my version of planning poker. This application allows you to customize cards with your time unit (hours, days), set roles to participants and when voting is finished there is convinient summary for every role.
 Communication between frontend and backend is made using with WebSocket and STOMP. And also UI is very pleasant ;)
+Here you can find working app http://kamil.alwaysdata.net/
 
 ## Technologies
 Project is created with:
 * Java 17
 * Vue 3
+* Tailwind
 * npm 9.2.0
 
 
