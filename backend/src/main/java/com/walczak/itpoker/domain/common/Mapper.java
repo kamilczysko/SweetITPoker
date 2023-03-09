@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Mapper {
+
+    public static final String OBSERVER_CHAN_ROLE = "Observer-chan";
+
     public static Player mapToParticipant(PlayerDTO playerDTO) {
         SelectedCard selectedCard = null ;
         if(playerDTO.selectedCard() != null) {
@@ -38,7 +41,7 @@ public class Mapper {
                 .avatarIdx(roomFounderDTO.avatarIdx())
                 .role(roomFounderDTO.role())
                 .isAdmin(true)
-                .isObserver(false)
+                .isObserver(isObserver(roomFounderDTO.role()))
                 .id(participantId)
                 .name(roomFounderDTO.name())
                 .build();
@@ -70,11 +73,16 @@ public class Mapper {
                 .avatarIdx(newParticipant.avatarIdx())
                 .role(newParticipant.role())
                 .isAdmin(false)
-                .isObserver(false)
+                .isObserver(isObserver(newParticipant.role()))
                 .id(participantId)
                 .name(newParticipant.name())
                 .build();
     }
+
+    private static boolean isObserver(String role) {
+        return role.equals(OBSERVER_CHAN_ROLE);
+    }
+
     public static Player getParticipantWithClearVote(Player data) {
         return Player.builder(data)
                 .selectedCard(null)
