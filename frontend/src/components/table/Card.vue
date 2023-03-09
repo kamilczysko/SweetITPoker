@@ -1,10 +1,10 @@
 <template>
-    <div class='rounded-md h-[90%] px-2 w-10/12 py-2 font-secondary cursor-pointer bg-card-bg-2 z-40 border border-cyan-800 brightness-75'
-        :class="{ 'mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 hover:brightness-100 ': isSelected }, { ' hover:shadow-md hover:shadow-black active:shadow-xl active:shadow-black active:mb-1': !isSelected }"
-         v-on:click="selectCard">
-        <div
-            class="h-full w-full rounded-lg flex flex-col items-center justify-center bg-card-bg-3 bg-small z-50 border border-cyan-800">
-            <div v-if="isVisible" class='w-full'>
+    <div class='h-[90%] cursor-pointer z-40'>
+        <div v-if="isVisible"
+            class='rounded-md  px-2 w-full py-2 font-secondary h-full border border-cyan-800 bg-card-bg-2 mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 hover:brightness-100'
+            v-on:click="selectCard">
+            <div
+                class='w-full h-full rounded-lg flex flex-col items-center justify-center bg-card-bg-3 bg-small z-50 border border-cyan-800'>
                 <div v-if="isImageCard" class='flex items-center justify-center'>
                     <img v-if="isCoffeCard" src="../../assets/coffe.png">
                     <img v-else src="../../assets/questionmark.png">
@@ -23,6 +23,10 @@
                 </div>
             </div>
         </div>
+        <div v-else
+            class='rounded-md  w-full h-full bg-revers bg-center bg-cover hover:shadow-md hover:shadow-black active:shadow-xl active:shadow-black active:mb-1'>
+        </div>
+
     </div>
 </template>
 <script>
@@ -43,7 +47,7 @@ export default {
             } else {
                 this.unit = "h"
             }
-            if(this.isSelected) {
+            if (this.isSelected) {
                 this.selectCard()
             }
         },
