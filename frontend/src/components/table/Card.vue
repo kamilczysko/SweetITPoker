@@ -9,8 +9,8 @@
                     <img v-if="isCoffeCard" src="../../assets/coffe.png">
                     <img v-else src="../../assets/questionmark.png">
                 </div>
-                <div v-else class='flex justify-center items-center gap-3 flex-col w-full'>
-                    <p class='text-4xl'>{{ data.value }}</p>
+                <div v-else class='flex justify-center items-center flex-col w-full'>
+                    <p class='text-3xl'>{{ data.value }}</p>
                     <div v-if="isUserSelection" class='text-lg flex justify-center items-center w-full font-extralight'>
                         <p class='text-center font-medium'>{{ data.unit }}</p>
                     </div>
