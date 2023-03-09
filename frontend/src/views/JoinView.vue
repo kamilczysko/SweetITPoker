@@ -1,9 +1,6 @@
 <template>
-    <div class='grid grid-rows-[1fr 10fr]'>
-        <div>
-            <h1 class='font-main text-[3vw] text-center mt-11'>UwUstimates</h1>
-            <h2 class='font-main text-sm underline text-center mt-0'>Cutest Agile Planning Poker</h2>
-        </div>
+    <div class='flex flex-col items-center'>
+        <Header></Header>
         <div class='w-full h-full flex flex-col items-center justify-center font-secondary'>
             <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
             <div class='h-3/6 w-2/5 relative'>
@@ -37,10 +34,12 @@ import CustomButton from '../components/CustomButton.vue'
 import Choose from '../components/Choose.vue';
 import ImageChoose from '../components/ImageChoose.vue';
 import TextInput from '../components/TextInput.vue';
+import Header from '../components/Header.vue';
+
 import axios from 'axios';
 export default {
     name: "JoinView",
-    components: { TextInput, Choose, ImageChoose, CustomButton },
+    components: { TextInput, Choose, ImageChoose, CustomButton, Header },
     data() {
         return {
             name: "",
