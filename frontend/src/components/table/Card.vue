@@ -1,10 +1,10 @@
 <template>
-    <div class='h-[90%] cursor-pointer z-40'>
+    <div class='h-[90%] cursor-pointer z-40 active:mb-1 rounded-md border border-black'>
         <div v-if="isVisible"
-            class='rounded-md  px-2 w-full py-2 font-secondary h-full border border-cyan-800 bg-card-bg-2 mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 hover:brightness-100'
+            class='rounded-md p-3 w-full font-secondary h-full border-2 border-white bg-front bg-center bg-cover mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 hover:brightness-100'
             v-on:click="selectCard">
             <div
-                class='w-full h-full rounded-lg flex flex-col items-center justify-center bg-card-bg-3 bg-small z-50 border border-cyan-800'>
+                class='w-full h-full rounded-lg flex flex-col items-center justify-center z-50'>
                 <div v-if="isImageCard" class='flex items-center justify-center'>
                     <img v-if="isCoffeCard" src="../../assets/coffe.png">
                     <img v-else src="../../assets/questionmark.png">
@@ -24,9 +24,8 @@
             </div>
         </div>
         <div v-else
-            class='rounded-md  w-full h-full bg-revers bg-center bg-cover hover:shadow-md hover:shadow-black active:shadow-xl active:shadow-black active:mb-1'>
+            class='rounded-md w-full h-full bg-revers bg-center bg-cover hover:shadow-md hover:shadow-black active:shadow-xl active:shadow-black'>
         </div>
-
     </div>
 </template>
 <script>

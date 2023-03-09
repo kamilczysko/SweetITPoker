@@ -45,10 +45,8 @@ module.exports = {
       secondary: ['Poppins']
     },
     backgroundImage: {
-      'card-bg-2': "url('/src/assets/background2.jpg')",
-      'card-bg-3': "url('/src/assets/background3.jpg')",
-      'card-bg-1': "url('/src/assets/background.jpg')",
-      'revers': "url('/src/assets/revers.png')"
+      'revers': "url('/src/assets/revers.png')",
+      'front': "url('/src/assets/front.png')"
     },
     backgroundSize: {
       'small': '90%'
