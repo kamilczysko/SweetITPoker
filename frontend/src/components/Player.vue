@@ -6,7 +6,7 @@
         <div class='relative' :class="{ ['blur-[1px]']: getPlayer.isObserver }">
             <p class='text-xl'> {{ getPlayer.name }} </p>
             <span class='font-secondary font-extralight text-[10px] absolute -top-2'>{{ getPlayer.role }}</span>
-            <div class='grid grid-cols-2 p-1'>
+            <div class='p-1'>
                 <Checkbox label="Senpai (Admin)" :selected="getPlayer.isAdmin" @select="setAdmin"/>
                 <Checkbox label="Observer-chan" :selected="getPlayer.isObserver" @select="setObserver" />
             </div>
