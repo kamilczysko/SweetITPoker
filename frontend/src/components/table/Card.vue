@@ -1,30 +1,30 @@
 <template>
-    <div class='h-[90%] cursor-pointer z-40 active:mb-1 rounded-md border border-black'>
+    <div class='cursor-pointer z-40 rounded-md aspect-card'>
         <div v-if="isVisible"
-            class='rounded-md p-3 w-full font-secondary h-full border-2 border-white bg-front bg-center bg-cover mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 hover:brightness-100'
+            class='w-full h-full rounded-md font-secondary border border-black bg-front bg-center bg-cover mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 active:brightness-110 hover:brightness-100'
             v-on:click="selectCard">
-            <div
-                class='w-full h-full rounded-lg flex flex-col items-center justify-center z-50'>
+            <div class='w-full h-full rounded-lg flex flex-col items-center justify-center z-50'>
                 <div v-if="isImageCard" class='flex items-center justify-center'>
                     <img v-if="isCoffeCard" src="../../assets/coffe.png">
                     <img v-else src="../../assets/questionmark.png">
                 </div>
-                <div v-else class='flex justify-center items-center flex-col w-full'>
-                    <p class='text-3xl'>{{ data.value }}</p>
+                <div v-else class='flex justify-center items-center flex-col h-full w-full gap-0 relative'>
+                    <p class='text-3xl text-white font-main -m-1 active:brightness-110'>{{ data.value }}</p>
                     <div v-if="isUserSelection" class='text-lg flex justify-center items-center w-full font-extralight'>
-                        <p class='text-center font-medium'>{{ data.unit }}</p>
+                        <p class='text-center text-white font-medium font-main -m-1'>{{ data.unit }}</p>
                     </div>
-                    <div v-else class='text-lg relative cursor-pointer grid grid-cols-3 items-center w-full font-extralight'
+                    <div v-else
+                        class='text-lg text-white cursor-pointer flex justify-center items-center font-extralight -m-1 gap-2 w-full'
                         v-on:click="toggleUnit" @click.stop>
-                        <p class='scale-x-[-1] text-sm  hover:text-lg active:text-xl'>▶</p>
+                        <p class='scale-x-[-1] text-sm  hover:text-lg active:text-xl w-3'>▶</p>
                         <p class='text-center font-medium'>{{ unit }}</p>
-                        <p class='text-sm hover:text-lg active:text-xl'>▶</p>
+                        <p class='text-sm hover:text-lg active:text-xl w-3'>▶</p>
                     </div>
                 </div>
             </div>
         </div>
         <div v-else
-            class='rounded-md w-full h-full bg-revers bg-center bg-cover hover:shadow-md hover:shadow-black active:shadow-xl active:shadow-black'>
+            class='rounded-md border border-black w-full h-full bg-revers bg-center bg-cover hover:shadow-md hover:shadow-black active:shadow-xl active:shadow-black'>
         </div>
     </div>
 </template>
@@ -40,7 +40,8 @@ export default {
         }
     },
     methods: {
-        toggleUnit() {
+        toggleUnit(event) {
+            event.stopPropagation()
             if (this.unit === "h") {
                 this.unit = "d"
             } else {
