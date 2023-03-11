@@ -13,10 +13,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -76,6 +73,7 @@ public class RoomController {
         }
         if (dto.resetAllVotes()) {
             clearVotesForAllParticipants(dto.roomId());
+            simpMessagingTemplate.convertAndSend("/topic/room/result/" + dto.roomId(), Collections.emptyList());
         } else if (!isVotingFinished(dto.roomId())) {
             playerService.updatePlayer(dto.modifiedPlayer());
         }

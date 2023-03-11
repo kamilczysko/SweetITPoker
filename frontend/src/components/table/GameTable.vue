@@ -24,16 +24,16 @@ export default {
     computed: {
         getPlayers() {
             const isVotingFinished = this.$store.state.isVotingFinished
-            this.savedState = this.players.filter(p => !p.isObserver || (p.selectedCard != null && isVotingFinished))
+            if (isVotingFinished) {
+                const idsFromPreviousState = Array.from(this.savedState).map( player => player.id)
+                this.savedState = this.players.filter(player => idsFromPreviousState.includes(player.id))
+                return this.savedState
+            }
+            this.savedState = this.players.filter(p => !p.isObserver)
             return this.savedState
         },
         showCards() {
-            this.savedState = this.players
-            const isDone = this.players
-                .filter(p => !p.isObserver)
-                .filter(p => p.selectedCard == null).length == 0
-            this.$store.commit("setVotingFinished", isDone)
-            return isDone
+            return this.$store.state.isVotingFinished
         }
     },
     created() {
@@ -41,6 +41,3 @@ export default {
     }
 }
 </script>
-<style lang="">
-    
-</style>

@@ -71,9 +71,17 @@ export default {
             }))
         },
         sendPlayerInfo(playerId) {
-            const player = Array.from(this.$store.state.players).filter(p => p.id == playerId)[0]
-            axios.post('/rest/room/'+this.$store.state.roomId+'/modify-player', player)
-            
+            if (this.$store.state.isVotingFinished) {
+                const player = Array.from(this.$store.state.players).filter(p => p.id == playerId)[0]
+                axios.post('/rest/room/' + this.$store.state.roomId + '/modify-player', player)
+                return
+            }
+            this.client.send('/app/room',
+                JSON.stringify({
+                    roomId: this.$store.state.roomId,
+                    modifiedPlayer:
+                        Array.from(this.$store.state.players).filter(p => p.id == playerId)[0]
+                }))
         },
         resetVotes() {
             this.$store.commit("setVotingFinished", false)
@@ -118,7 +126,13 @@ export default {
 
         },
         fetchScore(data) {
-            this.resultData = JSON.parse(data.body)
+            const res = JSON.parse(data.body)
+            if (res.length == 0) {
+                this.$store.commit("setVotingFinished", false)
+                return
+            }
+            this.resultData = res
+            this.$store.commit("setVotingFinished", true)
         },
         onConnected() {
             this.client = new StompClient("/poker")
@@ -187,7 +201,7 @@ export default {
         this.avatars = this.prepareAvatars
         this.onConnected()
         this.initRoom()
-        
+
         window.addEventListener('focus', (event) => {
             if (!this.client.isConnected()) {
                 this.onConnected()

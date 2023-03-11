@@ -5,7 +5,7 @@
             class='w-full h-full rounded-md font-secondary border border-black bg-front bg-center bg-cover mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 active:brightness-110 hover:brightness-105'
             v-on:click="selectCard">
             <div class='w-full h-full rounded-lg flex flex-col items-center justify-center z-50'>
-                <div v-if="isImageCard" class='flex items-center justify-center'>
+                <div v-if="isImageCard" class='flex items-center justify-center w-3/4 h-3/4'>
                     <img v-if="isCoffeCard" src="../../assets/coffe.png">
                     <img v-else src="../../assets/questionmark.png">
                 </div>
