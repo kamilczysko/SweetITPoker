@@ -1,7 +1,7 @@
 <template>
     <div class='flex items-center gap-4 mt-3' >
         <div class='rounded-full overflow-hidden w-16 h-16 ml-1' :class="{['shadow-round'] : getPlayer.selectedCard!=null}">
-            <img :src="getAvatar(getPlayer.avatarIdx)" class='ml-1 mt-3'>
+            <img :src="getAvatar(getPlayer.avatarIdx)">
         </div>
         <div class='relative' :class="{ ['blur-[1px]']: getPlayer.isObserver }">
             <p class='text-xl'> {{ getPlayer.name }} </p>
