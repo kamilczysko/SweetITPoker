@@ -9,12 +9,12 @@
                     <img v-else src="../../assets/questionmark.png">
                 </div>
                 <div v-else class='flex justify-center items-center flex-col h-full w-full gap-0 relative'>
-                    <p class='text-3xl text-white font-main -m-1 active:brightness-110'>{{ data.value }}</p>
+                    <p class='md:text-sm 2xl:text-3xl text-xl text-white font-main -m-1 active:brightness-110'>{{ data.value }}</p>
                     <div v-if="isUserSelection" class='text-lg flex justify-center items-center w-full font-extralight'>
-                        <p class='text-center text-white font-medium font-main -m-1'>{{ data.unit }}</p>
+                        <p class='md:text-sm 2xl:text-3xl text-xl text-center text-white font-medium font-main -m-1'>{{ data.unit }}</p>
                     </div>
                     <div v-else
-                        class='text-lg text-white cursor-pointer flex justify-center items-center font-extralight -m-1 gap-2 w-full'
+                        class='md:text-xs 2xl:text-lg text-sm text-white cursor-pointer flex justify-center items-center font-extralight -m-1 gap-2 w-full'
                         v-on:click="toggleUnit" @click.stop>
                         <p class='scale-x-[-1] text-sm  hover:text-lg active:text-xl w-3'>▶</p>
                         <p class='text-center font-medium'>{{ unit }}</p>
