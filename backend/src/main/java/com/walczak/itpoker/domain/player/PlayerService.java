@@ -1,4 +1,4 @@
-package com.walczak.itpoker.domain.participant;
+package com.walczak.itpoker.domain.player;
 
 import com.walczak.itpoker.domain.common.Mapper;
 import com.walczak.itpoker.dto.PlayerDTO;
@@ -25,8 +25,8 @@ public class PlayerService {
 
         playerRepository.saveAll(playersToRemove);
     }
-    public void updateParticipant(PlayerDTO playerDTO) {
-        Player player = Mapper.mapToParticipant(playerDTO);
+    public void updatePlayer(PlayerDTO playerDTO) {
+        Player player = Mapper.mapToPlayer(playerDTO);
         playerRepository.save(player);
     }
 

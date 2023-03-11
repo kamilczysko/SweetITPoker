@@ -1,7 +1,8 @@
 package com.walczak.itpoker.domain.room;
 
 import com.walczak.itpoker.domain.common.Mapper;
-import com.walczak.itpoker.domain.participant.Player;
+import com.walczak.itpoker.domain.player.Player;
+import com.walczak.itpoker.domain.player.PlayerService;
 import com.walczak.itpoker.dto.*;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +14,14 @@ import java.util.UUID;
 @RequestMapping("/rest/room")
 public class RoomRestController {
 
-    private RoomService roomService;
+    private final RoomService roomService;
+
+    private final PlayerService playerService;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    public RoomRestController(RoomService roomService, SimpMessagingTemplate simpMessagingTemplate) {
+    public RoomRestController(RoomService roomService, PlayerService playerService, SimpMessagingTemplate simpMessagingTemplate) {
         this.roomService = roomService;
+        this.playerService = playerService;
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
@@ -48,5 +52,12 @@ public class RoomRestController {
                 .map(Mapper::mapToRoomDTO)
                 .map(data -> new RoomJoinResponseDTO(playerId, data.roomId(), null))
                 .orElse(new RoomJoinResponseDTO(null, null, "This room probably doesn't exist"));
+    }
+
+    @PostMapping("/{room-id}/modify-player")
+    public void updatePlayer(@RequestBody PlayerDTO player, @PathVariable("room-id") String roomId) {
+        playerService.updatePlayer(player);
+        Room existingRoom = roomService.getExistingById(roomId);
+        simpMessagingTemplate.convertAndSend("/topic/room/" + roomId, Mapper.mapToRoomDTO(existingRoom));
     }
 }

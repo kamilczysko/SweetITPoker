@@ -1,4 +1,4 @@
-package com.walczak.itpoker.domain.participant;
+package com.walczak.itpoker.domain.player;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

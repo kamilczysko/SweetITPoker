@@ -1,7 +1,7 @@
 package com.walczak.itpoker.domain.room;
 
-import com.walczak.itpoker.domain.participant.Player;
-import com.walczak.itpoker.domain.participant.SelectedCard;
+import com.walczak.itpoker.domain.player.Player;
+import com.walczak.itpoker.domain.player.SelectedCard;
 import org.springframework.stereotype.Controller;
 
 import java.util.*;

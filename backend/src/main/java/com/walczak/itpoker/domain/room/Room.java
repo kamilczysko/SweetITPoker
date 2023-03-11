@@ -1,6 +1,6 @@
 package com.walczak.itpoker.domain.room;
 
-import com.walczak.itpoker.domain.participant.Player;
+import com.walczak.itpoker.domain.player.Player;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,14 +1,13 @@
 package com.walczak.itpoker.domain;
 
 import com.walczak.itpoker.domain.common.Mapper;
-import com.walczak.itpoker.domain.participant.Player;
-import com.walczak.itpoker.domain.participant.PlayerService;
+import com.walczak.itpoker.domain.player.Player;
+import com.walczak.itpoker.domain.player.PlayerService;
 import com.walczak.itpoker.domain.room.Room;
 import com.walczak.itpoker.domain.room.RoomService;
 import com.walczak.itpoker.dto.PlayerActionDTO;
 import com.walczak.itpoker.dto.ResultDTO;
 import com.walczak.itpoker.dto.RoomLeaveDTO;
-import org.slf4j.Logger;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -58,7 +57,7 @@ public class RoomController {
                     .min(Comparator.comparing(Player::isObserver))
                     .map(player -> Player.builder(player).isAdmin(true).build())
                     .map(Mapper::mapToParticipantDTO)
-                    .ifPresent(playerService::updateParticipant);
+                    .ifPresent(playerService::updatePlayer);
         }
     }
 
@@ -78,7 +77,7 @@ public class RoomController {
         if (dto.resetAllVotes()) {
             clearVotesForAllParticipants(dto.roomId());
         } else if (!isVotingFinished(dto.roomId())) {
-            playerService.updateParticipant(dto.modifiedPlayer());
+            playerService.updatePlayer(dto.modifiedPlayer());
         }
 
         if (isVotingFinished(dto.roomId())) {

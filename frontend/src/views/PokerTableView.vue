@@ -61,6 +61,7 @@ export default {
             if (this.amIAdmin) {
                 this.$store.commit("setPlayerAdmin", data)
                 this.sendPlayerInfo(data.player)
+
             }
         },
         logoutPlayer(playerId) {
@@ -70,12 +71,9 @@ export default {
             }))
         },
         sendPlayerInfo(playerId) {
-            this.client.send('/app/room',
-                JSON.stringify({
-                    roomId: this.$store.state.roomId,
-                    modifiedPlayer:
-                        Array.from(this.$store.state.players).filter(p => p.id == playerId)[0]
-                }))
+            const player = Array.from(this.$store.state.players).filter(p => p.id == playerId)[0]
+            axios.post('/rest/room/'+this.$store.state.roomId+'/modify-player', player)
+            
         },
         resetVotes() {
             this.$store.commit("setVotingFinished", false)

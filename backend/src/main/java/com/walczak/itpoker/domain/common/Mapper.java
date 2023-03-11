@@ -1,7 +1,7 @@
 package com.walczak.itpoker.domain.common;
 
-import com.walczak.itpoker.domain.participant.Player;
-import com.walczak.itpoker.domain.participant.SelectedCard;
+import com.walczak.itpoker.domain.player.Player;
+import com.walczak.itpoker.domain.player.SelectedCard;
 import com.walczak.itpoker.domain.room.Room;
 import com.walczak.itpoker.dto.*;
 
@@ -12,7 +12,7 @@ public class Mapper {
 
     public static final String OBSERVER_CHAN_ROLE = "Observer-chan";
 
-    public static Player mapToParticipant(PlayerDTO playerDTO) {
+    public static Player mapToPlayer(PlayerDTO playerDTO) {
         SelectedCard selectedCard = null ;
         if(playerDTO.selectedCard() != null) {
             selectedCard = new SelectedCard(playerDTO.selectedCard().cardId(), playerDTO.selectedCard().unit(), playerDTO.selectedCard().value());
