@@ -25,7 +25,7 @@ public class RoomService {
 
     private static Room prepareRoomUpdate(Player player, Room room) {
         return new Room().builder(room)
-                .addParticipant(player)
+                .addPlayer(player)
                 .build();
     }
 

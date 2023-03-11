@@ -11,6 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @Builder
@@ -62,12 +63,12 @@ public class Room {
             return this;
         }
 
-        public Builder participants(List<Player> players) {
+        public Builder players(List<Player> players) {
             this.players = players;
             return this;
         }
 
-        public Builder addParticipant(Player player) {
+        public Builder addPlayer(Player player) {
             this.players.add(player);
             return this;
         }

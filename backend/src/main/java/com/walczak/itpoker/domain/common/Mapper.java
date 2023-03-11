@@ -32,7 +32,7 @@ public class Mapper {
         return Room.Builder.builder()
                 .name(newRoomDTO.roomName())
                 .id(roomId)
-                .participants(List.of(founderOfRoom))
+                .players(List.of(founderOfRoom))
                 .build();
     }
 

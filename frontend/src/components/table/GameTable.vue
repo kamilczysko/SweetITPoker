@@ -23,7 +23,8 @@ export default {
     },
     computed: {
         getPlayers() {
-            this.savedState = this.players.filter(p => !p.isObserver)
+            const isVotingFinished = this.$store.state.isVotingFinished
+            this.savedState = this.players.filter(p => !p.isObserver || (p.selectedCard != null && isVotingFinished))
             return this.savedState
         },
         showCards() {
