@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 public class RoomService {
@@ -48,10 +49,14 @@ public class RoomService {
     }
 
     public Map<String, Double> calculateResult(String roomId) {
-        List<Player> players = roomRepository.findById(roomId).map(Room::getPlayers).orElse(Collections.emptyList()).stream()
-                .filter(player -> !player.isObserver())
-                .filter(player -> player.getSelectedCard().value() != 0)
-                .toList();
+        List<Player> nonObservers = roomRepository.findById(roomId).map(Room::getPlayers).orElse(Collections.emptyList()).stream()
+                .filter(player -> !player.isObserver()).collect(Collectors.toList());
+        List<Player> players = nonObservers;
+        if(nonObservers.stream().anyMatch(player -> player.getSelectedCard().value() != 0)) {
+            players = nonObservers.stream()
+                    .filter(player -> player.getSelectedCard().value() != 0)
+                    .toList();
+        }
 
         Map<String, List<Player>> roleToPlayers = players.stream()
                 .collect(Collectors.groupingBy(Player::getRole));
