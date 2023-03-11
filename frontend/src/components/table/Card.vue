@@ -1,7 +1,8 @@
 <template>
-    <div class='cursor-pointer z-40 rounded-md aspect-card'>
+    <div class='cursor-pointer z-40 rounded-md aspect-card'
+    :class="{['brightness-125']:isSelected}">
         <div v-if="isVisible"
-            class='w-full h-full rounded-md font-secondary border border-black bg-front bg-center bg-cover mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 active:brightness-110 hover:brightness-100'
+            class='w-full h-full rounded-md font-secondary border border-black bg-front bg-center bg-cover mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 active:brightness-110 hover:brightness-105'
             v-on:click="selectCard">
             <div class='w-full h-full rounded-lg flex flex-col items-center justify-center z-50'>
                 <div v-if="isImageCard" class='flex items-center justify-center'>
@@ -24,7 +25,8 @@
             </div>
         </div>
         <div v-else
-            class='rounded-md border border-black w-full h-full bg-revers bg-center bg-cover hover:shadow-md hover:shadow-black active:shadow-xl active:shadow-black'>
+            class='rounded-md border border-black w-full h-full bg-revers bg-center bg-cover hover:shadow-md hover:shadow-black active:shadow-xl active:shadow-black'
+            :class="{['brightness-125']:isSelected}, {['brightness-90']:!isSelected}">
         </div>
     </div>
 </template>
