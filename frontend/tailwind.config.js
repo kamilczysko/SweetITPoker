@@ -15,7 +15,7 @@ module.exports = {
     },
   extend: {
     aspectRatio: {
-      'card': '2.5/3.5'
+      'card': '2.7/4'
     },
     colors: {
       'bg1': '#FFDEE9',

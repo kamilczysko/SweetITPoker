@@ -1,5 +1,5 @@
 <template>
-    <div class='cursor-pointer z-40 rounded-md aspect-card'
+    <div class='cursor-pointer z-40 rounded-md aspect-card min-h-[100px] max-w-[110px] max-h-[200px]'
     :class="{['brightness-110']:isSelected}">
         <div v-if="isVisible"
             class='w-full h-full rounded-md font-secondary border border-black bg-front bg-center bg-cover mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 active:brightness-110 hover:brightness-105'

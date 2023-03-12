@@ -3,7 +3,7 @@
         <nav class='w-full h-full grid grid-cols-3 items-center'>
             <a href="/" class='w-fit text-left ml-10 hover:text-xl active:mb-1 active:shadow-xl'
                 v-on:click="logoutPlayer(this.$store.state.myId)">logout</a>
-            <h1 class='text-4xl text-center'>{{ getRoomName }}</h1>
+            <h1 class='text-4xl text-center'>ciulnia</h1>
             <Player :player="getMyPlayer" class='absolute right-10' @setObserver="setObserver" />
         </nav>
         <div class='grid 2xl:grid-cols-pokerMain lg:grid-cols-pokerMainSmaller grid-cols-pokerMainEvenSmaller '>
