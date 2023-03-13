@@ -1,15 +1,14 @@
 <template>
     <div class='grid grid-cols-deck ml-4 gap-2 mb-2 items-center'>
-        <Card v-for="card in getDeck" :isSelected="getSelectedCard == card.cardId" :key="card.id" :data="card" :isVisible="true"
-            v-on:selectCard="selectCard" />
+        <PlayerCard v-for="card in getDeck" :isSelected="getSelectedCard == card.cardId" :key="card.id" :data="card" v-on:selectCard="selectCard" />
     </div>
 </template>
 <script>
-import Card from './Card.vue';
+import PlayerCard from './PlayerCard.vue';
 import deck from '../../assets/carddeck';
 export default {
     name: "MyCards",
-    components: { Card },
+    components: { PlayerCard },
     methods: {
         selectCard(data) {
             if (this.$store.state.isVotingFinished) {

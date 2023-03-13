@@ -1,8 +1,7 @@
 <template>
     <div class='flex items-center flex-wrap justify-center gap-4'>
         <div v-for="player in getPlayers" :key="player.uid" class='flex flex-col items-center w-1/12 h-1/3'>
-            <Card :data="player.selectedCard" :isVisible="showCards" :isSelected="player.selectedCard != null"
-                :isUserSelection="true" class='w-full h-full'/>
+            <Card :data="player.selectedCard" :isVisible="showCards" :isSelected="player.selectedCard != null" class='w-full h-full'/>
             <p>{{ player.name }}</p>
         </div>
     </div>
