@@ -1,12 +1,11 @@
-package com.walczak.itpoker.domain.room;
+package com.walczak.itpoker.poker.room;
 
-import com.walczak.itpoker.domain.player.Player;
-import com.walczak.itpoker.domain.player.SelectedCard;
+import com.walczak.itpoker.poker.player.Player;
+import com.walczak.itpoker.poker.player.SelectedCard;
 import org.springframework.stereotype.Controller;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 public class RoomService {

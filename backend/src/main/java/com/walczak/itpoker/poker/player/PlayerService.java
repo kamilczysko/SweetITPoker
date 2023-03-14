@@ -1,6 +1,6 @@
-package com.walczak.itpoker.domain.player;
+package com.walczak.itpoker.poker.player;
 
-import com.walczak.itpoker.domain.common.Mapper;
+import com.walczak.itpoker.poker.common.Mapper;
 import com.walczak.itpoker.dto.PlayerDTO;
 import org.springframework.stereotype.Controller;
 

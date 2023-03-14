@@ -17,6 +17,7 @@
                 <div class='flex flex-col items-center justify-center gap-4'>
                     <CustomButton label="Copy link!" class='w-3/4' @clicked="copyToClipboard" />
                     <CustomButton v-if="amIAdmin" label="Reset!" class='w-3/4' @clicked="resetVotes" />
+                    <CustomButton label="Refresh" class='w-3/4' @clicked="initRoom" />
                     <p class="info" id="pokerRoomInfo">Copied!</p>
                 </div>
             </div>
@@ -25,6 +26,7 @@
     </div>
 </template>
 <script>
+
 const avatars = import.meta.globEager('../assets/avatars/*.png')
 
 import UsersList from '../components/UsersList.vue'
@@ -162,8 +164,16 @@ export default {
                 .then(data => {
                     this.$store.commit("setRoomName", data.roomName)
                     this.$store.commit("setPlayers", Array.from(data.players))
+                    this.refreshResult()
                 })
                 .catch(error => this.errorMessage = "Init room error! " + error)
+        },
+        refreshResult() {
+            const nonVoters = Array.from(this.$store.state.players)
+                .filter(player => player.isObserver == false)
+                .filter(player => player.selectedCard == null)
+                .length
+            this.$store.commit("setVotingFinished", (nonVoters == 0))
         }
     },
     computed: {

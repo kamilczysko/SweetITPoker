@@ -1,4 +1,4 @@
-package com.walczak.itpoker.domain.player;
+package com.walczak.itpoker.poker.player;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;

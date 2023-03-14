@@ -1,4 +1,4 @@
-package com.walczak.itpoker.domain.room;
+package com.walczak.itpoker.poker.room;
 
 import org.springframework.data.repository.CrudRepository;
 

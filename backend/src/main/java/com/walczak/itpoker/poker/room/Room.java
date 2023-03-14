@@ -1,6 +1,6 @@
-package com.walczak.itpoker.domain.room;
+package com.walczak.itpoker.poker.room;
 
-import com.walczak.itpoker.domain.player.Player;
+import com.walczak.itpoker.poker.player.Player;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,6 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Data
 @Builder

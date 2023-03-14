@@ -1,14 +1,19 @@
-package com.walczak.itpoker.domain.room;
+package com.walczak.itpoker.poker.room;
 
-import com.walczak.itpoker.domain.common.Mapper;
-import com.walczak.itpoker.domain.player.Player;
-import com.walczak.itpoker.domain.player.PlayerService;
+import com.walczak.itpoker.poker.common.Mapper;
+import com.walczak.itpoker.poker.player.Player;
+import com.walczak.itpoker.poker.player.PlayerService;
 import com.walczak.itpoker.dto.*;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
+import static java.util.Collections.emptyList;
 
 @RestController
 @RequestMapping("/rest/room")

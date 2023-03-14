@@ -1,10 +1,10 @@
-package com.walczak.itpoker.domain;
+package com.walczak.itpoker.poker;
 
-import com.walczak.itpoker.domain.common.Mapper;
-import com.walczak.itpoker.domain.player.Player;
-import com.walczak.itpoker.domain.player.PlayerService;
-import com.walczak.itpoker.domain.room.Room;
-import com.walczak.itpoker.domain.room.RoomService;
+import com.walczak.itpoker.poker.common.Mapper;
+import com.walczak.itpoker.poker.player.Player;
+import com.walczak.itpoker.poker.player.PlayerService;
+import com.walczak.itpoker.poker.room.Room;
+import com.walczak.itpoker.poker.room.RoomService;
 import com.walczak.itpoker.dto.PlayerActionDTO;
 import com.walczak.itpoker.dto.ResultDTO;
 import com.walczak.itpoker.dto.RoomLeaveDTO;

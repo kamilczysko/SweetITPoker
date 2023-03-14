@@ -1,8 +1,8 @@
-package com.walczak.itpoker.domain.common;
+package com.walczak.itpoker.poker.common;
 
-import com.walczak.itpoker.domain.player.Player;
-import com.walczak.itpoker.domain.player.SelectedCard;
-import com.walczak.itpoker.domain.room.Room;
+import com.walczak.itpoker.poker.player.Player;
+import com.walczak.itpoker.poker.player.SelectedCard;
+import com.walczak.itpoker.poker.room.Room;
 import com.walczak.itpoker.dto.*;
 
 import java.util.List;
