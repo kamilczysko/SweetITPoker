@@ -88,15 +88,26 @@ export default {
                 this.errorMessage = "Room name is empty!"
                 return
             }
+
+            if (this.roomName.length > 15) {
+                this.errorMessage = "Room name is too long!"
+                return
+            }
+
             if (this.name == null || this.name == "") {
                 this.errorMessage = "Yor name is empty!"
                 return
             }
 
+            if (this.name.length > 15) {
+                this.errorMessage = "Yor name is too long!"
+                return
+            }
+
             axios.post('/rest/room/create', {
-                roomName: this.roomName,
+                roomName: this.roomName.trim(),
                 roomFounder: {
-                    name: this.name,
+                    name: this.name.trim(),
                     avatarIdx: this.selectedAvatar,
                     role: this.selectedRole
                 }

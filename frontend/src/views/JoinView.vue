@@ -85,8 +85,13 @@ export default {
                 return
             }
 
+            if (this.name.length > 15) {
+                this.errorMessage = "Yor name is too long!"
+                return
+            }
+
             axios.post("/rest/room/join/" + this.$route.params.id, {
-                name: this.name,
+                name: this.name.trim(),
                 avatarIdx: this.selectedAvatar,
                 role: this.selectedRole
             })
