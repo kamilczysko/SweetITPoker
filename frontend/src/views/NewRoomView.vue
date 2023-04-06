@@ -22,7 +22,6 @@
                     </div>
                     <CustomButton label="Create new room!" class='mt-5' v-on:clicked="create" />
                 </div>
-
             </div>
         </div>
     </div>
@@ -36,7 +35,9 @@ import Choose from '../components/Choose.vue';
 import ImageChoose from '../components/ImageChoose.vue';
 import TextInput from '../components/TextInput.vue';
 import Header from '../components/Header.vue';
+
 import axios from 'axios'
+
 export default {
     name: "NewRoomView",
     components: { TextInput, Choose, ImageChoose, CustomButton, Header },

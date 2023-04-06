@@ -9,6 +9,7 @@ import './assets/main.css'
 const store = new Vuex.Store({
     state() {
         return {
+            cookiesAccepted: false,
             isVotingFinished: false,
             roomId: null,
             myId: null,
@@ -64,6 +65,9 @@ const store = new Vuex.Store({
         setPlayerObserver(state, data) {
             state.players.filter(p => p.id == data.player)
                 .forEach(p => p.isObserver = data.isObserver)
+        },
+        acceptCookies(state) {
+            state.cookiesAccepted = true
         }
     },
     plugins: [new VuexPersistence().plugin]

@@ -37,6 +37,7 @@ import TextInput from '../components/TextInput.vue';
 import Header from '../components/Header.vue';
 
 import axios from 'axios';
+
 export default {
     name: "JoinView",
     components: { TextInput, Choose, ImageChoose, CustomButton, Header },
