@@ -1,5 +1,5 @@
 <template>
-    <div class='cursor-pointer z-40 rounded-md aspect-card min-h-[100px] max-w-[110px] max-h-[200px]'
+    <div class='cursor-pointer z-40 rounded-md aspect-card sm:min-h-[70px] md:min-h-[100px] lg:min-h-[125px] 2xl:min-h-[150px]'
         :class="{ ['brightness-110']: isSelected }">
         <div class='w-full h-full rounded-md font-secondary border border-black bg-front bg-center bg-cover mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 active:brightness-110 hover:brightness-105'
             v-on:click="selectCard">
@@ -11,7 +11,7 @@
                 <div v-else class='flex justify-center items-center flex-col h-full w-full gap-0 relative'>
                     <p class='md:text-sm 2xl:text-3xl text-xl text-white font-main -m-1 active:brightness-110'>
                         {{ data.value }}</p>
-                    <div class='md:text-xs 2xl:text-lg text-sm text-white cursor-pointer flex justify-center items-center font-extralight -m-1 gap-2 w-full'
+                    <div class='md:text-xs 2xl:text-lg text-sm text-white cursor-pointer flex justify-center items-center font-extralight -m-1 gap-2 h-5 w-full'
                         v-on:click="toggleUnit" @click.stop>
                         <p class='scale-x-[-1] text-sm  hover:text-lg active:text-xl w-3'>▶</p>
                         <p class='text-center font-medium'>{{ unit }}</p>
