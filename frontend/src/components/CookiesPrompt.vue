@@ -43,7 +43,8 @@ export default {
         }
     },
     mounted() {
-        this.visible = !this.$store.state.acceptCookies
+        console.log()
+        this.visible = !this.$store.state.cookiesAccepted
     }
 }
 </script>
