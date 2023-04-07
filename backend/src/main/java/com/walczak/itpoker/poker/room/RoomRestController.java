@@ -7,20 +7,14 @@ import com.walczak.itpoker.dto.*;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
-
-import static java.util.Collections.emptyList;
 
 @RestController
 @RequestMapping("/rest/room")
 public class RoomRestController {
 
     private final RoomService roomService;
-
     private final PlayerService playerService;
     private final SimpMessagingTemplate simpMessagingTemplate;
 

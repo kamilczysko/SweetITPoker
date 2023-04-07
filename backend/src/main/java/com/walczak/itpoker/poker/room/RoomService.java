@@ -1,5 +1,6 @@
 package com.walczak.itpoker.poker.room;
 
+import com.walczak.itpoker.configuration.EvictionCache;
 import com.walczak.itpoker.configuration.PokerLogger;
 import com.walczak.itpoker.poker.player.Player;
 import com.walczak.itpoker.poker.player.SelectedCard;
@@ -15,13 +16,20 @@ public class RoomService {
 
     private final PokerLogger logger;
 
+    private final EvictionCache evictionCache;
+
     public RoomService(RoomRepository roomRepository, PokerLogger logger) {
         this.roomRepository = roomRepository;
         this.logger = logger;
+        long roomTTLInMinutes = 8 * 60;
+        long refreshCacheTimeInMinutes = 2 * 60;
+        this.evictionCache = EvictionCache.getInstance(roomTTLInMinutes, refreshCacheTimeInMinutes, this::expireRoom);
     }
+
     public Optional<Room> addPlayer(Player player, String roomId) {
         Optional<Room> foundRoom = roomRepository.findById(roomId);
         logger.info("Join room: " + roomId, player);
+        evictionCache.refresh(roomId);
         return foundRoom
                 .map(room -> prepareRoomUpdate(player, room))
                 .map(roomRepository::save);
@@ -34,21 +42,33 @@ public class RoomService {
     }
 
     public Room createNewRoom(Room room) {
+        evictionCache.scheduleCleaningCache();
         logger.info("Create new room", room.toString());
-        return roomRepository.save(room);
+        Room savedRoom = roomRepository.save(room);
+        evictionCache.put(savedRoom.getId());
+        return savedRoom;
     }
+
     public Room getExistingById(String roomId) {
         return roomRepository.findById(roomId).orElseThrow(() -> new IllegalStateException("Room not found."));
     }
+
     public Optional<Room> getById(String roomId) {
         return roomRepository.findById(roomId);
     }
+
     public Iterable<Room> getAll() {
         return roomRepository.findAll();
     }
 
     public void deleteRoom(String id) {
         logger.info("Remove room", id);
+        evictionCache.remove(id);
+        roomRepository.deleteById(id);
+    }
+
+    public void expireRoom(String id) {
+        logger.info("Room has expired", id);
         roomRepository.deleteById(id);
     }
 
@@ -56,7 +76,7 @@ public class RoomService {
         List<Player> nonObservers = roomRepository.findById(roomId).map(Room::getPlayers).orElse(Collections.emptyList()).stream()
                 .filter(player -> !player.isObserver()).collect(Collectors.toList());
         List<Player> players = nonObservers;
-        if(nonObservers.stream().anyMatch(player -> player.getSelectedCard().value() != 0)) {
+        if (nonObservers.stream().anyMatch(player -> player.getSelectedCard().value() != 0)) {
             players = nonObservers.stream()
                     .filter(player -> player.getSelectedCard().value() != 0)
                     .toList();
@@ -68,14 +88,14 @@ public class RoomService {
                 .collect(Collectors.toMap(Map.Entry::getKey, entry -> calculateMeanTime(entry.getValue())));
     }
 
-    private double calculateMeanTime (List<Player> players) {
+    private double calculateMeanTime(List<Player> players) {
         List<Float> times = players.stream().map(this::calculateTotalTimeByPlayer).toList();
         double sum = times.stream().mapToDouble(Float::floatValue).sum();
         return sum / times.size();
     }
 
     private float calculateTotalTimeByPlayer(Player player) {
-        if (Objects.isNull(player.getSelectedCard())){
+        if (Objects.isNull(player.getSelectedCard())) {
             return 0f;
         }
         SelectedCard selectedCard = player.getSelectedCard();

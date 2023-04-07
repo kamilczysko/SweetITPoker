@@ -1,8 +1,9 @@
 package com.walczak.itpoker.configuration;
 
-import ch.qos.logback.core.joran.conditional.ThenAction;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
@@ -20,7 +21,6 @@ public class ApplicationConfiguration implements WebSocketMessageBrokerConfigure
                 .setTaskScheduler(heartBeatTaskScheduler());
         registry.setApplicationDestinationPrefixes("/app");
         registry.setUserDestinationPrefix("/user");
-
     }
 
     @Bean
@@ -29,6 +29,7 @@ public class ApplicationConfiguration implements WebSocketMessageBrokerConfigure
     }
 
     @Bean
+    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     public PokerLogger pokerLogger() {
         return new PokerLogger();
     }

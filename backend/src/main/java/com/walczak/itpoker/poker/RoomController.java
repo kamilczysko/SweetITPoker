@@ -1,5 +1,6 @@
 package com.walczak.itpoker.poker;
 
+import com.walczak.itpoker.configuration.EvictionCache;
 import com.walczak.itpoker.configuration.PokerLogger;
 import com.walczak.itpoker.poker.common.Mapper;
 import com.walczak.itpoker.poker.player.Player;
@@ -26,13 +27,14 @@ public class RoomController {
     private final SimpMessagingTemplate simpMessagingTemplate;
     private final RoomService roomService;
     private final PlayerService playerService;
-
+    private final EvictionCache evictionCache;
     private final PokerLogger logger;
 
     public RoomController(SimpMessagingTemplate simpMessagingTemplate, RoomService roomService, PlayerService playerService, PokerLogger logger) {
         this.simpMessagingTemplate = simpMessagingTemplate;
         this.roomService = roomService;
         this.playerService = playerService;
+        this.evictionCache = EvictionCache.getInstance();
         this.logger = logger;
     }
 
@@ -75,6 +77,7 @@ public class RoomController {
         } else {
             playerService.removePlayer(roomLeaveDTO.playerId());
         }
+        evictionCache.refresh(roomLeaveDTO.roomId());
     }
 
     @MessageMapping("/room")
@@ -98,6 +101,7 @@ public class RoomController {
         Optional<Room> roomState = roomService.getById(dto.roomId());
         roomState.map(Mapper::mapToRoomDTO)
                 .ifPresent(state -> simpMessagingTemplate.convertAndSend("/topic/room/" + dto.roomId(), state));
+        evictionCache.refresh(dto.roomId());
     }
 
     private List<ResultDTO> getResult(String roomId) {
@@ -124,5 +128,6 @@ public class RoomController {
                 .collect(Collectors.toList());
 
         playerService.updateAllPlayers(participantsWithClearedVotes);
+        evictionCache.refresh(roomId);
     }
 }
