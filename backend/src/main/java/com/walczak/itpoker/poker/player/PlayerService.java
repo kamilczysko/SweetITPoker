@@ -1,5 +1,6 @@
 package com.walczak.itpoker.poker.player;
 
+import com.walczak.itpoker.configuration.PokerLogger;
 import com.walczak.itpoker.poker.common.Mapper;
 import com.walczak.itpoker.dto.PlayerDTO;
 import org.springframework.stereotype.Controller;
@@ -12,8 +13,11 @@ import java.util.stream.Collectors;
 public class PlayerService {
     private final PlayerRepository playerRepository;
 
-    public PlayerService(PlayerRepository playerRepository) {
+    private final PokerLogger logger;
+
+    public PlayerService(PlayerRepository playerRepository, PokerLogger logger) {
         this.playerRepository = playerRepository;
+        this.logger = logger;
     }
 
     public void updateAllPlayers(List<Player> players) {
@@ -27,6 +31,7 @@ public class PlayerService {
     }
     public void updatePlayer(PlayerDTO playerDTO) {
         Player player = Mapper.mapToPlayer(playerDTO);
+        logger.info("Player update: "+player);
         playerRepository.save(player);
     }
 

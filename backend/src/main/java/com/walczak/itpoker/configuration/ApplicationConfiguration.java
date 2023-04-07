@@ -17,8 +17,7 @@ public class ApplicationConfiguration implements WebSocketMessageBrokerConfigure
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.enableSimpleBroker("/topic", "/queue")
-                .setTaskScheduler(heartBeatTaskScheduler())
-                .setSelectorHeaderName("cfel");
+                .setTaskScheduler(heartBeatTaskScheduler());
         registry.setApplicationDestinationPrefixes("/app");
         registry.setUserDestinationPrefix("/user");
 
@@ -27,6 +26,11 @@ public class ApplicationConfiguration implements WebSocketMessageBrokerConfigure
     @Bean
     public TaskScheduler heartBeatTaskScheduler() {
         return new ThreadPoolTaskScheduler();
+    }
+
+    @Bean
+    public PokerLogger pokerLogger() {
+        return new PokerLogger();
     }
 
     @Override

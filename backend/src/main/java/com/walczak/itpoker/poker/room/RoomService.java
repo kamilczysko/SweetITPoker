@@ -1,5 +1,6 @@
 package com.walczak.itpoker.poker.room;
 
+import com.walczak.itpoker.configuration.PokerLogger;
 import com.walczak.itpoker.poker.player.Player;
 import com.walczak.itpoker.poker.player.SelectedCard;
 import org.springframework.stereotype.Controller;
@@ -12,12 +13,15 @@ public class RoomService {
 
     private final RoomRepository roomRepository;
 
-    public RoomService(RoomRepository roomRepository) {
-        this.roomRepository = roomRepository;
-    }
+    private final PokerLogger logger;
 
+    public RoomService(RoomRepository roomRepository, PokerLogger logger) {
+        this.roomRepository = roomRepository;
+        this.logger = logger;
+    }
     public Optional<Room> addPlayer(Player player, String roomId) {
         Optional<Room> foundRoom = roomRepository.findById(roomId);
+        logger.info("Join room: " + roomId, player);
         return foundRoom
                 .map(room -> prepareRoomUpdate(player, room))
                 .map(roomRepository::save);
@@ -30,7 +34,7 @@ public class RoomService {
     }
 
     public Room createNewRoom(Room room) {
-        System.out.println(room);
+        logger.info("Create new room", room.toString());
         return roomRepository.save(room);
     }
     public Room getExistingById(String roomId) {
@@ -44,6 +48,7 @@ public class RoomService {
     }
 
     public void deleteRoom(String id) {
+        logger.info("Remove room", id);
         roomRepository.deleteById(id);
     }
 
