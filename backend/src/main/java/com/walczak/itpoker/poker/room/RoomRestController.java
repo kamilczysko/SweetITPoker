@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/rest/room")
+@CrossOrigin(origins = "http://localhost:8080/")
 public class RoomRestController {
     
     private final RoomService roomService;
