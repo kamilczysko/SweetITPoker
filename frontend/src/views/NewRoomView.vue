@@ -4,7 +4,7 @@
         <div class='w-full h-full flex flex-col items-center justify-center font-secondary'>
             <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
             <div class='h-3/6 w-2/5 relative'>
-                <img src="../assets/sad.png" class='w-7 h-7 absolute right-10 -top-8 translate-x-full'>
+                <img src="../assets/sad.png" class='w-7 h-7 absolute right-13 -top-6 translate-x-full'>
                 <div
                     class='flex flex-col items-center rounded-lg py-10 shadow-bg3 shadow-xl bg-gradient-to-tr from-bg1 to-bg2'>
                     <div class='flex justify-center relative w-full'>
