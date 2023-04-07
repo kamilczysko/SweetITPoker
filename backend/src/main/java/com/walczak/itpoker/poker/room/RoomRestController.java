@@ -13,7 +13,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/rest/room")
 public class RoomRestController {
-
     private final RoomService roomService;
     private final PlayerService playerService;
     private final SimpMessagingTemplate simpMessagingTemplate;
