@@ -69,7 +69,6 @@ public class EvictionCache {
         if(this.cache.asMap().isEmpty()) {
             scheduledTask.cancel(true);
             isScheduled = false;
-            System.out.println("+++++++++++++++++++++++++++++++++stop schedule+++++++++++++++++++++++++++++++++");
         }
     }
 
@@ -82,17 +81,17 @@ public class EvictionCache {
     }
 
     private void cleanUp() {
-        System.out.println(cache.asMap());
         this.cache.cleanUp();
     }
 
-    public void scheduleCleaningCache() {
-        System.out.println("+++++++++++++++++++++++++++++++++schedule+++++++++++++++++++++++++++++++++");
+    public boolean scheduleCleaningCache() {
         if (!isScheduled) {
             scheduledTask = Executors.newScheduledThreadPool(1)
                     .scheduleAtFixedRate(this::cleanUp, durationInMinutes, durationInMinutes, TimeUnit.MINUTES);
             isScheduled = true;
+            return true;
         }
+        return false;
     }
 
     public String getCache() {

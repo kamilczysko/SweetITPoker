@@ -11,11 +11,8 @@ import java.util.stream.Collectors;
 
 @Controller
 public class RoomService {
-
     private final RoomRepository roomRepository;
-
     private final PokerLogger logger;
-
     private final EvictionCache evictionCache;
 
     public RoomService(RoomRepository roomRepository, PokerLogger logger) {
@@ -42,7 +39,10 @@ public class RoomService {
     }
 
     public Room createNewRoom(Room room) {
-        evictionCache.scheduleCleaningCache();
+        boolean scheduled = evictionCache.scheduleCleaningCache();
+        if(scheduled) {
+            logger.info("Eviction cache just scheduled");
+        }
         logger.info("Create new room", room.toString());
         Room savedRoom = roomRepository.save(room);
         evictionCache.put(savedRoom.getId());
