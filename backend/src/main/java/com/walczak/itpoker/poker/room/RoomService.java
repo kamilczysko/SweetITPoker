@@ -18,8 +18,8 @@ public class RoomService {
     public RoomService(RoomRepository roomRepository, PokerLogger logger) {
         this.roomRepository = roomRepository;
         this.logger = logger;
-        long roomTTLInMinutes = 60;//8 * 60;
-        long refreshCacheTimeInMinutes = 15;//2 * 60;
+        long roomTTLInMinutes = 8 * 60;
+        long refreshCacheTimeInMinutes = 2 * 60;
         this.evictionCache = EvictionCache.getInstance(roomTTLInMinutes, refreshCacheTimeInMinutes, this::expireRoom);
     }
 
