@@ -10,4 +10,8 @@ import CookiesPrompt from './components/CookiesPrompt.vue';
   <CookiesPrompt></CookiesPrompt>
 </template>
 
-<style scoped></style>
+<style>
+.grecaptcha-badge {
+  opacity:0;
+}
+</style>

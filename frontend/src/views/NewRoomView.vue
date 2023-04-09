@@ -21,6 +21,11 @@
                         </div>
                     </div>
                     <CustomButton label="Create new room!" class='mt-5' v-on:clicked="create" />
+                    <small class="text-xs w-8/12 font-extralight text-center mt-2">
+                        This site is protected by reCAPTCHA and the Google
+                        <a class='text-blue-500' href="https://policies.google.com/privacy">Privacy Policy</a> and
+                        <a class='text-blue-500' href="https://policies.google.com/terms">Terms of Service</a> apply.
+                    </small>
                 </div>
             </div>
         </div>
@@ -106,7 +111,7 @@ export default {
 
             await this.$recaptchaLoaded()
             const token = await this.$recaptcha('homepage')
-            
+
             axios.post('/rest/room/create', {
                 token: token,
                 roomName: this.roomName.trim(),
@@ -140,5 +145,4 @@ export default {
     }
 }
 </script>
-<style>
-</style>
+<style></style>

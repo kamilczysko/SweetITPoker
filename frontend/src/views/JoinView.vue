@@ -19,6 +19,11 @@
                         <CustomButton label="Join!" v-on:clicked="join" />
                         <p class='font-extralight'>or</p>
                         <CustomButton label="Create new one!" v-on:clicked="newRoom" />
+                        <small class="text-xs w-8/12 font-extralight text-center mt-2">
+                        This site is protected by reCAPTCHA and the Google
+                        <a class='text-blue-500' href="https://policies.google.com/privacy">Privacy Policy</a> and
+                        <a class='text-blue-500' href="https://policies.google.com/terms">Terms of Service</a> apply.
+                    </small>
                     </div>
                 </div>
 
