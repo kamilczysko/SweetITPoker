@@ -98,7 +98,7 @@ export default {
                 name: this.name.trim(),
                 avatarIdx: this.selectedAvatar,
                 role: this.selectedRole,
-                toke: token
+                token: token
             })
                 .then(response => response.data)
                 .then(data => {

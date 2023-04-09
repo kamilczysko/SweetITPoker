@@ -219,7 +219,6 @@ export default {
             }
         });
     }
-
 }
 </script>
 <style scoped>
@@ -234,5 +233,8 @@ export default {
 .hideninfo {
     opacity: 0;
     transition: visibility .5s .5s, opacity .5s ease;
+}
+.grecaptcha-badge {
+    display: none !important; 
 }
 </style>
