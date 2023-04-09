@@ -79,7 +79,7 @@ export default {
             }
             this.$store.commit("setPlayers", [player])
         },
-        join() {
+        async join() {
             this.$store.commit("clearData")
             if (this.name == null || this.name === "") {
                 this.errorMessage = "Yor name is empty!"
@@ -91,10 +91,14 @@ export default {
                 return
             }
 
+            await this.$recaptchaLoaded()
+            const token = await this.$recaptcha('homepage')
+
             axios.post("/rest/room/join/" + this.$route.params.id, {
                 name: this.name.trim(),
                 avatarIdx: this.selectedAvatar,
-                role: this.selectedRole
+                role: this.selectedRole,
+                toke: token
             })
                 .then(response => response.data)
                 .then(data => {

@@ -1,9 +1,11 @@
 package com.walczak.itpoker.poker.room;
 
+import com.walczak.itpoker.infrastructure.captcha.CaptchaService;
 import com.walczak.itpoker.poker.common.Mapper;
 import com.walczak.itpoker.poker.player.Player;
 import com.walczak.itpoker.poker.player.PlayerService;
 import com.walczak.itpoker.dto.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +19,13 @@ public class RoomRestController {
     private final RoomService roomService;
     private final PlayerService playerService;
     private final SimpMessagingTemplate simpMessagingTemplate;
+    private final CaptchaService captchaService;
 
-    public RoomRestController(RoomService roomService, PlayerService playerService, SimpMessagingTemplate simpMessagingTemplate) {
+    public RoomRestController(RoomService roomService, PlayerService playerService, SimpMessagingTemplate simpMessagingTemplate, CaptchaService captchaService) {
         this.roomService = roomService;
         this.playerService = playerService;
         this.simpMessagingTemplate = simpMessagingTemplate;
+        this.captchaService = captchaService;
     }
 
     @GetMapping("/{id}")
@@ -31,7 +35,8 @@ public class RoomRestController {
     }
 
     @PostMapping("/create")
-    public NewRoomResponseDTO createRoom(@RequestBody NewRoomDTO newRoomDTO) {
+    public NewRoomResponseDTO createRoom(HttpServletRequest request, @RequestBody NewRoomDTO newRoomDTO) {
+        captchaService.processResponse(newRoomDTO.token(), request.getRemoteAddr());
         String roomId = UUID.randomUUID().toString();
         String playerId = UUID.randomUUID().toString();
         Player newPlayer = Mapper.mapToFounderPlayer(newRoomDTO.roomFounder(), playerId);
@@ -41,7 +46,9 @@ public class RoomRestController {
     }
 
     @PostMapping("/join/{id}")
-    public RoomJoinResponseDTO join(@RequestBody NewPlayerDTO playerToAdd, @PathVariable("id") String roomId) {
+    public RoomJoinResponseDTO join(HttpServletRequest request, @RequestBody NewPlayerDTO playerToAdd, @PathVariable("id") String roomId) {
+        captchaService.processResponse(playerToAdd.token(), request.getRemoteAddr());
+
         String playerId = UUID.randomUUID().toString();
         Player newPlayer = Mapper.mapToPlayerData(playerToAdd, playerId);
         Optional<Room> updatedRoom = roomService.addPlayer(newPlayer, roomId);

@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
+import { VueReCaptcha } from 'vue-recaptcha-v3'
 
 import './assets/main.css'
 
@@ -75,7 +76,7 @@ const store = new Vuex.Store({
 
 
 const app = createApp(App)
-
 app.use(router)
 app.use(store)
+app.use(VueReCaptcha, { siteKey: import.meta.env.VITE_CAPTCHA_SITE })
 app.mount('#app')

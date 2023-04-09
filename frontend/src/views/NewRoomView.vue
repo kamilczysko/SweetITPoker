@@ -35,7 +35,6 @@ import Choose from '../components/Choose.vue';
 import ImageChoose from '../components/ImageChoose.vue';
 import TextInput from '../components/TextInput.vue';
 import Header from '../components/Header.vue';
-
 import axios from 'axios'
 
 export default {
@@ -83,7 +82,7 @@ export default {
             }
             this.$store.commit("setPlayers", [player])
         },
-        create() {
+        async create() {
             this.$store.commit("clearData")
             if (this.roomName == null || this.roomName == "") {
                 this.errorMessage = "Room name is empty!"
@@ -105,7 +104,11 @@ export default {
                 return
             }
 
+            await this.$recaptchaLoaded()
+            const token = await this.$recaptcha('homepage')
+            
             axios.post('/rest/room/create', {
+                token: token,
                 roomName: this.roomName.trim(),
                 roomFounder: {
                     name: this.name.trim(),

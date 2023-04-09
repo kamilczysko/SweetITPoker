@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.web.client.RestOperations;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
@@ -34,6 +36,11 @@ public class ApplicationConfiguration implements WebSocketMessageBrokerConfigure
         return new PokerLogger();
     }
 
+
+    @Bean
+    public RestOperations restOperations() {
+        return new RestTemplate();
+    }
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/poker").setAllowedOriginPatterns("*").withSockJS();

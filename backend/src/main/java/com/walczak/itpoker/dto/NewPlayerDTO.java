@@ -3,6 +3,7 @@ package com.walczak.itpoker.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record NewPlayerDTO(
+        String token,
         String name,
         short avatarIdx,
         @JsonProperty("isAdmin")
@@ -10,4 +11,5 @@ public record NewPlayerDTO(
         @JsonProperty("isObserver")
         boolean isObserver,
         String role
-) { }
+) {
+}
