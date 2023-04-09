@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "google.recaptcha.key")
+@ConfigurationProperties(prefix = "captcha")
 public class CaptchaSettings {
 
     private String secret;
