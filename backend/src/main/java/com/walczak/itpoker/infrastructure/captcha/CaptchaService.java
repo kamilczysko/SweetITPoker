@@ -2,6 +2,7 @@ package com.walczak.itpoker.infrastructure.captcha;
 
 import com.walczak.itpoker.configuration.CaptchaSettings;
 import com.walczak.itpoker.infrastructure.captcha.model.CaptchaResponse;
+import org.springframework.data.jpa.repository.query.JSqlParserUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestOperations;
@@ -25,6 +26,10 @@ public class CaptchaService {
             if(!responseSanityCheck(response)) {
                 throw new IllegalStateException("Response contains invalid characters");
             }
+
+            System.out.println("#######################");
+            System.out.println(captchaSettings.getSecret());
+            System.out.println("#######################");
 
             URI verifyUri = URI.create(String.format(
                     "https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s&remoteip=%s",
