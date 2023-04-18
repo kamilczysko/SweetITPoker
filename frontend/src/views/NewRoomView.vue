@@ -3,10 +3,10 @@
         <Header></Header>
         <div class='w-full h-full flex flex-col items-center justify-center font-secondary'>
             <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
-            <div class='md:h-3/6 md:w-2/5 xs:h-screen xs:w-[90vw] relative'>
+            <div class='md:w-2/5 md:h-3/5 xs:h-screen xs:w-[90vw] relative'>
                 <img src="../assets/sad.png" class='w-7 h-7 absolute right-10 -top-6 translate-x-full'>
                 <div
-                    class='xs:h-[70vh] flex flex-col items-center rounded-lg py-10 shadow-bg3 shadow-xl bg-gradient-to-tr from-bg1 to-bg2'>
+                    class='xs:h-[80vh] md:h-[60vh] flex flex-col xs:gap-10 md:gap-1 items-center rounded-lg py-5 shadow-bg3 shadow-xl bg-gradient-to-tr from-bg1 to-bg2'>
                     <div class='flex justify-center relative w-full'>
                         <h1 class='xs:mb-3 lg:mb-10 font-main xs:text-sm lg:text-xl'>Create new room!</h1>
                     </div>
@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <CustomButton label="Create new room!" class='mt-5' v-on:clicked="create" />
-                    <small class="text-xs w-8/12 font-extralight text-center mt-2">
+                    <small class="text-xs w-8/12 font-extralight text-center">
                         This site is protected by reCAPTCHA and the Google
                         <a class='text-blue-500' href="https://policies.google.com/privacy">Privacy Policy</a> and
                         <a class='text-blue-500' href="https://policies.google.com/terms">Terms of Service</a> apply.
