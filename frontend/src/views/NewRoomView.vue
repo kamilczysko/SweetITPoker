@@ -3,7 +3,7 @@
         <Header></Header>
         <div class='w-full h-full flex flex-col items-center justify-center font-secondary'>
             <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
-            <div class='md:w-2/5 md:h-3/5 xs:h-screen xs:w-[90vw] relative'>
+            <div class='md:w-2/5 md:h-3/5 xs:w-[90vw] relative'>
                 <img src="../assets/sad.png" class='w-7 h-7 absolute right-10 -top-6 translate-x-full'>
                 <div
                     class='xs:h-[80vh] md:h-[60vh] flex flex-col xs:gap-10 md:gap-1 items-center rounded-lg py-5 shadow-bg3 shadow-xl bg-gradient-to-tr from-bg1 to-bg2'>
