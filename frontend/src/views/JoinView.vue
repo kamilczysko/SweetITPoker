@@ -3,14 +3,14 @@
         <Header></Header>
         <div class='w-full h-full flex flex-col items-center justify-center font-secondary'>
             <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
-            <div class='h-3/6 w-2/5 relative'>
+            <div class='h-3/6 md:w-2/5 xs:w-[90vw] relative'>
                 <img src="../assets/sad.png" class='w-7 h-7 absolute right-5 -top-6'>
                 <div class='flex flex-col items-center rounded-lg py-10 shadow-bg3 shadow-xl 
                         bg-gradient-to-tr from-bg1 to-bg2'>
                     <div class='flex justify-center relative'>
                         <h1 class='mb-10 font-main text-xl'>Join room!</h1>
                     </div>
-                    <div class='flex flex-col gap-7 w-3/4'>
+                    <div class='flex flex-col xs:gap-10 md:gap-7 xs:w-[95vw] md:w-3/4'>
                         <TextInput label="Your name" v-on:inputText="setName" />
                         <Choose label="Your role" :values="roles" v-on:choose="setRole" />
                         <ImageChoose label="Your avatar" :images="prepareAvatars" v-on:select="selectAvatar" />
