@@ -20,7 +20,11 @@
                             <ImageChoose label="Your avatar" :images="prepareAvatars" v-on:select="selectAvatar" />
                         </div>
                     </div>
-                    <CustomButton label="Create new room!" class='mt-5' v-on:clicked="create" />
+                    <div class='w-full flex flex-col items-center justify-center gap-0'> 
+                        <p :class="{[`invisible`]:!isLoading}" class='text-center h-1 text-sm font-extralight'> Loading...</p>
+                    <CustomButton :class="{['opacity-60']:isLoading}" label="Create new room!" class='mt-5' v-on:clicked="create" />
+                    
+                </div>
                     <small class="text-xs w-8/12 font-extralight text-center">
                         This site is protected by reCAPTCHA and the Google
                         <a class='text-blue-500' href="https://policies.google.com/privacy">Privacy Policy</a> and
@@ -29,6 +33,7 @@
                 </div>
             </div>
         </div>
+        
     </div>
 </template>
 <script>
@@ -52,7 +57,8 @@ export default {
             roles: [],
             selectedRole: null,
             selectedAvatar: null,
-            errorMessage: null
+            errorMessage: null,
+            isLoading: false
         }
     },
     methods: {
@@ -88,6 +94,10 @@ export default {
             this.$store.commit("setPlayers", [player])
         },
         async create() {
+            if(this.isLoading) {
+                return
+            }
+            
             this.$store.commit("clearData")
             if (this.roomName == null || this.roomName == "") {
                 this.errorMessage = "Room name is empty!"
@@ -109,6 +119,7 @@ export default {
                 return
             }
 
+            this.isLoading = true
             await this.$recaptchaLoaded()
             const token = await this.$recaptcha('homepage')
 
