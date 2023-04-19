@@ -1,6 +1,6 @@
 <template>
         <div v-if="visible"
-            class='ml-5 absolute left-0 xs:w-[90vw] xs:bottom-10 md:bottom-1/3 md:mb-5 md:w-[25vw] p-2 flex flex-col gap-4 items-center bg-white rounded-md md:bg-opacity-60'>
+            class='ml-5 absolute left-0 xs:w-[90vw] xs:bottom-10 md:bottom-1/3 md:mb-5 md:w-[20vw] p-2 flex flex-col gap-4 items-center bg-white rounded-md md:bg-opacity-60'>
             <button class='cursor-pointer hover:font-bold text-right self-end font-secondary' v-on:click="visible = false">X</button>
             <div class='opacity-100'>
                 <h2 class='text-center font-secondary mb-4'>This website uses cookies!</h2>
