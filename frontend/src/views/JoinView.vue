@@ -3,28 +3,28 @@
         <Header></Header>
         <div class='w-full h-full flex flex-col items-center justify-center font-secondary'>
             <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
-            <div class='h-3/6 md:w-2/5 xs:w-[90vw] relative'>
+            <div class='lg:h-3/6 lg:w-1/2 xs:w-[90vw] relative'>
                 <img src="../assets/sad.png" class='w-7 h-7 absolute right-5 -top-6'>
                 <div class='flex flex-col items-center rounded-lg py-10 shadow-bg3 shadow-xl 
-                        bg-gradient-to-tr from-bg1 to-bg2'>
+                                bg-gradient-to-tr from-bg1 to-bg2'>
                     <div class='flex justify-center relative'>
                         <h1 class='mb-10 font-main text-xl'>Join room!</h1>
                     </div>
-                    <div class='flex flex-col xs:gap-10 md:gap-7 xs:w-[95vw] md:w-3/4'>
+                    <div class='flex flex-col xs:gap-10 md:gap-7 xs:w-[95vw] lg:w-3/4'>
                         <TextInput label="Your name" v-on:inputText="setName" />
                         <Choose label="Your role" :values="roles" v-on:choose="setRole" />
                         <ImageChoose label="Your avatar" :images="prepareAvatars" v-on:select="selectAvatar" />
                     </div>
-                    <div class='mt-8 flex flex-col items-center justify-center w-full'>
+                    <div class='mt-5 flex flex-col items-center justify-center xs:w-4/5 md:w-1/2'>
                         <CustomButton label="Join!" v-on:clicked="join" />
                         <p class='font-extralight'>or</p>
                         <CustomButton label="Create new one!" v-on:clicked="newRoom" />
-                        <small class="text-xs w-8/12 font-extralight text-center mt-2">
+                    </div>
+                    <small class="text-xs w-8/12 font-extralight text-center mt-2">
                         This site is protected by reCAPTCHA and the Google
                         <a class='text-blue-500' href="https://policies.google.com/privacy">Privacy Policy</a> and
                         <a class='text-blue-500' href="https://policies.google.com/terms">Terms of Service</a> apply.
                     </small>
-                    </div>
                 </div>
 
             </div>
