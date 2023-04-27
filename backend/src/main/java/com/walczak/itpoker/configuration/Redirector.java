@@ -20,6 +20,11 @@ public class Redirector {
         return "forward:/";
     }
 
+    @RequestMapping(value = "/start")
+    public String redirectStartPage() {
+        return "forward:/";
+    }
+
     @RequestMapping(value = "/game")
     public String redirectGameRoomPage() {
         return "forward:/";
