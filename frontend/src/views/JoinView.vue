@@ -115,7 +115,7 @@ export default {
             this.errorMessage = null
         },
         newRoom() {
-            this.$router.push({ name: "create" })
+            this.$router.push({ name: "start" })
         }
     },
 
