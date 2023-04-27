@@ -4,7 +4,7 @@
         <Moveable className="moveable" v-bind:target="['.target']" v-bind:draggable="true" @drag="onDrag"
             v-bind:origin="false" />
         <div
-            class='rounded-2xl w-[30vw] min-h-[10vw] bg-gradient-to-tr bg-[#FBDA61] bg-opacity-10 flex flex-col items-center justify-center py-2'>
+            class='rounded-2xl w-[30vw] min-h-[10vw] bg-[#FBDA61] bg-opacity-20 flex flex-col items-center justify-center py-2'>
             <h1 class='text-center font-secondary text-xl font-bold'>Results</h1>
             <div v-for="row in getData" :key="row.role"
                 class='flex gap-3 justify-between items-center w-full font-secondary font-extralight cursor-pointer hover:bg-red-400 hover:bg-opacity-40 px-4 py-1 mb-1 rounded-lg active:bg-opacity-70'
