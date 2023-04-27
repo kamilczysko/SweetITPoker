@@ -11,9 +11,9 @@
                 @click="copyToClipboard(getProperTimeFromat(row.time))">
                 <p>{{ row.role }}s</p>
                 <p>{{ getProperTimeFromat(row.time) }}</p>
-                <p class='hover:font-normal font-thin'>Copy to clipboard</p>
+                <p class='hover:font-normal'>Copy to clipboard</p>
             </div>
-            <div class='font-extralight text-md font-secondary'>
+            <div class='font-thin text-md font-secondary'>
                 <p>Total result: {{ getTotalMeanTimeData(data) }}</p>
             </div>
             <CustomButton v-show="isAdmin" label="reset" @clicked="reset" class='mt-3'/>
