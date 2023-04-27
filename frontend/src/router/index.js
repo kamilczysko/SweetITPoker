@@ -8,11 +8,11 @@ const router = createRouter({
   routes: [
 
     {
-      path: '/',
+      path: '/create',
       name: 'create',
       component: NewRoomView
     },    {
-      path: '/start',
+      path: '/',
       name: 'start',
       component: StartPage
     },{

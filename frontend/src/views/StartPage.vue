@@ -3,25 +3,25 @@
         <Header></Header>
 
         <div class='flex gap-1 justify-center'>
-            <article class='w-1/3 mx-5'>
+            <Description></Description>
+            <!-- <article class='w-1/3 mx-5'>
                 <div class='flex flex-col justify-center items-center gap-5'>
                     <h2 class='text-2xl'>Your perfect planning tool</h2>
                     <p class='font-secondary text-md font-extralight text-center'>
-                        <b>UwUstimates</b> is a planning poker tool for development teams. It's a easy to use tool, helping you and your team to estimate and manage tasks in the Agile methodology.
+                        <b>UwUstimates</b> is a planning poker tool designed to help development teams. It's an easy-to-use tool, for you and your team to estimate and manage tasks in the Agile methodology, in a kawaii matter (´・ω・｀)
                     </p>
                     <div class='mt-5 self-start'>
-                        <!-- <h2 class='text-xl font-secondary'>With this tool you can became:</h2> -->
-                        <ul class='font-secondary text-xl list-outside list-disc ml-20'>
-                            <li class='p-3'>Be more accurate</li>
-                            <li class='p-3'>Play it anywhere</li>
-                            <li class='p-3'>Be more proffesional</li>
+                        <ul class='font-secondary text-xl list-outside list-disc ml-10 font-extralight'>
+                            <li class='p-3'>Estimate your tasks</li>
+                            <li class='p-3'>Roleplay as one of many anime avatars</li>
+                            <li class='p-3'>Get paid doing it!</li>
                         </ul>
                     </div>
                 </div>
-                
-            </article>
+            </article> -->
             <div class='w-4 h-[60vh] border-black border-l-[1px] border-spacing-1'></div>
             <div class='font-secondary flex flex-col items-center justify-center'>
+                <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
                 <div class='flex justify-center relative'>
                     <h1 class='xs:mb-3 lg:mb-10 font-main xs:text-sm lg:text-2xl'>Create new room</h1>
                 </div>
@@ -29,7 +29,7 @@
                     <TextInput label="Room name" v-on:inputText="setRoomName" />
 
                     <div
-                        class='bg-bg3 bg-opacity-20 rounded-xl flex flex-col lg:gap-5 xs:gap-10 items-stretch px-3 pb-4 mt-5 xs:gap-15 relative'>
+                        class='bg-bg3 bg-opacity-10 shadow-xl rounded-xl flex flex-col lg:gap-5 xs:gap-10 items-stretch px-3 pb-4 mt-5 xs:gap-15 relative'>
                         <img src="../assets/sad.png" class='w-7 h-7 absolute right-10 -top-6 translate-x-full'>
                         <p class='text-center font-extralight text-xs -mt-4'>User info</p>
                         <TextInput label="Your name" v-on:inputText="setName" />
@@ -58,6 +58,7 @@
 const avatars = import.meta.globEager('../assets/avatars/*.png')
 import roles from '../assets/roles.js'
 
+import Description from '../components/Description.vue'
 import CustomButton from '../components/CustomButton.vue'
 import Choose from '../components/Choose.vue';
 import ImageChoose from '../components/ImageChoose.vue';
@@ -67,7 +68,7 @@ import axios from 'axios'
 
 export default {
     name: "StartPage",
-    components: { TextInput, Choose, ImageChoose, CustomButton, Header },
+    components: { TextInput, Choose, ImageChoose, CustomButton, Header, Description },
     data() {
         return {
             roomName: "",
@@ -128,12 +129,12 @@ export default {
             }
 
             if (this.name == null || this.name == "") {
-                this.errorMessage = "Yor name is empty!"
+                this.errorMessage = "Your name is empty!"
                 return
             }
 
             if (this.name.length > 15) {
-                this.errorMessage = "Yor name is too long!"
+                this.errorMessage = "Your name is too long!"
                 return
             }
 

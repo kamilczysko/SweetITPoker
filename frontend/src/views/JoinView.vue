@@ -1,32 +1,29 @@
 <template>
     <div class='flex flex-col items-center'>
         <Header></Header>
-        <div class='w-full h-full flex flex-col items-center justify-center font-secondary'>
-            <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
-            <div class='lg:h-3/6 lg:w-1/2 xs:w-[90vw] relative'>
-                <img src="../assets/sad.png" class='w-7 h-7 absolute right-5 -top-6'>
-                <div class='flex flex-col items-center rounded-lg py-10 shadow-bg3 shadow-xl 
-                                bg-gradient-to-tr from-bg1 to-bg2'>
-                    <div class='flex justify-center relative'>
-                        <h1 class='mb-10 font-main text-xl'>Join room!</h1>
-                    </div>
-                    <div class='flex flex-col xs:gap-10 md:gap-7 xs:w-[95vw] lg:w-3/4'>
+        <div class='flex gap-1 justify-center'>
+            <Description></Description>
+            <div class='w-4 h-[60vh] border-black border-l-[1px] border-spacing-1'></div>
+            <div class='font-secondary flex justify-center'>
+                <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
+                <div class='flex flex-col gap-5 items-center'>
+                    <h1 class='mb-10 font-main text-xl'>Join room!</h1>
+                    <div class='flex flex-col xs:gap-10 md:gap-8 xs:w-[95vw] lg:w-3/4'>
                         <TextInput label="Your name" v-on:inputText="setName" />
                         <Choose label="Your role" :values="roles" v-on:choose="setRole" />
                         <ImageChoose label="Your avatar" :images="prepareAvatars" v-on:select="selectAvatar" />
                     </div>
-                    <div class='mt-5 flex flex-col items-center justify-center xs:w-4/5 md:w-1/2'>
+                    <div class='mt-10 flex flex-col items-center xs:w-4/5 md:w-2/3'>
                         <CustomButton label="Join!" v-on:clicked="join" />
                         <p class='font-extralight'>or</p>
                         <CustomButton label="Create new one!" v-on:clicked="newRoom" />
                     </div>
-                    <small class="text-xs w-8/12 font-extralight text-center mt-2">
+                    <small class="text-xs w-8/12 font-extralight text-center mt-3">
                         This site is protected by reCAPTCHA and the Google
                         <a class='text-blue-500' href="https://policies.google.com/privacy">Privacy Policy</a> and
                         <a class='text-blue-500' href="https://policies.google.com/terms">Terms of Service</a> apply.
                     </small>
                 </div>
-
             </div>
         </div>
     </div>
@@ -35,6 +32,7 @@
 const avatars = import.meta.globEager('../assets/avatars/*.png')
 import roles from '../assets/roles.js'
 
+import Description from '../components/Description.vue';
 import CustomButton from '../components/CustomButton.vue'
 import Choose from '../components/Choose.vue';
 import ImageChoose from '../components/ImageChoose.vue';
@@ -45,7 +43,7 @@ import axios from 'axios';
 
 export default {
     name: "JoinView",
-    components: { TextInput, Choose, ImageChoose, CustomButton, Header },
+    components: { TextInput, Choose, ImageChoose, CustomButton, Header, Description },
     data() {
         return {
             name: "",
