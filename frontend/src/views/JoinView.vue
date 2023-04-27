@@ -109,7 +109,8 @@ export default {
                     this.$store.commit("join", data)
                 })
                 .then(() => this.$router.push({ name: "game" }))
-                .catch(error => this.errorMessage = "Join room error! " + error)
+                .catch(error => this.errorMessage = "Cannot join room! Room probably doesn't exits anymore.")
+                
 
             this.errorMessage = null
         },
