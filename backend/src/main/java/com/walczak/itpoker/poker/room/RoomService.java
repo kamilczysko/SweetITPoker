@@ -84,8 +84,10 @@ public class RoomService {
 
         Map<String, List<Player>> roleToPlayers = players.stream()
                 .collect(Collectors.groupingBy(Player::getRole));
-        return roleToPlayers.entrySet().stream()
+        Map<String, Double> results = roleToPlayers.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, entry -> calculateMeanTime(entry.getValue())));
+        results.put("total", calculateMeanTime(players));
+        return results;
     }
 
     private double calculateMeanTime(List<Player> players) {

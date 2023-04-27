@@ -4,14 +4,17 @@
         <Moveable className="moveable" v-bind:target="['.target']" v-bind:draggable="true" @drag="onDrag"
             v-bind:origin="false" />
         <div
-            class='rounded-2xl w-[30vw] min-h-[10vw] bg-gradient-to-tr from-[#FBDA61] to-[#FF5ACD] bg-opacity-10 flex flex-col items-center justify-center py-2'>
+            class='rounded-2xl w-[30vw] min-h-[10vw] bg-gradient-to-tr bg-[#FBDA61] bg-opacity-10 flex flex-col items-center justify-center py-2'>
             <h1 class='text-center font-secondary text-xl font-bold'>Results</h1>
-            <div v-for="row in data" :key="row.role"
-                class='grid grid-cols-3 items-center w-full font-secondary font-extralight cursor-pointer hover:bg-red-400 hover:bg-opacity-40 px-4 py-1 mb-1 rounded-lg active:bg-opacity-70'>
+            <div v-for="row in getData" :key="row.role"
+                class='flex gap-3 justify-between items-center w-full font-secondary font-extralight cursor-pointer hover:bg-red-400 hover:bg-opacity-40 px-4 py-1 mb-1 rounded-lg active:bg-opacity-70'
+                @click="copyToClipboard(getProperTimeFromat(row.time))">
                 <p>{{ row.role }}s</p>
                 <p>{{ getProperTimeFromat(row.time) }}</p>
-                <CustomButton class='w-full' label="Copy to clipboard"
-                    @clicked="copyToClipboard(getProperTimeFromat(row.time))" />
+                <p class='hover:font-normal font-thin'>Copy to clipboard</p>
+            </div>
+            <div class='font-extralight text-md font-secondary'>
+                <p>Total result: {{ getTotalMeanTimeData(data) }}</p>
             </div>
             <CustomButton v-show="isAdmin" label="reset" @clicked="reset" class='mt-3'/>
             <p class="info" id="info">Copied to clipboard!</p>
@@ -53,6 +56,21 @@ export default {
                 console.error('Unable to copy to clipboard', err);
             }
             document.body.removeChild(textArea);
+        },
+        getTotalMeanTimeData(data) {
+            const total = Array.from(data).filter(d => d.role == "total")[0]
+            const hours = Math.floor(total.time)
+            const rest = total.time - hours
+            const minutes = Math.floor(60*rest)
+            if(minutes <= 0 ){
+                return hours + "h "
+            }
+            return hours + "h " + minutes + "m"
+        }
+    },
+    computed: {
+        getData() {
+            return Array.from(this.data).filter(d => d.role != "total")
         }
     }
 }
