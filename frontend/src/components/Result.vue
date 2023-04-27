@@ -4,16 +4,16 @@
         <Moveable className="moveable" v-bind:target="['.target']" v-bind:draggable="true" @drag="onDrag"
             v-bind:origin="false" />
         <div
-            class='rounded-2xl w-[30vw] min-h-[10vw] bg-[#FBDA61] bg-opacity-40 flex flex-col items-center justify-center py-2'>
+            class='rounded-2xl w-[30vw] min-h-[10vw] bg-[#FBDA61] bg-opacity-80 flex flex-col items-center justify-center py-2'>
             <h1 class='text-center font-secondary text-xl font-bold'>Results</h1>
             <div v-for="row in getData" :key="row.role"
-                class='flex gap-3 justify-between items-center w-full font-secondary font-extralight cursor-pointer hover:bg-red-400 hover:bg-opacity-40 px-4 py-1 mb-1 rounded-lg active:bg-opacity-70'
+                class='flex text-lg gap-3 justify-between items-center w-full font-secondary font-extralight cursor-pointer hover:bg-red-400 hover:bg-opacity-40 px-4 py-1 mb-1 rounded-lg active:bg-opacity-70'
                 @click="copyToClipboard(getProperTimeFromat(row.time))">
                 <p>{{ row.role }}s</p>
                 <p>{{ getProperTimeFromat(row.time) }}</p>
                 <p class='hover:font-normal'>Copy to clipboard</p>
             </div>
-            <div class='font-thin text-md font-secondary'>
+            <div class='font-thin text-lg font-secondary'>
                 <p>Total result: {{ getTotalMeanTimeData(data) }}</p>
             </div>
             <CustomButton v-show="isAdmin" label="reset" @clicked="reset" class='mt-3'/>

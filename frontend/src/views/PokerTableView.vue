@@ -1,8 +1,9 @@
 <template>
     <div class='grid grid-rows-nav w-full h-full'>
         <nav class='w-full h-full grid grid-cols-3 items-center'>
-            <a href="/" class='w-fit text-left ml-10 hover:text-xl active:mb-1 active:shadow-xl'
-                v-on:click="logoutPlayer(this.$store.state.myId)">logout</a>
+            <div class='w-24 ml-6'>
+                <CustomButton label="Logout" @clicked="logoutPlayer(this.$store.state.myId)"></CustomButton>
+            </div>
             <h1 class='text-4xl text-center'>{{ getRoomName }}</h1>
             <Player :player="getMyPlayer" class='absolute right-10' @setObserver="setObserver" />
         </nav>
@@ -71,6 +72,7 @@ export default {
                 playerId: playerId,
                 roomId: this.$store.state.roomId
             }))
+            this.$router.push({ name: "join", params: { id: this.$store.state.roomId } })
         },
         sendPlayerInfo(playerId) {
             if (this.$store.state.isVotingFinished) {
