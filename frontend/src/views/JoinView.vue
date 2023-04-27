@@ -8,12 +8,12 @@
                 <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
                 <div class='flex flex-col gap-5 items-center'>
                     <h1 class='mb-10 font-main text-xl'>Join room!</h1>
-                    <div class='flex flex-col xs:gap-10 md:gap-8 xs:w-[95vw] lg:w-3/4'>
+                    <div class='flex flex-col xs:gap-10 md:gap-8 xs:w-[95vw] lg:w-3/4 border-b-gray-400 border-b-[1px] pb-3'>
                         <TextInput label="Your name" v-on:inputText="setName" />
                         <Choose label="Your role" :values="roles" v-on:choose="setRole" />
                         <ImageChoose label="Your avatar" :images="prepareAvatars" v-on:select="selectAvatar" />
                     </div>
-                    <div class='mt-10 flex flex-col items-center xs:w-4/5 md:w-2/3'>
+                    <div class='mt-4 flex flex-col gap-3 items-center xs:w-4/5 md:w-2/3'>
                         <CustomButton label="Join!" v-on:clicked="join" />
                         <p class='font-extralight'>or</p>
                         <CustomButton label="Create new one!" v-on:clicked="newRoom" />
