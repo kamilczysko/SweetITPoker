@@ -7,7 +7,7 @@
                 <img v-show="!isOpen" class='scale-100 hover:scale-110 ' :src="getIconUrl(value)" alt="">
             </div>
 
-            <div v-show="isOpen" class='flex flex-wrap items-center justify-center gap-1 py-1 flex-shrink xs:w-[70vw] sm:min-w-[50vw] 2xl:min-w-[45vw] bg-bg2 rounded-xl bg-opacity-70 absolute'
+            <div v-show="isOpen" class='flex flex-wrap items-center justify-center gap-1 py-1 flex-shrink xs:w-[50vw] sm:min-w-[50vw] 2xl:min-w-[45vw] bg-bg2 rounded-xl bg-opacity-70 absolute'
                 v-on:mouseleave="hide">
                 <div v-for=" img, index in images()"
                     class='rounded-full aspect-square sm::min-w-[1.5rem] xs:w-10 sm:max-w-[3rem] 2xl:min-w-[4rem] 2xl:max-w-[5rem] overflow-hidden hover: shadow-md hover:shadow-bg3 focus:scale-xl'

@@ -87,12 +87,12 @@ export default {
         async join() {
             this.$store.commit("clearData")
             if (this.name == null || this.name === "") {
-                this.errorMessage = "Yor name is empty!"
+                this.errorMessage = "Your name is empty!"
                 return
             }
 
             if (this.name.length > 15) {
-                this.errorMessage = "Yor name is too long!"
+                this.errorMessage = "Your name is too long!"
                 return
             }
 
