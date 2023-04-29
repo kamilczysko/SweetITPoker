@@ -4,7 +4,7 @@
         <div class='flex gap-1 justify-center'>
             <Description></Description>
             <div class='w-4 h-[60vh] border-black border-l-[1px] border-spacing-1'></div>
-            <div class='font-secondary flex flex-col justify-center'>
+            <div class='font-secondary flex flex-col justify-center -mt-5'>
                 <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
                 <div class='flex flex-col gap-5 items-center'>
                     <h1 class='mb-10 font-main text-xl'>Join room!</h1>
