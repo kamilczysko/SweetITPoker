@@ -10,11 +10,15 @@
         <div class='grid 2xl:grid-cols-pokerMain lg:grid-cols-pokerMainSmaller grid-cols-pokerMainEvenSmaller '>
             <div class='grid grid-rows-pokerTable'>
                 <GameTable :players="getAllPlayers" />
-                <MyCards v-show="!amIObserver" @selectCard="selectCard" />
+                <transition name="slide-bottom" appear>
+                    <MyCards v-show="!amIObserver" @selectCard="selectCard" />
+                </transition>
             </div>
             <div class='h-full grid '>
-                <UsersList :isAdmin="amIAdmin" :players="getPlayersForList" @leave="logoutPlayer" @setAdmin="setAdmin"
-                    @setObserver="setObserver" class='overflow-x-auto h-[35rem] scroll-smooth' />
+                <transition name="slide-right" appear>
+                    <UsersList :isAdmin="amIAdmin" :players="getPlayersForList" @leave="logoutPlayer" @setAdmin="setAdmin"
+                        @setObserver="setObserver" class='overflow-x-auto h-[35rem] scroll-smooth' />
+                </transition>
                 <div class='flex flex-col items-center justify-center gap-4'>
                     <CustomButton label="Copy link!" class='w-3/4' @clicked="copyToClipboard" />
                     <CustomButton v-if="amIAdmin" label="Reset!" class='w-3/4' @clicked="resetVotes" />
@@ -23,7 +27,9 @@
                 </div>
             </div>
         </div>
-        <Result v-if="isVotingFinished" :isAdmin="amIAdmin" :data="resultData" @reset="resetVotes" />
+        <transition name="appear">
+            <Result v-if="isVotingFinished" :isAdmin="amIAdmin" :data="resultData" @reset="resetVotes" />
+        </transition>
     </div>
 </template>
 <script>
@@ -235,5 +241,31 @@ export default {
 .hideninfo {
     opacity: 0;
     transition: visibility .5s .5s, opacity .5s ease;
+}
+
+.slide-right-enter-from {
+    opacity: 0;
+    transform: translateX(200px);
+}
+
+.slide-right-enter-to {
+    transition: all 0.3s ease;
+}
+
+.slide-bottom-enter-from {
+    opacity: 0;
+    transform: translateY(200px);
+}
+
+.slide-bottom-enter-to {
+    transition: all 0.3s ease;
+}
+
+.appear-enter-from {
+    opacity: 0;
+}
+
+.appear-enter-to {
+    transition: opacity 0.5s ease;
 }
 </style>
