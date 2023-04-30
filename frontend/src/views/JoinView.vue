@@ -5,7 +5,6 @@
             <transition name="slide-left" appear>
                 <Description></Description>
             </transition>
-
             <transition name="slide" appear>
                 <div class='w-4 h-[60vh] border-black border-l-[1px] border-spacing-1'></div>
             </transition>
@@ -138,7 +137,7 @@ export default {
 <style>
 .slide-right-enter-from {
     opacity: 0;
-    transform: translateX(200px);
+    transform: translateY(200px);
 }
 
 .slide-right-enter-to {
@@ -156,10 +155,10 @@ export default {
 
 .slide-enter-from {
     opacity: 0;
-    transform: translateY(500px);
+    /* transform: translateY(500px); */
 }
 
 .slide-enter-to {
-    transition: all 0.4s ease;
+    transition: opacity 1s ease;
 }
 </style>
