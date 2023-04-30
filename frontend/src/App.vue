@@ -4,7 +4,7 @@ import CookiesPrompt from './components/CookiesPrompt.vue';
 </script>
 
 <template>
-  <main class='h-screen w-screen bg-gradient-to-tr from-[#D9AFD9] to-[#97D9E1]'>
+  <main class='w-screen h-screen bg-gradient-to-tr from-[#D9AFD9] to-[#97D9E1]'>
     <RouterView />
   </main>
   <CookiesPrompt></CookiesPrompt>
@@ -12,6 +12,6 @@ import CookiesPrompt from './components/CookiesPrompt.vue';
 
 <style>
 .grecaptcha-badge {
-  opacity:0;
+  opacity: 0;
 }
 </style>

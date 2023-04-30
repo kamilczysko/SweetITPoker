@@ -1,14 +1,14 @@
 <template>
     <div class='flex flex-col items-center'>
         <Header></Header>
-        <div class='flex gap-1 justify-center'>
+        <div class='flex gap-1 justify-center xs:flex-col xs:items-center lg:flex-row'>
             <transition name="slide-left" appear>
-                <Description></Description>
+                <Description class='xs:w-full lg:w-1/3'></Description>
             </transition>
-            <transition name="slide" appear>
-                <div class='w-4 h-[60vh] border-black border-l-[1px] border-spacing-1'></div>
-            </transition>
-            <transition name="slide" appear>
+            <div
+                class='xs:w-screen xs:h-1 lg:w-1 lg:h-[60vh] border-black xs:border-b-[1px] lg:border-b-0 lg:border-l-[1px] border-spacing-1'>
+            </div>
+            <transition name="slide-right" appear>
                 <div class='font-secondary flex flex-col justify-center -mt-5'>
                     <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
                     <div class='flex flex-col gap-5 items-center'>
@@ -134,31 +134,30 @@ export default {
     }
 }
 </script>
-<style>
-.slide-right-enter-from {
+
+<style scoped> .slide-right-enter-from {
+     opacity: 0;
+     transform: translateY(200px);
+ }
+
+ .slide-right-enter-to {
+     transition: all 0.3s ease;
+ }
+
+ .slide-left-enter-from {
+     opacity: 0;
+     transform: translateY(-200px);
+ }
+
+ .slide-left-enter-to {
+     transition: all 0.3s ease;
+ }
+
+ /* .fade-enter-from {
     opacity: 0;
-    transform: translateY(200px);
 }
 
-.slide-right-enter-to {
-    transition: all 0.3s ease;
-}
-
-.slide-left-enter-from {
-    opacity: 0;
-    transform: translateY(-200px);
-}
-
-.slide-left-enter-to {
-    transition: all 0.3s ease;
-}
-
-.slide-enter-from {
-    opacity: 0;
-    /* transform: translateY(500px); */
-}
-
-.slide-enter-to {
-    transition: opacity 1s ease;
-}
+.fade-enter-to {
+    transition: opacity 0.3s ease;
+} */
 </style>
