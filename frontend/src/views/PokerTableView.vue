@@ -2,7 +2,7 @@
     <div class='grid grid-rows-nav w-full h-full'>
         <nav class='w-full h-full grid grid-cols-3 items-center'>
             <div class='w-24 ml-6'>
-                <CustomButton label="Logout" @clicked="logoutPlayer(this.$store.state.myId)"></CustomButton>
+                <CustomButton label="Logout" @clicked="logoutSelf"></CustomButton>
             </div>
             <h1 class='text-4xl text-center'>{{ getRoomName }}</h1>
             <Player :player="getMyPlayer" class='absolute right-10' @setObserver="setObserver" />
@@ -78,7 +78,10 @@ export default {
                 playerId: playerId,
                 roomId: this.$store.state.roomId
             }))
-            this.$router.push({ name: "join", params: { id: this.$store.state.roomId } })
+        },
+        logoutSelf() {
+            this.logoutPlayer(this.$store.state.myId)
+            this.$router.push('/')
         },
         sendPlayerInfo(playerId) {
             if (this.$store.state.isVotingFinished) {
