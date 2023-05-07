@@ -4,7 +4,7 @@
             <button class='cursor-pointer hover:font-bold text-right self-end font-secondary' v-on:click="visible = false">X</button>
             <div class='opacity-100'>
                 <h2 class='text-center font-secondary mb-4'>This website uses cookies!</h2>
-                <article class='font-secondary text-[10px] text-center flex flex-col gap-4 whitespace-nowrap'>
+                <article class='font-secondary text-[10px] text-center flex flex-col gap-4'>
                     <p>
                         You may see ads that are less relevant to you. These ads use cookies, but not for personalization.
                     </p>
