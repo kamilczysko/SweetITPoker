@@ -3,7 +3,7 @@
         <Header></Header>
         <div class='flex justify-center xs:flex-col xs:items-center lg:flex-row'>
             <transition name="slide-left" appear delay>
-                <Description class='w-[50vw] px-10 -mx-1'></Description>
+                <Description class='w-[50vw] px-10 -mr-2'></Description>
             </transition>
             <transition name="slide-right" appear delay>
                 <div class='font-secondary flex flex-col items-center w-[50vw] border-l-[1px] border-black px-10'>
