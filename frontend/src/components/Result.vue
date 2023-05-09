@@ -13,9 +13,6 @@
                 <p>{{ getProperTimeFromat(row.time) }}</p>
                 <p class='hover:font-normal'>Copy to clipboard</p>
             </div>
-            <div class='font-thin text-lg font-secondary'>
-                <p>Total result: {{ getTotalMeanTimeData(data) }}</p>
-            </div>
             <CustomButton v-show="isAdmin" label="reset" @clicked="reset" class='mt-3'/>
             <p class="info" id="info">Copied to clipboard!</p>
         </div>
@@ -56,16 +53,6 @@ export default {
                 console.error('Unable to copy to clipboard', err);
             }
             document.body.removeChild(textArea);
-        },
-        getTotalMeanTimeData(data) {
-            const total = Array.from(data).filter(d => d.role == "total")[0]
-            const hours = Math.floor(total.time)
-            const rest = total.time - hours
-            const minutes = Math.floor(60*rest)
-            if(minutes <= 0 ){
-                return hours + "h "
-            }
-            return hours + "h " + minutes + "m"
         }
     },
     computed: {
