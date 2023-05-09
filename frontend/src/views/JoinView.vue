@@ -3,13 +3,15 @@
         <Header></Header>
         <div class='flex gap-1 justify-center xs:flex-col xs:items-center lg:flex-row'>
             <transition name="slide-left" appear>
-                <Description class='xs:w-full lg:w-1/3'></Description>
+                <Description class='mx-0 w-2/5'></Description>
             </transition>
-            <div
-                class='xs:w-screen xs:h-1 lg:w-1 lg:h-[60vh] border-black xs:border-b-[1px] lg:border-b-0 lg:border-l-[1px] border-spacing-1'>
+            <div class='flex justify-center items-center w-1/12'>
+                <div
+                    class='xs:w-screen xs:h-1 lg:w-1 lg:h-[60vh] border-black xs:border-b-[1px] lg:border-b-0 lg:border-l-[1px] border-spacing-1'>
+                </div>
             </div>
             <transition name="slide-right" appear>
-                <div class='font-secondary flex flex-col justify-center -mt-5'>
+                <div class='font-secondary flex flex-col justify-center w-2/5'>
                     <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
                     <div class='flex flex-col gap-5 items-center'>
                         <h1 class='mb-10 font-main text-xl'>Join room!</h1>
