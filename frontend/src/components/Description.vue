@@ -1,5 +1,5 @@
 <template>
-    <article class='mx-5'>
+    <article>
         <div class='flex flex-col justify-start items-center gap-5'>
             <h2 class='xs:text-lg lg:text-2xl'>Your perfect planning tool</h2>
             <p class='font-secondary xs:text-sm lg:text-md font-light text-center'>

@@ -1,12 +1,12 @@
 <template>
     <div class='flex flex-col items-center'>
         <Header></Header>
-        <div class='flex justify-center xs:flex-col xs:items-center lg:flex-row'>
+        <div class='flex justify-center gap-0 xs:flex-col xs:items-center lg:flex-row'>
             <transition name="slide-left" appear delay>
-                <Description class='w-[50vw] px-10 -mr-2'></Description>
+                <Description class='w-[45vw] pr-10'></Description>
             </transition>
             <transition name="slide-right" appear delay>
-                <div class='font-secondary flex flex-col items-center w-[50vw] border-l-[1px] border-black px-10'>
+                <div class='font-secondary flex flex-col items-center w-[45vw] border-l-[1px] border-black'>
                     <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
                     <div class='flex justify-center relative'>
                         <h1 class='xs:mb-3 lg:mb-10 font-main xs:text-sm lg:text-2xl'>Create new room</h1>
