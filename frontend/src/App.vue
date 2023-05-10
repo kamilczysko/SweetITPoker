@@ -4,7 +4,7 @@ import CookiesPrompt from './components/CookiesPrompt.vue';
 </script>
 
 <template>
-  <main class='w-screen h-screen bg-gradient-to-tr from-[#D9AFD9] to-[#97D9E1]'>
+  <main class='min-h-screen min-w-full bg-gradient-to-tr from-[#D9AFD9] to-[#97D9E1]'>
     <RouterView />
   </main>
   <CookiesPrompt></CookiesPrompt>

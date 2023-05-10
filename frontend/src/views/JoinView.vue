@@ -3,10 +3,10 @@
         <Header></Header>
         <div class='flex gap-0 justify-center xs:flex-col xs:items-center lg:flex-row'>
             <transition name="slide-left" appear>
-                <Description class='w-[45vw] pr-10'></Description>
+                <Description class='xs:w-full lg:w-[45vw] xs:px-5 lg:pr-10'></Description>
             </transition>
             <transition name="slide-right" appear>
-                <div class='font-secondary flex flex-col justify-center w-[45vw] border-l-[1px] border-black'>
+                <div class='font-secondary flex flex-col justify-center xs:w-[90vw] lg:w-[45vw] xs:border-t-[1px] lg:border-l-[1px] border-gray-500 xs:border-l-0 lg:border-t-0'>
                     <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
                     <div class='flex flex-col gap-5 items-center'>
                         <h1 class='mb-10 font-main text-xl'>Join room!</h1>

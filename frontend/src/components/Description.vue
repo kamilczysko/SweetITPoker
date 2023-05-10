@@ -8,7 +8,7 @@
                 for you and your team to estimate and manage tasks in the Agile methodology, in a kawaii matter <span
                     class='whitespace-nowrap'>(´・ω・｀)</span>
             </p>
-            <div class='xs:mt-1 lg:mt-5 self-start'>
+            <div class='xs:mt-1 lg:mt-5 xs:self-center lg:self-start'>
                 <ul class='font-secondary list-outside list-none ml-10 font-light xs:text-sm lg:text-lg'>
                     <li class='xs:p-1 lg:p-2 flex justify-start items-center gap-3'>
                         <img src="../assets/rocket.svg" alt="" class='aspect-square xs:w-4 lg:w-6'>
