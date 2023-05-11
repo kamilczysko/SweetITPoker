@@ -1,5 +1,5 @@
 <template>
-    <div class='mt-5 lg:pl-2'>
+    <div class='mt-14 lg:pl-2'>
         <div v-for="player in players" :key="player.id" class='relative'>
             <Player class='absoulte' :player="player" @setAdmin="setAdmin" @setObserver="setObserver" />
             <button v-if="amIAdmin" v-on:click="leave(player.id)" class='absolute top-1'>
