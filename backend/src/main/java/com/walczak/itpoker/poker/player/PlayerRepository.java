@@ -1,6 +1,6 @@
 package com.walczak.itpoker.poker.player;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface PlayerRepository extends CrudRepository<Player, String> {
+public interface PlayerRepository extends MongoRepository<Player, String> {
 }

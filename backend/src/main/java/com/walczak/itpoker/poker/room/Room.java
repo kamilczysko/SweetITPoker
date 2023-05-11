@@ -1,13 +1,13 @@
 package com.walczak.itpoker.poker.room;
 
 import com.walczak.itpoker.poker.player.Player;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +16,12 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Document
 public class Room {
-
     @Id
     String id;
     String name;
-    @OneToMany(cascade = CascadeType.ALL ,fetch = FetchType.EAGER)
-    @JoinColumn
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @DocumentReference
     List<Player> players;
 
     private Room(Builder builder) {

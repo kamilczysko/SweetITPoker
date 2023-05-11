@@ -1,16 +1,15 @@
 package com.walczak.itpoker.poker.player;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Optional;
 
+@Document
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class Player {
@@ -20,12 +19,8 @@ public class Player {
     private short avatarIdx;
     private boolean isObserver;
     private boolean isAdmin;
-    @OneToOne(cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn
     private SelectedCard selectedCard;
     private String role;
-    @Column(columnDefinition = "boolean default false")
     private boolean obsoleted;
 
     private Player(Builder builder) {

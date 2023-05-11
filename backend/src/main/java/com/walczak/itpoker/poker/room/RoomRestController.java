@@ -31,6 +31,7 @@ public class RoomRestController {
     @GetMapping("/{id}")
     public RoomDTO getRoomData(@PathVariable("id") String id) {
         Room room = roomService.getById(id).orElseThrow(() -> new IllegalStateException("Room doesn't exist"));
+        System.out.println(room);
         return Mapper.mapToRoomDTO(room);
     }
 
@@ -39,8 +40,8 @@ public class RoomRestController {
         captchaService.processResponse(newRoomDTO.token(), request.getRemoteAddr());
         String roomId = UUID.randomUUID().toString();
         String playerId = UUID.randomUUID().toString();
-        Player newPlayer = Mapper.mapToFounderPlayer(newRoomDTO.roomFounder(), playerId);
-        Room newRoom = Mapper.mapToRoom(newRoomDTO, roomId, newPlayer);
+        Player player = playerService.savePlayer(newRoomDTO.roomFounder(), playerId, true);
+        Room newRoom = Mapper.mapToRoom(newRoomDTO, roomId, player);
         roomService.createNewRoom(newRoom);
         return new NewRoomResponseDTO(roomId, newRoom.getName(), playerId);
     }
@@ -50,7 +51,7 @@ public class RoomRestController {
         captchaService.processResponse(playerToAdd.token(), request.getRemoteAddr());
 
         String playerId = UUID.randomUUID().toString();
-        Player newPlayer = Mapper.mapToPlayerData(playerToAdd, playerId);
+        Player newPlayer = playerService.savePlayer(playerToAdd, playerId, false);
         Optional<Room> updatedRoom = roomService.addPlayer(newPlayer, roomId);
         Room existingRoom = roomService.getExistingById(roomId);
         simpMessagingTemplate.convertAndSend("/topic/room/" + roomId, Mapper.mapToRoomDTO(existingRoom));

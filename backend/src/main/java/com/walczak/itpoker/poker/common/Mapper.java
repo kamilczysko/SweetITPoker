@@ -36,17 +36,6 @@ public class Mapper {
                 .build();
     }
 
-    public static Player mapToFounderPlayer(NewPlayerDTO roomFounderDTO, String participantId) {
-        return Player.Builder.builder()
-                .avatarIdx(roomFounderDTO.avatarIdx())
-                .role(roomFounderDTO.role())
-                .isAdmin(true)
-                .isObserver(isObserver(roomFounderDTO.role()))
-                .id(participantId)
-                .name(roomFounderDTO.name())
-                .build();
-    }
-
     public static RoomDTO mapToRoomDTO(Room data) {
         return new RoomDTO(data.getId(),
                 data.getName(),
@@ -68,14 +57,14 @@ public class Mapper {
         return new PlayerDTO(player.getId(), player.getName(), player.getAvatarIdx(), player.isAdmin(), player.isObserver(), null, player.getRole());
     }
 
-    public static Player mapToPlayerData(NewPlayerDTO newParticipant, String participantId) {
+    public static Player mapToPlayer(NewPlayerDTO newPlayer, String playerId, boolean isAdmin) {
         return Player.Builder.builder()
-                .avatarIdx(newParticipant.avatarIdx())
-                .role(newParticipant.role())
-                .isAdmin(false)
-                .isObserver(isObserver(newParticipant.role()))
-                .id(participantId)
-                .name(newParticipant.name())
+                .avatarIdx(newPlayer.avatarIdx())
+                .role(newPlayer.role())
+                .isAdmin(isAdmin)
+                .isObserver(isObserver(newPlayer.role()))
+                .id(playerId)
+                .name(newPlayer.name())
                 .build();
     }
 

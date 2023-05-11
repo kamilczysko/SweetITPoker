@@ -3,6 +3,7 @@ package com.walczak.itpoker.poker.room;
 import com.walczak.itpoker.configuration.EvictionCache;
 import com.walczak.itpoker.configuration.PokerLogger;
 import com.walczak.itpoker.poker.player.Player;
+import com.walczak.itpoker.poker.player.PlayerService;
 import com.walczak.itpoker.poker.player.SelectedCard;
 import org.springframework.stereotype.Controller;
 
@@ -14,13 +15,15 @@ public class RoomService {
     private final RoomRepository roomRepository;
     private final PokerLogger logger;
     private final EvictionCache evictionCache;
+    private final PlayerService playerService;
 
-    public RoomService(RoomRepository roomRepository, PokerLogger logger) {
+    public RoomService(RoomRepository roomRepository, PokerLogger logger, PlayerService playerService) {
         this.roomRepository = roomRepository;
         this.logger = logger;
-        long roomTTLInMinutes = 8 * 60;
-        long refreshCacheTimeInMinutes = 2 * 60;
+        long roomTTLInMinutes = 2 * 60;
+        long refreshCacheTimeInMinutes = 60;
         this.evictionCache = EvictionCache.getInstance(roomTTLInMinutes, refreshCacheTimeInMinutes, this::expireRoom);
+        this.playerService = playerService;
     }
 
     public Optional<Room> addPlayer(Player player, String roomId) {
@@ -69,6 +72,10 @@ public class RoomService {
 
     public void expireRoom(String id) {
         logger.info("Room has expired", id);
+        Optional<Room> room = roomRepository.findById(id);
+        List<String> playersToRemove = room.map(Room::getPlayers).orElse(Collections.emptyList())
+                .stream().map(Player::getId).toList();
+        playerService.removePlayers(playersToRemove);
         roomRepository.deleteById(id);
     }
 

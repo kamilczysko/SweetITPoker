@@ -1,6 +1,7 @@
 package com.walczak.itpoker.poker.player;
 
 import com.walczak.itpoker.configuration.PokerLogger;
+import com.walczak.itpoker.dto.NewPlayerDTO;
 import com.walczak.itpoker.poker.common.Mapper;
 import com.walczak.itpoker.dto.PlayerDTO;
 import org.springframework.stereotype.Controller;
@@ -29,11 +30,19 @@ public class PlayerService {
 
         playerRepository.saveAll(playersToRemove);
     }
+
     public void updatePlayer(PlayerDTO playerDTO) {
         Player player = Mapper.mapToPlayer(playerDTO);
-        logger.info("Player update: "+player);
+        logger.info("Player update: " + player);
         playerRepository.save(player);
     }
+
+    public Player savePlayer(NewPlayerDTO playerDTO, String playerId, boolean isAdmin) {
+        Player player = Mapper.mapToPlayer(playerDTO, playerId, isAdmin);
+        logger.info("Player save: " + player);
+        return playerRepository.save(player);
+    }
+
 
     @Deprecated
     public Iterable<Player> getAll() {
@@ -45,7 +54,14 @@ public class PlayerService {
                 .map(p -> Player.builder(p).obsoleted(true).build())
                 .ifPresent(playerRepository::save);
     }
+
     public void removePlayer(String id) {
         playerRepository.deleteById(id);
+        logger.info("Remove player: " + id);
+    }
+
+    public void removePlayers(List<String> ids) {
+        playerRepository.deleteAllById(ids);
+        logger.info("Remove players: " + ids);
     }
 }

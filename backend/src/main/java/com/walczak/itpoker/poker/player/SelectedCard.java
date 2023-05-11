@@ -1,15 +1,14 @@
 package com.walczak.itpoker.poker.player;
 
-import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+@Document
 @NoArgsConstructor
 public final class SelectedCard {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
     private Long cardId;
     private String unit;
     private short timeValue;
