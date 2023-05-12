@@ -10,7 +10,7 @@
                 </div>
                 
                 <div v-else-if="isSelected" class='flex justify-center items-center flex-col gap-0 relative'>
-                    <p class='xs:text-sm lg:text-xl text-white font-main -m-2 active:brightness-110'>{{ data.value }}</p>
+                    <p class='xs:text-sm lg:text-xl text-white font-main -m-3 active:brightness-110'>{{ data.value }}</p>
                     <div class='text-lg flex justify-center items-center w-full font-extralight'>
                         <p class='xs:text-sm lg:text-xl text-center text-white font-light font-main '>{{ data.unit }}</p>
                     </div>
