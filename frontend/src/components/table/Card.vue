@@ -1,5 +1,5 @@
 <template>
-    <div class='cursor-pointer z-40 rounded-md aspect-card lg:min-w-[6vw] lg:w-[6vw] xs:min-w-[20vw] xs:w-[20vw] sm:min-w-[10vw] sm:w-[10vw] md:min-w-[12vw] md:w-[12vw]' :class="{['brightness-110']:isSelected}">
+    <div class='cursor-pointer z-40 rounded-md aspect-card lg:min-w-[7vw] lg:w-[7vw] xs:min-w-[20vw] xs:w-[20vw] sm:min-w-[10vw] sm:w-[10vw] md:min-w-[12vw] md:w-[12vw]' :class="{['brightness-110']:isSelected}">
         <div v-if="isVisible"
             class='w-full h-full rounded-md font-secondary border border-black bg-front bg-center bg-cover mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 active:brightness-110 hover:brightness-105'
             v-on:click="selectCard">
@@ -10,7 +10,7 @@
                 </div>
                 
                 <div v-else-if="isSelected" class='flex justify-center items-center flex-col gap-0 relative'>
-                    <p class='xs:text-sm lg:text-xl text-white font-main -m-1 active:brightness-110'>{{ data.value }}</p>
+                    <p class='xs:text-sm lg:text-xl text-white font-main -m-2 active:brightness-110'>{{ data.value }}</p>
                     <div class='text-lg flex justify-center items-center w-full font-extralight'>
                         <p class='xs:text-sm lg:text-xl text-center text-white font-light font-main '>{{ data.unit }}</p>
                     </div>
