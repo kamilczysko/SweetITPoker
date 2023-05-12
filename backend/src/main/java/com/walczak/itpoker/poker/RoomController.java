@@ -53,6 +53,7 @@ public class RoomController {
         Optional<Room> roomState = roomService.getById(roomLeaveDTO.roomId());
         roomState.map(Mapper::mapToRoomDTO)
                 .ifPresent(state -> simpMessagingTemplate.convertAndSend("/topic/room/" + roomLeaveDTO.roomId(), state));
+        sendResults(roomLeaveDTO.roomId());
     }
 
     private void setAdminIfNotPresent(Room room) {
@@ -93,15 +94,19 @@ public class RoomController {
         }
 
         if (isVotingFinished(dto.roomId())) {
-            List<ResultDTO> result = getResult(dto.roomId());
-            logger.info(dto.roomId(), "Voting finished: " + result);
-            simpMessagingTemplate.convertAndSend("/topic/room/result/" + dto.roomId(), result);
+            sendResults(dto.roomId());
         }
 
         Optional<Room> roomState = roomService.getById(dto.roomId());
         roomState.map(Mapper::mapToRoomDTO)
                 .ifPresent(state -> simpMessagingTemplate.convertAndSend("/topic/room/" + dto.roomId(), state));
         evictionCache.refresh(dto.roomId());
+    }
+
+    private void sendResults(String roomId) {
+        List<ResultDTO> result = getResult(roomId);
+        logger.info(roomId, "Voting finished: " + result);
+        simpMessagingTemplate.convertAndSend("/topic/room/result/" + roomId, result);
     }
 
     private List<ResultDTO> getResult(String roomId) {
