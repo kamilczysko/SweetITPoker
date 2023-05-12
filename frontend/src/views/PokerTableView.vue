@@ -6,7 +6,7 @@
                 <h1 class='text-4xl xs:hidden sm:block'>{{ getRoomName }}</h1>
                 <Player :player="getMyPlayer" class='absolute right-10 top-5' @setObserver="setObserver" />
             </nav>
-            <div class='grid grid-cols-[87%_13%] h-full'>
+            <div class='xs:flex xs:items-center xs:justify-center md:grid md:grid-cols-[85%_15%] h-[60vh]'>
                 <div class='flex flex-col justify-center items-center'>
                     <GameTable :players="getAllPlayers" />
                 </div>
