@@ -9,7 +9,7 @@
                     <img v-else src="../../assets/questionmark.png">
                 </div>
                 
-                <div v-else-if="isSelected" class='flex justify-center items-center flex-col gap-0 relative'>
+                <div v-else-if="isSelected" class='flex justify-center items-center flex-col gap-0 relative pt-3'>
                     <p class='xs:text-sm lg:text-xl text-white font-main -m-3 active:brightness-110'>{{ data.value }}</p>
                     <div class='text-lg flex justify-center items-center w-full font-extralight'>
                         <p class='xs:text-sm lg:text-xl text-center text-white font-light font-main '>{{ data.unit }}</p>
