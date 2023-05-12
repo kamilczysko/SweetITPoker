@@ -45,5 +45,4 @@ public class ApplicationConfiguration implements WebSocketMessageBrokerConfigure
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/poker").setAllowedOriginPatterns("*").withSockJS();
     }
-
 }

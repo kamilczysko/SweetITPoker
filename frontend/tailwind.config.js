@@ -25,9 +25,6 @@ module.exports = {
     },
     gridTemplateColumns: {
       inputGrid: '1fr 3fr',
-      pokerMain: '7fr 1fr',
-      pokerMainSmaller: '7fr 2fr',
-      pokerMainEvenSmaller: '7fr 3fr',
       deck: 'repeat(11, minmax(0, 1fr))',
       '3': 'repeat(3, minmax(0, 1fr))'
     },

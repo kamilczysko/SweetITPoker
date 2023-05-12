@@ -1,39 +1,38 @@
 <template>
-    <div class='w-full h-full flex items-center justify-center'>
-        <div class='grid grid-rows-nav xs:w-full xs:h-[full] lg:w-[98vw] lg:h-[98vh]'>
-            <nav class='w-full h-full grid grid-cols-3 items-center'>
-                <div class='w-24 ml-6'>
-                    <CustomButton label="Logout" @clicked="logoutSelf"></CustomButton>
-                </div>
-                <h1 class='text-4xl text-center'>{{ getRoomName }}</h1>
+        <div class='flex flex-col justify-between items-stretch'>
+            <nav class='w-screen h-[7vh] flex justify-center items-center mb-4'>
+                <CustomButton label="Logout" @clicked="logoutSelf" class='xs:w-[15vw] lg:w-[10vw] absolute left-10'>
+                </CustomButton>
+                <h1 class='text-4xl xs:hidden sm:block'>{{ getRoomName }}</h1>
                 <Player :player="getMyPlayer" class='absolute right-10 top-5' @setObserver="setObserver" />
             </nav>
-            <div class='grid 2xl:grid-cols-pokerMain lg:grid-cols-pokerMainSmaller grid-cols-pokerMainEvenSmaller '>
-                <div class='grid grid-rows-pokerTable'>
+            <div class='grid grid-cols-[87%_13%] h-full'>
+                <div class='flex flex-col justify-center items-center'>
                     <GameTable :players="getAllPlayers" />
+                </div>
+                <transition name="slide-right" appear>
+                    <UsersList :isAdmin="amIAdmin" :players="getPlayersForList" @leave="logoutPlayer" @setAdmin="setAdmin"
+                        @setObserver="setObserver"
+                        class='xs:hidden sm:block h-[60vh] overflow-scroll overflow-y-auto scroll-smooth scroll-m-4' />
+                </transition>
+            </div>
+            <div class='grid grid-cols-[90%_10%] bg-slate-300 bg-opacity-90 absolute bottom-0 w-screen'>
+                <div class='flex items-center justify-center py-3'>
                     <transition name="slide-bottom" appear>
-                        <MyCards v-show="!amIObserver" @selectCard="selectCard" />
+                        <MyCards v-show="!amIObserver" @selectCard="selectCard" class='w-full' />
                     </transition>
                 </div>
-                <div class='h-full grid '>
-                    <transition name="slide-right" appear>
-                        <UsersList :isAdmin="amIAdmin" :players="getPlayersForList" @leave="logoutPlayer"
-                            @setAdmin="setAdmin" @setObserver="setObserver"
-                            class='overflow-x-auto h-[35rem] scroll-smooth' />
-                    </transition>
-                    <div class='flex flex-col items-center justify-center gap-4'>
-                        <CustomButton label="Copy link!" class='w-3/4' @clicked="copyToClipboard" />
-                        <CustomButton v-if="amIAdmin" label="Reset!" class='w-3/4' @clicked="resetVotes" />
-                        <CustomButton label="Refresh" class='w-3/4' @clicked="initRoom" />
-                        <p class="info" id="pokerRoomInfo">Copied!</p>
-                    </div>
+                <div class='xs:hidden sm:flex flex-col justify-start items-center gap-5 mx-5 mt-5'>
+                    <CustomButton label="Copy link!" class='w-full' @clicked="copyToClipboard" />
+                    <CustomButton v-if="amIAdmin" label="Reset!" class='w-full' @clicked="resetVotes" />
+                    <CustomButton label="Refresh" class='w-full' @clicked="initRoom" />
+                    <p class="info" id="pokerRoomInfo">Copied!</p>
                 </div>
             </div>
             <transition name="appear">
                 <Result v-if="isVotingFinished" :isAdmin="amIAdmin" :data="resultData" @reset="resetVotes" />
             </transition>
         </div>
-    </div>
 </template>
 <script>
 

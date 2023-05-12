@@ -1,5 +1,5 @@
 <template>
-    <div class='grid grid-cols-deck ml-4 gap-5 mb-2 items-center'>
+    <div class='flex justify-between items-center overflow-scroll overflow-x-scroll ml-5'>
         <PlayerCard v-for="card in getDeck" :isSelected="getSelectedCard == card.cardId" :key="card.id" :data="card" v-on:selectCard="selectCard" />
     </div>
 </template>
