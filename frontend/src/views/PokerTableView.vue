@@ -3,7 +3,7 @@
             <nav class='w-screen h-[7vh] flex justify-center items-center mb-4'>
                 <CustomButton label="Logout" @clicked="logoutSelf" class='xs:w-[15vw] lg:w-[10vw] absolute left-10'>
                 </CustomButton>
-                <h1 class='text-4xl xs:hidden sm:block'>{{ getRoomName }}</h1>
+                <h1 class='text-4xl xs:hidden md:block'>{{ getRoomName }}</h1>
                 <Player :player="getMyPlayer" class='absolute right-10 top-5' @setObserver="setObserver" />
             </nav>
             <div class='xs:flex xs:items-center xs:justify-center md:grid md:grid-cols-[85%_15%] h-[60vh]'>
@@ -13,7 +13,7 @@
                 <transition name="slide-right" appear>
                     <UsersList :isAdmin="amIAdmin" :players="getPlayersForList" @leave="logoutPlayer" @setAdmin="setAdmin"
                         @setObserver="setObserver"
-                        class='xs:hidden sm:block h-[60vh] overflow-scroll overflow-y-auto scroll-smooth scroll-m-4' />
+                        class='xs:hidden md:block h-[60vh] overflow-scroll overflow-y-auto scroll-smooth scroll-m-4' />
                 </transition>
             </div>
             <div class='grid grid-cols-[90%_10%] bg-slate-300 bg-opacity-90 absolute bottom-0 w-screen'>
