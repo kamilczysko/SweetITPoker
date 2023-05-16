@@ -104,6 +104,9 @@ public class RoomController {
     }
 
     private void sendResults(String roomId) {
+        if (!isVotingFinished(roomId)) {
+            return;
+        }
         List<ResultDTO> result = getResult(roomId);
         logger.info(roomId, "Voting finished: " + result);
         simpMessagingTemplate.convertAndSend("/topic/room/result/" + roomId, result);

@@ -33,20 +33,19 @@ public class RoomService {
     }
 
     private static Room prepareRoomUpdate(Player player, Room room) {
-        return new Room().builder(room)
+        return Room.builder(room)
                 .addPlayer(player)
                 .build();
     }
 
-    public Room createNewRoom(Room room) {
+    public void createNewRoom(Room room) {
         boolean scheduled = evictionCache.scheduleCleaningCache();
-        if(scheduled) {
+        if (scheduled) {
             logger.info("Eviction cache just scheduled");
         }
         logger.info("Create new room", room.toString());
         Room savedRoom = roomRepository.save(room);
         evictionCache.put(savedRoom.getId());
-        return savedRoom;
     }
 
     public Room getExistingById(String roomId) {
@@ -74,7 +73,9 @@ public class RoomService {
 
     public Map<String, Double> calculateResult(String roomId) {
         List<Player> nonObservers = roomRepository.findById(roomId).map(Room::getPlayers).orElse(Collections.emptyList()).stream()
-                .filter(player -> !player.isObserver()).collect(Collectors.toList());
+                .filter(player -> !player.isObserver())
+                .filter(player -> player.getSelectedCard() != null)
+                .collect(Collectors.toList());
         List<Player> players = nonObservers;
         if (nonObservers.stream().anyMatch(player -> player.getSelectedCard().value() != 0)) {
             players = nonObservers.stream()
