@@ -3,7 +3,7 @@
         <div class='rounded-full overflow-hidden aspect-square xs:w-[10vw] md:w-[8vw] lg:w-[4vw] ml-1' :class="{['shadow-round'] : getPlayer.selectedCard!=null}">
             <img :src="getAvatar(getPlayer.avatarIdx)">
         </div>
-        <div class='relative' :class="{ ['blur-[1px]']: getPlayer.isObserver }">
+        <div class='relative font-normal text-white' :class="{ ['blur-[1px]']: getPlayer.isObserver }">
             <p class='text-xl'> {{ getPlayer.name }} </p>
             <span class='font-secondary text-[12px] absolute -top-3'>{{ getPlayer.role }}</span>
             <div class='p-1'>

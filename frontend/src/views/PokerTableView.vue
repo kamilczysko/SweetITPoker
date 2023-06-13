@@ -1,12 +1,12 @@
 <template>
-        <div class='flex flex-col justify-between items-stretch'>
+        <div class='flex flex-col justify-between items-stretch bg-background bg-cover'>
             <nav class='w-screen h-[7vh] flex justify-center items-center mb-4'>
                 <CustomButton label="Logout" @clicked="logoutSelf" class='xs:w-[15vw] lg:w-[10vw] absolute left-10'>
                 </CustomButton>
-                <h1 class='text-4xl xs:hidden md:block'>{{ getRoomName }}</h1>
+                <h1 class='text-4xl text-white xs:hidden md:block'>{{ getRoomName }}</h1>
                 <Player :player="getMyPlayer" class='absolute right-10 top-5' @setObserver="setObserver" />
             </nav>
-            <div class='xs:flex xs:items-center xs:justify-center md:grid md:grid-cols-[85%_15%] h-[60vh]'>
+            <div class='xs:flex xs:items-center xs:justify-center md:grid md:grid-cols-[85%_15%]'>
                 <div class='flex flex-col justify-center items-center'>
                     <GameTable :players="getAllPlayers" />
                 </div>
