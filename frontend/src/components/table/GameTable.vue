@@ -2,7 +2,7 @@
     <div class='flex items-center flex-wrap justify-center gap-4'>
         <div v-for="player in getPlayers" :key="player.uid" class='flex flex-col items-center aspect-card'>
             <Card :data="player.selectedCard" :isVisible="showCards" :isSelected="player.selectedCard != null"/>
-            <p>{{ player.name }}</p>
+            <p class="text-white">{{ player.name }}</p>
         </div>
     </div>
 </template>
