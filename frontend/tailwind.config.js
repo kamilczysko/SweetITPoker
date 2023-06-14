@@ -42,7 +42,7 @@ module.exports = {
       backgroundImage: {
         'revers': "url('/src/assets/revers.png')",
         'front': "url('/src/assets/front.png')",
-        'background': "url('/src/assets/background.png')",
+        'background': "url('/src/assets/background.jpeg')",
         'background-second': "url('/src/assets/background.png')",
         'background-third': "url('/src/assets/background2.png')",
       },
