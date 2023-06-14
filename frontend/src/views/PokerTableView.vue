@@ -1,5 +1,5 @@
 <template>
-    <div class='h-screen w-screen bg-background-second bg-cover'>
+    <div class='h-screen w-screen sm:bg-background-second-sm md:bg-background-second-md xl:bg-background-second-xl bg-cover'>
         <div class='flex flex-col justify-between items-stretch'>
             <nav class='w-screen h-[12vh] flex justify-between items-center bg-black bg-opacity-30 backdrop-blur-sm'>
                 <CustomButton label="Logout" @clicked="logoutSelf" class='xs:w-[15vw] lg:w-[10vw] ml-10'>
