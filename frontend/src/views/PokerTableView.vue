@@ -1,10 +1,10 @@
 <template>
-        <div class='flex flex-col justify-between items-stretch bg-background bg-cover'>
-            <nav class='w-screen h-[7vh] flex justify-center items-center mb-4'>
-                <CustomButton label="Logout" @clicked="logoutSelf" class='xs:w-[15vw] lg:w-[10vw] absolute left-10'>
+        <div class='flex flex-col justify-between items-stretch'>
+            <nav class='w-screen h-[12vh] flex justify-between items-center bg-black bg-opacity-30 backdrop-blur-sm'>
+                <CustomButton label="Logout" @clicked="logoutSelf" class='xs:w-[15vw] lg:w-[10vw] ml-10'>
                 </CustomButton>
-                <h1 class='text-4xl text-white xs:hidden md:block'>{{ getRoomName }}</h1>
-                <Player :player="getMyPlayer" class='absolute right-10 top-5' @setObserver="setObserver" />
+                <h1 class='text-4xl text-main-font xs:hidden md:block'>{{ getRoomName }}</h1>
+                <Player :player="getMyPlayer" class='place-self-center justify-self-end mr-3' @setObserver="setObserver" />
             </nav>
             <div class='xs:flex xs:items-center xs:justify-center md:grid md:grid-cols-[85%_15%]'>
                 <div class='flex flex-col justify-center items-center'>
@@ -13,11 +13,11 @@
                 <transition name="slide-right" appear>
                     <UsersList :isAdmin="amIAdmin" :players="getPlayersForList" @leave="logoutPlayer" @setAdmin="setAdmin"
                         @setObserver="setObserver"
-                        class='xs:hidden md:block h-[60vh] overflow-scroll overflow-y-auto scroll-smooth scrollbar-hide scroll-m-4' />
+                        class='xs:hidden md:block h-[65vh] overflow-scroll overflow-y-auto scroll-smooth scrollbar-hide scroll-m-4' />
                 </transition>
             </div>
-            <div class='grid grid-cols-[90%_10%] bg-slate-300 bg-opacity-90 absolute bottom-0 w-screen'>
-                <div class='flex items-center justify-center py-3'>
+            <div class='grid grid-cols-[90%_10%] bg-black backdrop-blur-sm bg-opacity-20 absolute bottom-0 w-screen'>
+                <div class='flex items-center justify-center py-1'>
                     <transition name="slide-bottom" appear>
                         <MyCards v-show="!amIObserver" @selectCard="selectCard" class='w-full' />
                     </transition>

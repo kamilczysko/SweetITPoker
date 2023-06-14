@@ -1,5 +1,5 @@
 <template>
-    <div class='mt-14 lg:pl-2'>
+    <div class='lg:pl-2 backdrop-blur-sm bg-black bg-opacity-30'>
         <div v-for="player in players" :key="player.id" class='relative'>
             <Player class='absoulte' :player="player" @setAdmin="setAdmin" @setObserver="setObserver" />
             <button v-if="amIAdmin" v-on:click="leave(player.id)" class='absolute top-1'>

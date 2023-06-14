@@ -21,7 +21,10 @@ module.exports = {
       colors: {
         'bg1': '#FFDEE9',
         'bg2': '#B5FFFC',
-        'bg3': '#C850C0'
+        'bg3': '#C850C0',
+        'main-font': '#DDDDDD',
+        'button-font': '#DDDDDD',
+        'card-font': '#140F11',
       },
       gridTemplateColumns: {
         inputGrid: '1fr 3fr',

@@ -5,17 +5,18 @@
             <transition name="slide-left" appear delay>
                 <Description class='xs:w-full lg:w-[45vw] xs:px-5 lg:pr-10'></Description>
             </transition>
+            <div class='border-l-[1px] border-black h-[60vh] mr-5'></div>
             <transition name="slide-right" appear delay>
-                <div class='font-secondary flex flex-col items-center xs:w-[90vw] lg:w-[45vw] xs:border-t-[1px] xs:border-l-0 lg:border-t-0 lg:border-l-[1px] border-gray-500'>
+                <div class='font-secondary flex flex-col items-center xs:w-[90vw] lg:w-[45vw] xs:border-t-[1px] xs:border-l-0 lg:border-t-0 rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-20'>
+                    <img src="../assets/sad.png" class='w-7 h-7 absolute right-10 -top-6 translate-x-full'>
                     <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
                     <div class='flex justify-center relative'>
                         <h1 class='xs:mb-3 lg:mb-10 font-main xs:text-sm lg:text-2xl'>Create new room</h1>
                     </div>
-                    <div class='rounded-md border-spacing-3 flex flex-col gap-10 items-stretch w-full px-5'>
+                    <div class='border-spacing-3 flex flex-col gap-10 items-stretch w-[95%] rounded-xl'>
                         <TextInput label="Room name" v-on:inputText="setRoomName" />
                         <div
-                            class='bg-bg3 bg-opacity-10 shadow-xl rounded-xl flex flex-col gap-10 items-stretch px-5 pb-5 xs:gap-15 relative'>
-                            <img src="../assets/sad.png" class='w-7 h-7 absolute right-10 -top-6 translate-x-full'>
+                            class=' shadow-xl rounded-xl flex flex-col gap-10 items-stretch px-5 pb-5 xs:gap-15 relative bg-black bg-opacity-5'>
                             <p class='text-center font-extralight text-xs -mt-4'>User info</p>
                             <TextInput label="Your name" v-on:inputText="setName" />
                             <Choose label="Your role" :values="roles" v-on:choose="setRole" />
