@@ -42,15 +42,9 @@ module.exports = {
       backgroundImage: {
         'revers': "url('/src/assets/revers.png')",
         'front': "url('/src/assets/front.png')",
-        'background-xl': "url('/src/assets/background-xl.png')",
-        'background-sm': "url('/src/assets/background-sm.png')",
-        'background-md': "url('/src/assets/background-md.png')",
-        'background-second-xl': "url('/src/assets/background.png')",
-        'background-second-md': "url('/src/assets/background.png')",
-        'background-second-sm': "url('/src/assets/background.png')",
-        'background-third-xl': "url('/src/assets/background2.png')",
-        'background-third-md': "url('/src/assets/background2.png')",
-        'background-third-sm': "url('/src/assets/background2.png')"
+        'background': "url('/src/assets/background.png')",
+        'background-second': "url('/src/assets/background.png')",
+        'background-third': "url('/src/assets/background2.png')",
       },
       backgroundSize: {
         'small': '90%'

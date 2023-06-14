@@ -1,5 +1,5 @@
 <template>
-    <div class='h-screen w-screen sm:bg-background-sm md:bg-background-md xl:bg-background-xl bg-cover'>
+    <div class='h-screen w-screen bg-background bg-cover'>
         <div class='flex flex-col items-center'>
             <Header></Header>
             <div class='flex justify-center gap-0 xs:flex-col xs:items-center lg:flex-row'>
