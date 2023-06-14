@@ -50,7 +50,8 @@ module.exports = {
         'small': '90%'
       },
       boxShadow: {
-        'round': '0 0 15px hotpink'
+        'round': '0 0 15px hotpink',
+        'highlight': '5px 5px 5px hotpink'
       }
     },
   },

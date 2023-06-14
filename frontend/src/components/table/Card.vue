@@ -1,5 +1,5 @@
 <template>
-    <div class='cursor-pointer z-40 rounded-md aspect-card lg:min-w-[7vw] lg:w-[7vw] xs:min-w-[20vw] xs:w-[20vw] sm:min-w-[10vw] sm:w-[10vw] md:min-w-[12vw] md:w-[12vw]' :class="{['brightness-125']:isSelected}">
+    <div class='cursor-pointer z-40 rounded-md aspect-card lg:min-w-[7vw] lg:w-[7vw] xs:min-w-[20vw] xs:w-[20vw] sm:min-w-[10vw] sm:w-[10vw] md:min-w-[12vw] md:w-[12vw]' :class="{['brightness-125 shadow-highlight']:isSelected}">
         <div v-if="isVisible"
             class='w-full h-full rounded-md font-secondary border border-black bg-front bg-center bg-cover mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 active:brightness-110 hover:brightness-105'
             v-on:click="selectCard">
