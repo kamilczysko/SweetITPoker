@@ -13,7 +13,7 @@
                 <transition name="slide-right" appear>
                     <UsersList :isAdmin="amIAdmin" :players="getPlayersForList" @leave="logoutPlayer" @setAdmin="setAdmin"
                         @setObserver="setObserver"
-                        class='xs:hidden md:block h-[60vh] overflow-scroll overflow-y-auto scroll-smooth scroll-m-4' />
+                        class='xs:hidden md:block h-[60vh] overflow-scroll overflow-y-auto scroll-smooth scrollbar-hide scroll-m-4' />
                 </transition>
             </div>
             <div class='grid grid-cols-[90%_10%] bg-slate-300 bg-opacity-90 absolute bottom-0 w-screen'>

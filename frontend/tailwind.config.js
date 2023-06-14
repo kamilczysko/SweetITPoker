@@ -14,40 +14,42 @@ module.exports = {
       '2xl': '1550px',
       'cutom': '1550px'
     },
-  extend: {
-    aspectRatio: {
-      'card': '2.7/4'
+    extend: {
+      aspectRatio: {
+        'card': '2.7/4'
+      },
+      colors: {
+        'bg1': '#FFDEE9',
+        'bg2': '#B5FFFC',
+        'bg3': '#C850C0'
+      },
+      gridTemplateColumns: {
+        inputGrid: '1fr 3fr',
+        deck: 'repeat(11, minmax(0, 1fr))',
+        '3': 'repeat(3, minmax(0, 1fr))'
+      },
+      gridTemplateRows: {
+        pokerTable: '9fr 3fr',
+        nav: '1fr 8fr'
+      },
+      fontFamily: {
+        main: 'Lobster',
+        secondary: ['Poppins']
+      },
+      backgroundImage: {
+        'revers': "url('/src/assets/revers.png')",
+        'front': "url('/src/assets/front.png')",
+        'background': "url('/src/assets/background.jpeg')"
+      },
+      backgroundSize: {
+        'small': '90%'
+      },
+      boxShadow: {
+        'round': '0 0 15px hotpink'
+      }
     },
-    colors: {
-      'bg1': '#FFDEE9',
-      'bg2': '#B5FFFC',
-      'bg3': '#C850C0'
-    },
-    gridTemplateColumns: {
-      inputGrid: '1fr 3fr',
-      deck: 'repeat(11, minmax(0, 1fr))',
-      '3': 'repeat(3, minmax(0, 1fr))'
-    },
-    gridTemplateRows: {
-      pokerTable: '9fr 3fr',
-      nav: '1fr 8fr'
-    },
-    fontFamily: {
-      main: 'Lobster',
-      secondary: ['Poppins']
-    },
-    backgroundImage: {
-      'revers': "url('/src/assets/revers.png')",
-      'front': "url('/src/assets/front.png')",
-      'background': "url('/src/assets/background.png')"
-    },
-    backgroundSize: {
-      'small': '90%'
-    },
-    boxShadow: {
-      'round':'0 0 15px hotpink'
-    }
   },
-},
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
 }
