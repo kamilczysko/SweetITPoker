@@ -1,6 +1,6 @@
 <template>
     <div class='cursor-pointer lg:overflow-hidden z-40 rounded-md aspect-card lg:min-w-[7vw] lg:w-[7vw] xs:min-w-[20vw] xs:w-[20vw] sm:min-w-[10vw] sm:w-[10vw] md:min-w-[12vw] md:w-[12vw]'
-        :class="{ ['brightness-125 shadow-highlight']: isSelected }">
+        :class="{ ['brightness-110 shadow-highlight']: isSelected }">
         <div class='w-full h-full rounded-md font-secondary border border-black bg-front bg-center bg-cover mb-3 brightness-90 shadow-lg shadow-bg3 hover:shadow-xl hover:shadow-bg3 active:brightness-110 hover:brightness-105'
             v-on:click="selectCard">
             <div class='w-full h-full rounded-lg flex flex-col items-center justify-center z-50'>
