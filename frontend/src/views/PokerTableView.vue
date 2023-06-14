@@ -13,7 +13,7 @@
                 <transition name="slide-right" appear>
                     <UsersList :isAdmin="amIAdmin" :players="getPlayersForList" @leave="logoutPlayer" @setAdmin="setAdmin"
                         @setObserver="setObserver"
-                        class='xs:hidden md:block h-[65vh] overflow-scroll overflow-y-auto scroll-smooth scrollbar-hide scroll-m-4' />
+                        class='xs:hidden md:block h-[70vh] overflow-scroll overflow-y-auto scroll-smooth scrollbar-hide scroll-m-4' />
                 </transition>
             </div>
             <div class='grid grid-cols-[90%_10%] bg-black backdrop-blur-sm bg-opacity-20 absolute bottom-0 w-screen'>
@@ -22,7 +22,7 @@
                         <MyCards v-show="!amIObserver" @selectCard="selectCard" class='w-full' />
                     </transition>
                 </div>
-                <div class='xs:hidden sm:flex flex-col justify-start items-center gap-5 mx-5 mt-5'>
+                <div class='xs:hidden sm:flex flex-col justify-start items-center gap-5 mx-5 mt-0 h-full pt-3'>
                     <CustomButton label="Copy link!" class='w-full' @clicked="copyToClipboard" />
                     <CustomButton v-if="amIAdmin" label="Reset!" class='w-full' @clicked="resetVotes" />
                     <CustomButton label="Refresh" class='w-full' @clicked="initRoom" />

@@ -27,7 +27,7 @@
                         <p :class="{ [`invisible`]: !isLoading }" class='text-center h-1 text-sm font-extralight'>
                             Loading...
                         </p>
-                        <CustomButton :class="{ ['opacity-60']: isLoading }" label="Create new room!" class='mt-5'
+                        <CustomButton :class="{ ['opacity-60']: isLoading }" label="Create new room!" class='mt-5 bg-opacity-70'
                             v-on:clicked="create" />
                     </div>
                     <small class="text-xs w-8/12 font-extralight text-center mt-3">

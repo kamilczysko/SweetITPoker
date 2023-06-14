@@ -18,9 +18,9 @@
                             <ImageChoose label="Your avatar" :images="prepareAvatars" v-on:select="selectAvatar" />
                         </div>
                         <div class='mt-4 flex flex-col gap-3 items-center xs:w-4/5 md:w-2/3'>
-                            <CustomButton label="Join!" v-on:clicked="join" />
+                            <CustomButton label="Join!" v-on:clicked="join" class=' bg-opacity-70'/>
                             <p class='font-extralight'>or</p>
-                            <CustomButton label="Create new one!" v-on:clicked="newRoom" />
+                            <CustomButton label="Create new one!" v-on:clicked="newRoom" class=' bg-opacity-70'/>
                         </div>
                         <small class="text-xs w-8/12 font-extralight text-center mt-3">
                             This site is protected by reCAPTCHA and the Google
