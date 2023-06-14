@@ -42,7 +42,9 @@ module.exports = {
       backgroundImage: {
         'revers': "url('/src/assets/revers.png')",
         'front': "url('/src/assets/front.png')",
-        'background': "url('/src/assets/background.jpeg')"
+        'background': "url('/src/assets/background.jpg')",
+        'background-second': "url('/src/assets/background.png')",
+        'background-third': "url('/src/assets/background2.png')"
       },
       backgroundSize: {
         'small': '90%'

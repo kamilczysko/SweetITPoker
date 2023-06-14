@@ -1,4 +1,5 @@
 <template>
+    <div class='h-screen w-screen bg-background-second bg-cover'>
         <div class='flex flex-col justify-between items-stretch'>
             <nav class='w-screen h-[12vh] flex justify-between items-center bg-black bg-opacity-30 backdrop-blur-sm'>
                 <CustomButton label="Logout" @clicked="logoutSelf" class='xs:w-[15vw] lg:w-[10vw] ml-10'>
@@ -26,13 +27,14 @@
                     <CustomButton label="Copy link!" class='w-full' @clicked="copyToClipboard" />
                     <CustomButton v-if="amIAdmin" label="Reset!" class='w-full' @clicked="resetVotes" />
                     <CustomButton label="Refresh" class='w-full' @clicked="initRoom" />
-                    <p class="info" id="pokerRoomInfo">Copied!</p>
+                    <p class="info text-main-font" id="pokerRoomInfo">Copied!</p>
                 </div>
             </div>
             <transition name="appear">
                 <Result v-if="isVotingFinished" :isAdmin="amIAdmin" :data="resultData" @reset="resetVotes" />
             </transition>
         </div>
+    </div>
 </template>
 <script>
 
