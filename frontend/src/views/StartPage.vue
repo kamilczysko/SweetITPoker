@@ -1,6 +1,6 @@
 <template>
     <div class='flex flex-col items-center'>
-        <Header></Header>
+        <Header class='bg-background z-50'></Header>
         <div class='flex justify-center gap-0 xs:flex-col xs:items-center lg:flex-row'>
             <transition name="slide-left" appear delay>
                 <Description class='xs:w-full lg:w-[45vw] xs:px-5 lg:pr-10'></Description>

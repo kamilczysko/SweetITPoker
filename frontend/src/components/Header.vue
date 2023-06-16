@@ -1,5 +1,5 @@
 <template>
-    <header class='flex flex-col items-center justify-center mt-5'>
+    <header class='flex flex-col items-center justify-center mt-5 bg-none'>
         <div>
             <h1 class='font-main xs:text-2xl md:text-[2vw] text-center'>UwUstimates</h1>
             <h2 class='font-main text-[1.3vw] underline text-center xs:hidden sm:block'>Cutest Agile Planning Poker</h2>
