@@ -8,12 +8,12 @@
             <div class='border-l-[1px] border-black h-[60vh] mr-5  xs:hidden lg:block'></div>
             <transition name="slide-right" appear>
                 <div
-                    class='font-secondary flex flex-col justify-center xs:w-[90vw] lg:w-[45vw] xs:border-l-0 lg:border-t-0 rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-20'>
+                    class='font-secondary flex flex-col justify-center xs:w-[90vw] lg:w-[45vw] xs:border-l-0 lg:border-t-0 rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-30'>
                     <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
                     <div class='flex flex-col gap-5 items-center'>
                         <h1 class='mb-10 font-main text-xl'>Join room!</h1>
                         <div
-                            class='flex flex-col xs:gap-10 md:gap-8 xs:w-[95vw] lg:w-3/4 border-b-gray-400 border-b-[1px] pb-3'>
+                            class='flex flex-col xs:gap-10 md:gap-8 xs:w-[95vw] lg:w-3/4 py-3 bg-black bg-opacity-5 rounded-lg shadow-xl '>
                             <TextInput label="Your name" v-on:inputText="setName" />
                             <Choose label="Your role" :values="roles" v-on:choose="setRole" />
                             <ImageChoose label="Your avatar" :images="prepareAvatars" v-on:select="selectAvatar" />

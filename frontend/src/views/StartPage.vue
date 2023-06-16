@@ -1,6 +1,6 @@
 <template>
     <div class='flex flex-col items-center'>
-        <Header class='bg-background z-50'></Header>
+        <Header></Header>
         <div class='flex justify-center gap-0 xs:flex-col xs:items-center lg:flex-row'>
             <transition name="slide-left" appear delay>
                 <Description class='xs:w-full lg:w-[45vw] xs:px-5 lg:pr-10'></Description>
@@ -8,7 +8,7 @@
             <div class='border-l-[1px] border-black h-[60vh] mr-5 xs:hidden lg:block'></div>
             <transition name="slide-right" appear delay>
                 <div
-                    class='font-secondary flex flex-col items-center xs:w-[90vw] lg:w-[45vw] xs:border-l-0 lg:border-t-0 rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-20'>
+                    class='font-secondary flex flex-col items-center xs:w-[90vw] lg:w-[45vw] xs:border-l-0 lg:border-t-0 rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-30'>
                     <img src="../assets/sad.png" class='w-7 h-7 absolute right-10 -top-6 translate-x-full'>
                     <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
                     <div class='flex justify-center relative'>
@@ -18,7 +18,7 @@
                         <TextInput label="Room name" v-on:inputText="setRoomName" />
                         <div
                             class=' shadow-xl rounded-xl flex flex-col gap-10 items-stretch px-5 pb-5 xs:gap-15 relative bg-black bg-opacity-5'>
-                            <p class='text-center font-extralight text-xs -mt-4'>User info</p>
+                            <p class='text-center underline underline-offset-4 text-xs -mt-4'>User info</p>
                             <TextInput label="Your name" v-on:inputText="setName" />
                             <Choose label="Your role" :values="roles" v-on:choose="setRole" />
                             <ImageChoose label="Your avatar" :images="prepareAvatars" v-on:select="selectAvatar" />
