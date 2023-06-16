@@ -1,45 +1,43 @@
 <template>
-    <div class='h-screen w-screen bg-background bg-cover'>
-        <div class='flex flex-col items-center'>
-            <Header></Header>
-            <div class='flex justify-center gap-0 xs:flex-col xs:items-center lg:flex-row'>
-                <transition name="slide-left" appear delay>
-                    <Description class='xs:w-full lg:w-[45vw] xs:px-5 lg:pr-10'></Description>
-                </transition>
-                <div class='border-l-[1px] border-black h-[60vh] mr-5 xs:hidden md:block'></div>
-                <transition name="slide-right" appear delay>
-                    <div
-                        class='font-secondary flex flex-col items-center xs:w-[90vw] lg:w-[45vw] xs:border-t-[1px] xs:border-l-0 lg:border-t-0 rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-20'>
-                        <img src="../assets/sad.png" class='w-7 h-7 absolute right-10 -top-6 translate-x-full'>
-                        <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
-                        <div class='flex justify-center relative'>
-                            <h1 class='xs:mb-3 lg:mb-10 font-main xs:text-sm lg:text-2xl'>Create new room</h1>
-                        </div>
-                        <div class='border-spacing-3 flex flex-col gap-10 items-stretch w-[95%] rounded-xl'>
-                            <TextInput label="Room name" v-on:inputText="setRoomName" />
-                            <div
-                                class=' shadow-xl rounded-xl flex flex-col gap-10 items-stretch px-5 pb-5 xs:gap-15 relative bg-black bg-opacity-5'>
-                                <p class='text-center font-extralight text-xs -mt-4'>User info</p>
-                                <TextInput label="Your name" v-on:inputText="setName" />
-                                <Choose label="Your role" :values="roles" v-on:choose="setRole" />
-                                <ImageChoose label="Your avatar" :images="prepareAvatars" v-on:select="selectAvatar" />
-                            </div>
-                        </div>
-                        <div class='xs:w-4/5 md:w-1/2 flex flex-col items-center justify-center gap-0'>
-                            <p :class="{ [`invisible`]: !isLoading }" class='text-center h-1 text-sm font-extralight'>
-                                Loading...
-                            </p>
-                            <CustomButton :class="{ ['opacity-60']: isLoading }" label="Create new room!"
-                                class='mt-5 bg-opacity-70' v-on:clicked="create" />
-                        </div>
-                        <small class="text-xs w-8/12 font-extralight text-center mt-3">
-                            This site is protected by reCAPTCHA and the Google
-                            <a class='text-blue-500' href="https://policies.google.com/privacy">Privacy Policy</a> and
-                            <a class='text-blue-500' href="https://policies.google.com/terms">Terms of Service</a> apply.
-                        </small>
+    <div class='flex flex-col items-center'>
+        <Header></Header>
+        <div class='flex justify-center gap-0 xs:flex-col xs:items-center lg:flex-row'>
+            <transition name="slide-left" appear delay>
+                <Description class='xs:w-full lg:w-[45vw] xs:px-5 lg:pr-10'></Description>
+            </transition>
+            <div class='border-l-[1px] border-black h-[60vh] mr-5 xs:hidden lg:block'></div>
+            <transition name="slide-right" appear delay>
+                <div
+                    class='font-secondary flex flex-col items-center xs:w-[90vw] lg:w-[45vw] xs:border-l-0 lg:border-t-0 rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-20'>
+                    <img src="../assets/sad.png" class='w-7 h-7 absolute right-10 -top-6 translate-x-full'>
+                    <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
+                    <div class='flex justify-center relative'>
+                        <h1 class='xs:mb-3 lg:mb-10 font-main xs:text-sm lg:text-2xl'>Create new room</h1>
                     </div>
-                </transition>
-            </div>
+                    <div class='border-spacing-3 flex flex-col gap-10 items-stretch w-[95%] rounded-xl'>
+                        <TextInput label="Room name" v-on:inputText="setRoomName" />
+                        <div
+                            class=' shadow-xl rounded-xl flex flex-col gap-10 items-stretch px-5 pb-5 xs:gap-15 relative bg-black bg-opacity-5'>
+                            <p class='text-center font-extralight text-xs -mt-4'>User info</p>
+                            <TextInput label="Your name" v-on:inputText="setName" />
+                            <Choose label="Your role" :values="roles" v-on:choose="setRole" />
+                            <ImageChoose label="Your avatar" :images="prepareAvatars" v-on:select="selectAvatar" />
+                        </div>
+                    </div>
+                    <div class='xs:w-4/5 md:w-1/2 flex flex-col items-center justify-center gap-0'>
+                        <p :class="{ [`invisible`]: !isLoading }" class='text-center h-1 text-sm font-extralight'>
+                            Loading...
+                        </p>
+                        <CustomButton :class="{ ['opacity-60']: isLoading }" label="Create new room!"
+                            class='mt-5 bg-opacity-70' v-on:clicked="create" />
+                    </div>
+                    <small class="text-xs w-8/12 font-extralight text-center mt-3">
+                        This site is protected by reCAPTCHA and the Google
+                        <a class='text-blue-500' href="https://policies.google.com/privacy">Privacy Policy</a> and
+                        <a class='text-blue-500' href="https://policies.google.com/terms">Terms of Service</a> apply.
+                    </small>
+                </div>
+            </transition>
         </div>
     </div>
 </template>

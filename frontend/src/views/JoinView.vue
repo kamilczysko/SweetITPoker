@@ -1,40 +1,37 @@
 <template>
-    <div class='h-screen w-screen bg-background-third bg-cover'>
-
-        <div class='flex flex-col items-center'>
-            <Header></Header>
-            <div class='flex gap-0 justify-center xs:flex-col xs:items-center lg:flex-row'>
-                <transition name="slide-left" appear>
-                    <Description class='xs:w-full lg:w-[45vw] xs:px-5 lg:pr-10'></Description>
-                </transition>
-                <div class='border-l-[1px] border-black h-[60vh] mr-5  xs:hidden md:block'></div>
-                <transition name="slide-right" appear>
-                    <div
-                        class='font-secondary flex flex-col justify-center xs:w-[90vw] lg:w-[45vw] xs:border-t-[1px] xs:border-l-0 lg:border-t-0 rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-20'>
-                        <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
-                        <div class='flex flex-col gap-5 items-center'>
-                            <h1 class='mb-10 font-main text-xl'>Join room!</h1>
-                            <div
-                                class='flex flex-col xs:gap-10 md:gap-8 xs:w-[95vw] lg:w-3/4 border-b-gray-400 border-b-[1px] pb-3'>
-                                <TextInput label="Your name" v-on:inputText="setName" />
-                                <Choose label="Your role" :values="roles" v-on:choose="setRole" />
-                                <ImageChoose label="Your avatar" :images="prepareAvatars" v-on:select="selectAvatar" />
-                            </div>
-                            <div class='mt-4 flex flex-col gap-3 items-center xs:w-4/5 md:w-2/3'>
-                                <CustomButton label="Join!" v-on:clicked="join" class=' bg-opacity-70' />
-                                <p class='font-extralight'>or</p>
-                                <CustomButton label="Create new one!" v-on:clicked="newRoom" class=' bg-opacity-70' />
-                            </div>
-                            <small class="text-xs w-8/12 font-extralight text-center mt-3">
-                                This site is protected by reCAPTCHA and the Google
-                                <a class='text-blue-500' href="https://policies.google.com/privacy">Privacy Policy</a> and
-                                <a class='text-blue-500' href="https://policies.google.com/terms">Terms of Service</a>
-                                apply.
-                            </small>
+    <div class='flex flex-col items-center'>
+        <Header></Header>
+        <div class='flex gap-0 justify-center xs:flex-col xs:items-center lg:flex-row'>
+            <transition name="slide-left" appear>
+                <Description class='xs:w-full lg:w-[45vw] xs:px-5 lg:pr-10'></Description>
+            </transition>
+            <div class='border-l-[1px] border-black h-[60vh] mr-5  xs:hidden lg:block'></div>
+            <transition name="slide-right" appear>
+                <div
+                    class='font-secondary flex flex-col justify-center xs:w-[90vw] lg:w-[45vw] xs:border-l-0 lg:border-t-0 rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-20'>
+                    <p class='text-center text-[red] font-light h-5'> {{ errorMessage }}</p>
+                    <div class='flex flex-col gap-5 items-center'>
+                        <h1 class='mb-10 font-main text-xl'>Join room!</h1>
+                        <div
+                            class='flex flex-col xs:gap-10 md:gap-8 xs:w-[95vw] lg:w-3/4 border-b-gray-400 border-b-[1px] pb-3'>
+                            <TextInput label="Your name" v-on:inputText="setName" />
+                            <Choose label="Your role" :values="roles" v-on:choose="setRole" />
+                            <ImageChoose label="Your avatar" :images="prepareAvatars" v-on:select="selectAvatar" />
                         </div>
+                        <div class='mt-4 flex flex-col gap-3 items-center xs:w-4/5 md:w-2/3'>
+                            <CustomButton label="Join!" v-on:clicked="join" class=' bg-opacity-70' />
+                            <p class='font-extralight'>or</p>
+                            <CustomButton label="Create new one!" v-on:clicked="newRoom" class=' bg-opacity-70' />
+                        </div>
+                        <small class="text-xs w-8/12 font-extralight text-center mt-3">
+                            This site is protected by reCAPTCHA and the Google
+                            <a class='text-blue-500' href="https://policies.google.com/privacy">Privacy Policy</a> and
+                            <a class='text-blue-500' href="https://policies.google.com/terms">Terms of Service</a>
+                            apply.
+                        </small>
                     </div>
-                </transition>
-            </div>
+                </div>
+            </transition>
         </div>
     </div>
 </template>
@@ -162,4 +159,5 @@ export default {
 
 .fade-enter-to {
     transition: opacity 0.3s ease;
-} */</style>
+} */
+</style>

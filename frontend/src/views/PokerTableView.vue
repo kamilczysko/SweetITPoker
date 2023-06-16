@@ -1,39 +1,37 @@
 <template>
-    <div class='h-screen w-screen bg-background-second bg-cover scrollbar-hide'>
-        <div class='flex flex-col justify-between items-stretch'>
-            <nav class='w-screen h-[12vh] flex justify-between items-center bg-black bg-opacity-30 backdrop-blur-sm'>
-                <CustomButton label="Logout" @clicked="logoutSelf" class='xs:w-[15vw] lg:w-[10vw] ml-10'>
-                </CustomButton>
-                <h1 class='text-4xl text-main-font xs:hidden md:block'>{{ getRoomName }}</h1>
-                <Player :player="getMyPlayer" class='place-self-center justify-self-end mr-3' @setObserver="setObserver" />
-            </nav>
-            <div class='xs:flex xs:items-center xs:justify-center md:grid md:grid-cols-[85%_15%]'>
-                <div class='flex flex-col justify-center items-center'>
-                    <GameTable :players="getAllPlayers" />
-                </div>
-                <transition name="slide-right" appear>
-                    <UsersList :isAdmin="amIAdmin" :players="getPlayersForList" @leave="logoutPlayer" @setAdmin="setAdmin"
-                        @setObserver="setObserver"
-                        class='xs:hidden md:block h-[70vh] overflow-scroll overflow-y-auto scroll-smooth scrollbar-hide scroll-m-4' />
-                </transition>
+    <div class='flex flex-col justify-between items-stretch'>
+        <nav class='w-screen h-[12vh] flex justify-between items-center bg-black bg-opacity-30 backdrop-blur-sm'>
+            <CustomButton label="Logout" @clicked="logoutSelf" class='xs:w-[15vw] lg:w-[10vw] ml-10'>
+            </CustomButton>
+            <h1 class='text-4xl text-main-font xs:hidden md:block'>{{ getRoomName }}</h1>
+            <Player :player="getMyPlayer" class='place-self-center justify-self-end mr-3' @setObserver="setObserver" />
+        </nav>
+        <div class='xs:flex xs:items-center xs:justify-center md:grid md:grid-cols-[85%_15%]'>
+            <div class='flex flex-col justify-center items-center'>
+                <GameTable :players="getAllPlayers" />
             </div>
-            <div class='grid grid-cols-[90%_10%] bg-black backdrop-blur-sm bg-opacity-20 absolute bottom-0 w-screen'>
-                <div class='flex items-center justify-center py-1'>
-                    <transition name="slide-bottom" appear>
-                        <MyCards v-show="!amIObserver" @selectCard="selectCard" class='w-full' />
-                    </transition>
-                </div>
-                <div class='xs:hidden sm:flex flex-col justify-start items-center gap-5 mx-5 mt-0 h-full pt-3'>
-                    <CustomButton label="Copy link!" class='w-full' @clicked="copyToClipboard" />
-                    <CustomButton v-if="amIAdmin" label="Reset!" class='w-full' @clicked="resetVotes" />
-                    <CustomButton label="Refresh" class='w-full' @clicked="initRoom" />
-                    <p class="info text-main-font" id="pokerRoomInfo">Copied!</p>
-                </div>
-            </div>
-            <transition name="appear">
-                <Result v-if="isVotingFinished" :isAdmin="amIAdmin" :data="resultData" @reset="resetVotes" />
+            <transition name="slide-right" appear>
+                <UsersList :isAdmin="amIAdmin" :players="getPlayersForList" @leave="logoutPlayer" @setAdmin="setAdmin"
+                    @setObserver="setObserver"
+                    class='xs:hidden md:block h-[70vh] overflow-scroll overflow-y-auto scroll-smooth scrollbar-hide scroll-m-4' />
             </transition>
         </div>
+        <div class='grid grid-cols-[90%_10%] bg-black backdrop-blur-sm bg-opacity-20 absolute bottom-0 w-screen'>
+            <div class='flex items-center justify-center py-1'>
+                <transition name="slide-bottom" appear>
+                    <MyCards v-show="!amIObserver" @selectCard="selectCard" class='w-full' />
+                </transition>
+            </div>
+            <div class='xs:hidden sm:flex flex-col justify-start items-center gap-5 mx-5 mt-0 h-full pt-3'>
+                <CustomButton label="Copy link!" class='w-full' @clicked="copyToClipboard" />
+                <CustomButton v-if="amIAdmin" label="Reset!" class='w-full' @clicked="resetVotes" />
+                <CustomButton label="Refresh" class='w-full' @clicked="initRoom" />
+                <p class="info text-main-font" id="pokerRoomInfo">Copied!</p>
+            </div>
+        </div>
+        <transition name="appear">
+            <Result v-if="isVotingFinished" :isAdmin="amIAdmin" :data="resultData" @reset="resetVotes" />
+        </transition>
     </div>
 </template>
 <script>
