@@ -6,7 +6,7 @@
                 <transition name="slide-left" appear delay>
                     <Description class='xs:w-full lg:w-[45vw] xs:px-5 lg:pr-10'></Description>
                 </transition>
-                <div class='border-l-[1px] border-black h-[60vh] mr-5'></div>
+                <div class='border-l-[1px] border-black h-[60vh] mr-5 xs:hidden md:block'></div>
                 <transition name="slide-right" appear delay>
                     <div
                         class='font-secondary flex flex-col items-center xs:w-[90vw] lg:w-[45vw] xs:border-t-[1px] xs:border-l-0 lg:border-t-0 rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-20'>
