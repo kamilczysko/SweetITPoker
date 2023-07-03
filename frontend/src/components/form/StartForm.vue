@@ -85,15 +85,6 @@ export default {
             this.$emit("startRoom", dto)
         }
     },
-
-    // name: newRoomData.roomData.name.trim(),
-    //             cardsValues: newRoomData.roomData.cardsValues,
-    //             units: newRoomData.roomData.units,
-    //             roomCreator: {
-    //                 name: newRoomData.player.name.trim(),
-    //                 avatarIdx: newRoomData.player.avatarIdx,
-    //                 role: newRoomData.player.role
-    //             }
     created() {
         this.roles = Array.from(roles)
     }

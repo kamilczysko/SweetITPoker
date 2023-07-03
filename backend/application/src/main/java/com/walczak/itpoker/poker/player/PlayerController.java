@@ -15,12 +15,10 @@ import java.util.UUID;
 public class PlayerController {
     private final PlayerService playerService;
     private final ApplicationEventPublisher applicationEventPublisher;
-    private final RoomResultStage roomResultStage;
 
-    public PlayerController(PlayerService playerService, ApplicationEventPublisher applicationEventPublisher, RoomResultStage roomResultStage) {
+    public PlayerController(PlayerService playerService, ApplicationEventPublisher applicationEventPublisher) {
         this.playerService = playerService;
         this.applicationEventPublisher = applicationEventPublisher;
-        this.roomResultStage = roomResultStage;
     }
 
     @PostMapping

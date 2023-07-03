@@ -1,7 +1,6 @@
 package com.walczak.itpoker.poker.room;
 
 import com.walczak.itpoker.poker.player.PlayerRole;
-
 import java.util.HashMap;
 import java.util.Map;
 

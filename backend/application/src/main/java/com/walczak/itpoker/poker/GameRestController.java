@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -32,7 +33,16 @@ public class GameRestController {
     public void deletePlayer(@PathVariable("playerId") String playerId) {
         String roomId = playerController.getPlayersRoomId(playerId);
         roomController.detachPlayer(playerId, roomId);
+        setAdminIfNonLeftInTheRoom(roomId);
         applicationEventPublisher.publishEvent(new RoomStateChangeEvent(roomId));
+    }
+
+    private void setAdminIfNonLeftInTheRoom(String roomId) {
+        RoomInfoDTO roomInfo = roomController.getRoomInfo(roomId);
+        if(roomInfo.getPlayers().stream().noneMatch(PlayerInfoDTO::isAdmin)){
+            roomInfo.getPlayers().stream().findFirst()
+                    .ifPresent(p -> playerController.toggleAdmin(p.getId()));
+        }
     }
 
     @PostMapping("/reset/{id}")
