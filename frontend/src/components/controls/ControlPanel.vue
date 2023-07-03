@@ -1,6 +1,8 @@
 <template>
-    <div class="flex xs:flex-row md:flex-col items-center justify-center gap-2">
-        <p class="info" id="info-panel">Copied to clipboard!</p>
+    <div class="flex xs:flex-row md:flex-col items-center justify-center gap-2 relative">
+        <transition>
+            <p class="text-white absolute top-0" v-show="showInfo">Copied to clipboard!</p>
+        </transition>
         <CustomButton label="Copy link!" class='w-full' @clicked="copyToClipboard" />
         <CustomButton label="Reset votes!" class='w-full' @clicked="resetVotes" v-if="this.$store.getters.admin" />
     </div>
@@ -10,17 +12,17 @@ import CustomButton from '@/components/controls/CustomButton.vue'
 export default {
     name: "ControlPanel",
     components: { CustomButton },
+    data() {
+        return {
+            showInfo: false
+        }
+    },
     methods: {
         copyToClipboard() {
             const url = window.location.origin + "/join/" + this.$store.state.roomId
             this.unsecuredCopyToClipboard(url)
-            console.log(document.getElementById("info-panel").classList)
-            document.getElementById("info-panel").classList.remove("hideninfo")
-            document.getElementById("info-panel").classList.add("visibleinfo")
-            console.log(document.getElementById("info-panel").classList)
-        
-            setTimeout(() => { document.getElementById("info-panel").classList.add("hideninfo") }, 1000);
-            console.log(document.getElementById("info-panel").classList)
+            this.showInfo = true
+            setTimeout(() => { this.showInfo = false }, 1500);
         },
         unsecuredCopyToClipboard(text) {
             const textArea = document.createElement("textarea");
@@ -43,17 +45,13 @@ export default {
 }
 </script>
 <style scoped>
-.info {
-    /* margin-top: 10%; */
-    visibility: hidden;
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
 }
 
-.visibleinfo {
-    visibility: visible;
-}
-
-.hideninfo {
-    opacity: 0;
-    transition: visibility .5s .5s, opacity .5s ease;
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
