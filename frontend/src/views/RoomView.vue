@@ -2,20 +2,20 @@
     <div class="bg-background-first w-screen h-screen bg-cover flex flex-col justify-between">
         <RoomHeader @togglePlayerList="togglePlayerList()" @clicked="leave"></RoomHeader>
         <div
-            class="grid xs:grid-cols-1 md:grid-cols-roomView_md xl:grid-cols-roomView h-[70vh] bg-slate-700 bg-opacity-30 backdrop-blur-sm xs:overflow-y-scroll">
+            class="grid xs:grid-cols-1 md:grid-cols-roomView_md xl:grid-cols-roomView h-[70vh] bg-slate-700 bg-opacity-30 backdrop-blur-sm xs:overflow-y-scroll scrollbar-hide">
             <div class="rounded-r-xl flex justify-center items-center">
                 <GameTable></GameTable>
                 <Result v-if="showResult" isAdmin="this.$store.getters.admin" @closeResult="closeResult"
                     @reset="sendResetRoom"></Result>
             </div>
             <PlayerList class="xs:hidden md:block"></PlayerList>
-            <div class="absolute w-full overflow-y-scroll h-[70vh] z-50 bg-slate-900 bg-opacity-60 xs:block md:hidden"
+            <div class="absolute w-full overflow-y-scroll scrollbar-hide h-[70vh] z-50 bg-slate-900 bg-opacity-60 xs:block md:hidden"
                 v-if="showPlayerList">
                 <CustomButton label="Close" class="sticky top-0 z-50" @clicked="togglePlayerList"></CustomButton>
                 <PlayerList></PlayerList>
             </div>
         </div>
-        <div class="grid grid-cols-roomView h-1/5 bg-slate-700 bg-opacity-30 backdrop-blur-sm overflow-x-scroll">
+        <div class="grid grid-cols-roomView h-1/5 bg-slate-700 bg-opacity-30 backdrop-blur-sm overflow-x-scroll scrollbar-hide">
             <div class="flex flex-col justify-center items-center">
                 <PlayerDeck class="" :deck="this.$store.state.roomSettings.cardsValues"
                     :units="this.$store.state.roomSettings.units" @select="setlectCard"></PlayerDeck>
