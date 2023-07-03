@@ -1,6 +1,8 @@
 package com.walczak.itpoker.poker.room;
 
 import com.walczak.itpoker.poker.player.PlayerRole;
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +22,6 @@ public class RoomResultStage {
     }
 
     public Map<PlayerRole, Double> getResult(String roomId) {
-        return roomToResult.get(roomId);
+        return roomToResult.getOrDefault(roomId, Collections.emptyMap());
     }
 }

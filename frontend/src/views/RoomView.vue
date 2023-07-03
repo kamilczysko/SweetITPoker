@@ -15,7 +15,8 @@
                 <PlayerList></PlayerList>
             </div>
         </div>
-        <div class="grid grid-cols-roomView h-1/5 bg-slate-700 bg-opacity-30 backdrop-blur-sm overflow-x-scroll scrollbar-hide">
+        <div
+            class="grid grid-cols-roomView h-1/5 bg-slate-700 bg-opacity-30 backdrop-blur-sm overflow-x-scroll scrollbar-hide">
             <div class="flex flex-col justify-center items-center">
                 <PlayerDeck class="" :deck="this.$store.state.roomSettings.cardsValues"
                     :units="this.$store.state.roomSettings.units" @select="setlectCard"></PlayerDeck>
@@ -34,6 +35,7 @@ import CustomButton from '../components/controls/CustomButton.vue';
 import Result from '../components/Result.vue';
 import StompClient from '../StompClient.js';
 import axios from 'axios'
+import { storeKey } from 'vuex';
 
 export default {
     name: "RoomView",
@@ -76,7 +78,7 @@ export default {
         },
         updateRoom(data) {
             const amIRemoved = data.filter(player => player.id == this.$store.state.playerId).length <= 0
-            if(amIRemoved) {
+            if (amIRemoved) {
                 this.logout()
                 return
             }
@@ -98,26 +100,38 @@ export default {
             this.showResult = false
         },
         logout() {
-            this.$router.push({name: "start"})
+            this.$router.push({ name: "start" })
         },
         leave() {
             axios.delete('/game/delete/' + this.$store.state.playerId)
                 .catch(error => console.log(error))
-            this.$router.push({name: "start"})
+            this.$router.push({ name: "start" })
         }
     },
     created() {
+        axios.defaults.baseURL = 'http://localhost:8080';
         this.connect()
 
         window.addEventListener('focus', (event) => {
             if (!this.client.isConnected()) {
+                console.log("return focus")
                 this.connect()
+
+                axios.get('/room/' + this.$store.state.roomId)
+                    .then(result => this.updateRoom(result.data))
+                    .catch(error => console.log(error))
+
+                const shouldGetResult = this.$store.state.players.filter(p => !p.isObserver).filter(p => p.selectedCard == null).length == 0
+                if (shouldGetResult) {
+                    axios.get('/room/result/' + this.$store.state.roomId)
+                        .then(result => this.setResult(result.data))
+                        .catch(error => console.log(error))
+                }
+
             }
         });
 
         this.showResult = this.$store.state.result != null
-
-        axios.defaults.baseURL = 'http://localhost:8080';
     }
 }
 </script>

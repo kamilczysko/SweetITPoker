@@ -84,7 +84,7 @@ const store = new Vuex.Store({
         observer(state){
             return state.players.filter(player => player.id == state.playerId)[0].isObserver
         }
-    },
+    },  
     plugins: [new VuexPersistence().plugin]
 })
 
