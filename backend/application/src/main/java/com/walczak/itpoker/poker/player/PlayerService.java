@@ -1,5 +1,6 @@
 package com.walczak.itpoker.poker.player;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,5 +44,4 @@ public class PlayerService {
         playerRepository.findById(player.getId())
                 .ifPresent(playerRepository::save);
     }
-
 }
