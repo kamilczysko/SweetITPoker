@@ -1,5 +1,5 @@
 <template>
-    <div class="h-ful bg-slate-700 bg-opacity-30 backdrop-blur-sm overflow-y-scroll rounded-lg rounded-tl-[30px] relative">
+    <div class="h-ful bg-slate-700 bg-opacity-30 backdrop-blur-sm overflow-y-scroll scrollbar-hide rounded-lg rounded-tl-[30px] relative">
         <div class="border-b-[1px] shadow-2xl shadow-fuchsia-900 rounded-l-full border-black top-0 sticky z-50">
             <Player :data="getMyPlayerData" class="bg-opacity-80 bg-fuchsia-800 backdrop-blur-2xl "
             @toggleAdmin="toggleAdmin" @toggleObserver="toggleObserver" @remove="remove"></Player>
