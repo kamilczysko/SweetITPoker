@@ -1,9 +1,8 @@
 <template>
-    <div class="flex xs:flex-row lg:flex-col items-center justify-center gap-2">
+    <div class="flex xs:flex-row md:flex-col items-center justify-center gap-2">
         <p class="info" id="info-panel">Copied to clipboard!</p>
         <CustomButton label="Copy link!" class='w-full' @clicked="copyToClipboard" />
         <CustomButton label="Reset votes!" class='w-full' @clicked="resetVotes" v-if="this.$store.getters.admin" />
-        <!-- <CustomButton label="Refresh" class='w-full' @clicked="initRoom" /> -->
     </div>
 </template>
 <script>

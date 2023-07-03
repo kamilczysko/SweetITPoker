@@ -24,13 +24,18 @@ export default {
         async join(data) {
             this.$store.commit("cleanup")
             const roomId = this.$route.params.id
+
+            await this.$recaptchaLoaded()
+            const token = await this.$recaptcha('homepage')
+
             await axios.post('/player', {
                 roomId: roomId,
                 player: {
                     name: data.name,
                     avatarIdx: data.avatarIdx,
                     role: data.role.value
-                }
+                },
+                token: token
             })
                 .then(res => res.data.playerId)
                 .then(playerId => this.$store.commit('joinRoom', { name: data.name, avatarIdx: data.avatarIdx, role: data.role.label, playerId: playerId, roomId: roomId }))

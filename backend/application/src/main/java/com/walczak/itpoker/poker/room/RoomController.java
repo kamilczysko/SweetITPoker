@@ -1,14 +1,15 @@
 package com.walczak.itpoker.poker.room;
 
 import com.walczak.api.dto.*;
+import com.walczak.itpoker.infrastructure.captcha.CaptchaService;
 import com.walczak.itpoker.poker.player.Player;
 import com.walczak.itpoker.poker.player.PlayerRole;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -17,14 +18,17 @@ public class RoomController {
 
     private final RoomService roomService;
     private final RoomResultStage roomResultStage;
+    private final CaptchaService captchaService;
 
-    public RoomController(RoomService roomService, RoomResultStage roomResultStage) {
+    public RoomController(RoomService roomService, RoomResultStage roomResultStage, CaptchaService captchaService) {
         this.roomService = roomService;
         this.roomResultStage = roomResultStage;
+        this.captchaService = captchaService;
     }
 
     @PostMapping
-    public NewRoomResponseDTO createRoom(@RequestBody NewRoomDTO dto) {
+    public NewRoomResponseDTO createRoom(HttpServletRequest request, @RequestBody NewRoomDTO dto) {
+        captchaService.processResponse(dto.getToken(), request.getRemoteAddr());
         Room savedRoom = roomService.saveNewRoom(mapToNewRoom(dto));
         String newPlayerId = savedRoom.getPlayers().stream()
                 .findFirst()

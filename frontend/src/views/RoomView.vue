@@ -21,7 +21,7 @@
                 <PlayerDeck class="" :deck="this.$store.state.roomSettings.cardsValues"
                     :units="this.$store.state.roomSettings.units" @select="setlectCard"></PlayerDeck>
             </div>
-            <ControlPanel @resetVotes="sendResetRoom" class="xs:hidden lg:flex"></ControlPanel>
+            <ControlPanel @resetVotes="sendResetRoom" class="xs:hidden md:flex"></ControlPanel>
         </div>
     </div>
 </template>

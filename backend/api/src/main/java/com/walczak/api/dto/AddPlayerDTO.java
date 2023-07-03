@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class AddPlayerDTO {
     private NewPlayerDTO player;
     private String roomId;
+    private String token;
 }

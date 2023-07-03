@@ -16,4 +16,5 @@ public class NewRoomDTO {
     private List<String> cardsValues;
     private List<String> units;
     private NewPlayerDTO roomCreator;
+    private String token;
 }

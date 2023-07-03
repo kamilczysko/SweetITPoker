@@ -1,7 +1,7 @@
 <template>
     <nav class="flex items-center justify-between gap-3 bg-slate-700 bg-opacity-30 backdrop-blur-sm xs:mt-1 md:mt-0 px-2 relative">
         <LogoutButton class="z-50" @clicked="clicked"></LogoutButton>
-        <ControlPanel class="xs:flex lg:hidden"></ControlPanel>
+        <ControlPanel class="xs:flex md:hidden"></ControlPanel>
         <div class="flex justify-center flex-col items-center gap-0 self-center w-fit xs:hidden lg:flex absolute inset-0 mx-auto text-white">
             <h1 class="font-bold xs:text-10 md:text-3xl text-center underline">{{ this.$store.state.roomSettings.name }}</h1>
             <span class="underline xs:text-6 xl:text-xs">Cutest Agile Planning Poker</span>

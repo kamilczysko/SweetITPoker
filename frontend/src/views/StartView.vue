@@ -28,7 +28,7 @@ export default {
         }
     },
     methods: {
-        createNewRoom(newRoomData) {
+        async createNewRoom(newRoomData) {
             this.$store.commit("cleanup")
             
             if(newRoomData.name == null || newRoomData.name.trim() == "") {
@@ -39,7 +39,12 @@ export default {
                 this.error = "Player name is empty!"
                 return
             }
+
+            await this.$recaptchaLoaded()
+            const token = await this.$recaptcha('homepage')
             
+            newRoomData.token = token
+
             axios.post("/room", newRoomData)
                 .then(result => result.data)
                 .then(ids => this.$store.commit('initRoom', { ids: ids, data: newRoomData }))
