@@ -4,9 +4,9 @@ import CookiesPrompt from './components/CookiesPrompt.vue';
 </script>
 
 <template>
-  <main class='min-h-screen min-w-full scrollbar-hide bg-background bg-cover'>
+  <div class='min-w-screen min-h-screen'>
     <RouterView />
-  </main>
+  </div>
   <CookiesPrompt></CookiesPrompt>
 </template>
 

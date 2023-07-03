@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import { VueReCaptcha } from 'vue-recaptcha-v3'
 
 import './assets/main.css'
@@ -10,65 +12,77 @@ import './assets/main.css'
 const store = new Vuex.Store({
     state() {
         return {
-            cookiesAccepted: false,
-            isVotingFinished: false,
             roomId: null,
-            myId: null,
-            roomName: null,
-            players: []
+            playerId: null,
+            roomSettings: null,
+            players: [],
+            result: null,
+            cookiesAccepted: false,
         }
     },
     mutations: {
-        setVotingFinished(state, votingState) {
-            state.isVotingFinished = votingState
+        cleanup(state) {
+            state.roomId = null
+            state.playerId = null
+            state.roomSettings = null
+            state.players = []
+            state.result = null
         },
-        initNewRoom(state, newRoomData) {
-            state.roomId = newRoomData.roomId
-            state.roomName = newRoomData.roomName
-            state.myId = newRoomData.playerId
+        saveResult(state, result) {
+            state.result = result
         },
-        setPlayers(state, players) {
-            state.players = players
-        },
-        selectCard(state, cardData) {
-            state.players.filter(p => p.id == state.myId)
-                .forEach(p => p.selectedCard = cardData)
-        },
-        cleanVotes(state) {
-            state.players.forEach(p => p.selectedCard = null)
-        },
-        setAdmin(state, isAdmin) {
-            state.players.filter(p => p.id == state.myId)
-                .forEach(p => p.isAdmin = isAdmin)
-        },
-        setObserver(state, isObserver) {
-            state.players.filter(p => p.id == state.myId)
-                .forEach(p => p.isObserver = isObserver)
-        },
-        join(state, data) {
-            state.myId = data.playerId
+        joinRoom(state, data) {
+            state.playerId = data.playerId
             state.roomId = data.roomId
         },
-        setRoomName(state, name) {
-            state.roomName = name
+        loadRoom(state, data) {
+            state.roomSettings = {
+                cardsValues: data.cardsValues,
+                units: data.units,
+                name: data.name
+            }
+            state.players = data.players
         },
-        clearData(state) {
-            state.isVotingFinished = false
-            state.roomId = null
-            state.myId = null
-            state.roomName = null
-            state.players = []
+        refreshState(state, data) {
+            state.players = data
         },
-        setPlayerAdmin(state, data) {
-            state.players.filter(p => p.id == data.player)
-                .forEach(p => p.isAdmin = data.isAdmin)
+        initRoom(state, data) {
+            state.roomId = null;
+            state.playerId = null;
+            state.roomSettings = null;
+            state.players = [];
+
+            state.playerId = data.ids.playerId
+            state.roomId = data.ids.roomId
+            state.roomSettings = {
+                cardsValues: data.data.cardsValues,
+                units: data.data.units,
+                name: data.data.name
+            }
+            const admin = {
+                id: data.ids.playerId,
+                name: data.data.roomCreator.name,
+                avatarIdx: data.data.roomCreator.avatarIdx,
+                isObserver: false,
+                isAdmin: true,
+                selectedCard: null,
+                selectedUnit: null,
+                role: data.data.roomCreator.role
+            }
+            state.players.push(admin)
+        }
+    },getters: {
+        selectedCard(state) {
+            return state.players.filter(player => player.id == state.playerId)[0].selectedCard
         },
-        setPlayerObserver(state, data) {
-            state.players.filter(p => p.id == data.player)
-                .forEach(p => p.isObserver = data.isObserver)
+        selectedUnit(state) {
+            return state.players.filter(player => player.id == state.playerId)[0].selectedUnit
         },
-        acceptCookies(state) {
-            state.cookiesAccepted = true
+        admin(state){
+            return state.players.filter(player => player.id == state.playerId)[0].isAdmin
+        },
+        observer(state){
+            return state.players.filter(player => player.id == state.playerId)[0].isObserver
         }
     },
     plugins: [new VuexPersistence().plugin]
@@ -78,5 +92,6 @@ const store = new Vuex.Store({
 const app = createApp(App)
 app.use(router)
 app.use(store)
+app.use(VueAxios, axios)
 app.use(VueReCaptcha, { siteKey: import.meta.env.VITE_CAPTCHA_SITE })
 app.mount('#app')

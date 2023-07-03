@@ -16,7 +16,7 @@ module.exports = {
     },
     extend: {
       aspectRatio: {
-        'card': '2.7/4'
+        'card': '183/280'
       },
       colors: {
         'bg1': '#FFDEE9',
@@ -27,31 +27,31 @@ module.exports = {
         'card-font': '#140F11',
       },
       gridTemplateColumns: {
-        inputGrid: '1fr 3fr',
-        deck: 'repeat(11, minmax(0, 1fr))',
-        '3': 'repeat(3, minmax(0, 1fr))'
-      },
-      gridTemplateRows: {
-        pokerTable: '9fr 3fr',
-        nav: '1fr 8fr'
+        header: '5fr 1px 5fr',
+        roomView: '13fr 2fr',
+        roomView_md: '12fr 3fr'
       },
       fontFamily: {
         main: 'Lobster',
         secondary: ['Poppins']
       },
       backgroundImage: {
-        'revers': "url('/src/assets/revers.png')",
-        'front': "url('/src/assets/front.png')",
-        'background': "url('/src/assets/background.jpeg')",
-        'background-second': "url('/src/assets/background.jpeg')",
-        'background-third': "url('/src/assets/background.jpeg')",
+        'revers': "url('/src/assets/card/revers.png')",
+        'front': "url('/src/assets/card/front.png')",
+        'question': "url('/src/assets/card/questionmark.png')",
+        'coffee': "url('/src/assets/card/coffee.png')",
+        'background-first': "url('/src/assets/background/background.jpeg')",
+        'background-second': "url('/src/assets/background/background.jpeg')",
+        'background-third': "url('/src/assets/background/background.jpeg')",
       },
       backgroundSize: {
         'small': '90%'
       },
       boxShadow: {
         'round': '0 0 15px hotpink',
-        'highlight': '5px 5px 5px hotpink'
+        'highlight': '0px 0px 15px hotpink',
+        'highlight-more': '0px 0px 25px hotpink',
+        'highlight-more': '0px 0px 10px hotpink'
       }
     },
   },

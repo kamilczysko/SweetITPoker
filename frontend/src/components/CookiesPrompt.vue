@@ -27,7 +27,7 @@
         </div>
 </template>
 <script>
-import CustomButton from './CustomButton.vue';
+import CustomButton from './controls/CustomButton.vue'
 export default {
     name: "CookiesPrompt",
     components: { CustomButton },

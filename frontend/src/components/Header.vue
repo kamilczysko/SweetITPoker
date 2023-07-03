@@ -1,12 +1,11 @@
 <template>
-    <header class='flex flex-col items-center justify-center mt-5 bg-none'>
-        <div>
-            <h1 class='font-main xs:text-2xl md:text-[2vw] text-center'>UwUstimates</h1>
-            <h2 class='font-main text-[1.3vw] underline text-center xs:hidden sm:block'>Cutest Agile Planning Poker</h2>
+    <nav class="flex flex-col justify-center items-center w-full gap-5 bg-none">
+        <div class="flex justify-center flex-col items-center gap-0 bg-indigo-400 bg-opacity-5 w-full backdrop-blur-sm text-white">
+            <h1 class="font-bold xs:text-10 xl:text-2xl">UwUstimates</h1>
+            <span class="underline xs:text-6 xl:text-md">Cutest Agile Planning Poker</span>
         </div>
-        <img class='w-40 scale-75 h-auto align-middle mt-3 xs:hidden lg:block' src="../assets/uwustimates-bg-mlg.png"
-            alt="">
-    </header>
+        <img src="../assets/logo/uwustimates-bg-mlg.png" class="w-[9vw] aspect-square xs:hidden md:block" alt="">
+    </nav>
 </template>
 <script>
 export default {

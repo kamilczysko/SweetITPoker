@@ -1,7 +1,8 @@
 export default class StompClient {
     constructor (host) {
         const prefix = "http://localhost:8080"
-        this.socket = new SockJS(host)
+        console.log(prefix + host)
+        this.socket = new SockJS(prefix+""+host)
         this.client = Stomp.over(this.socket)
     }
 
