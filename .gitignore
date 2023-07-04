@@ -34,7 +34,7 @@ backend/gradle/wrapper/gradle-wrapper.properties
 backend/gradlew
 backend/gradlew.bat
 backend/settings.gradle
-
+backend/application/src/main/java/com/walczak/itpoker/configuration/MyConfiguration.java
 backend/.mvn/
 backend/mvnw
 backend/mvnw.cmd
