@@ -24,22 +24,12 @@ export default {
     components: { Header, Description, StartForm },
     data() {
         return {
-            error: null
+            error: null,
         }
     },
     methods: {
         async createNewRoom(newRoomData) {
             this.$store.commit("cleanup")
-            
-            if(newRoomData.name == null || newRoomData.name.trim() == "") {
-                this.error = "Room name is empty!"
-                return
-            }
-            if(newRoomData.roomCreator.name == null  || newRoomData.roomCreator.name.trim() == "") {
-                this.error = "Player name is empty!"
-                return
-            }
-
             await this.$recaptchaLoaded()
             const token = await this.$recaptcha('homepage')
             

@@ -1,6 +1,8 @@
 <template>
     <div
         class='font-secondary flex flex-col items-center rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-30 w-[95%] mx-auto'>
+        <p class="border-2 border-red-500  font-secondary text-red-700 h-7 bg-opacity-70 rounded-2xl bg-slate-300 mb-3 min-w-1/2 text-center absolute mx-auto -top-10 z-50 px-3"
+            v-show="error != null">{{ error }}</p>
         <div class='flex justify-center relative'>
             <h1 class='xs:mb-3 lg:mb-10 font-main xs:text-sm lg:text-2xl pt-3'>Create new room</h1>
         </div>
@@ -44,6 +46,7 @@ export default {
             roles: [],
             selectedRole: null,
             isLoading: false,
+            error: null,
             playerData: {
             },
             roomData: {
@@ -75,7 +78,30 @@ export default {
         setRoomCardUnits(units) {
             this.roomData.units = units
         },
+        validateInputs() {
+            if (this.roomData.name == null || this.roomData.name.trim() == "") {
+                return "Room name is empty!"
+            }
+            if (this.playerData.name == null || this.playerData.name.trim() == "") {
+                return "Player name is empty!"
+            }
+            if (this.playerData.name.length > 18) {
+                return "Player name is too long! (15 characters max)"
+            }
+            if (this.roomData.name.length > 18) {
+                return "Room name is too long! (15 characters max)"
+            }
+            return null
+        },
         send() {
+            this.error = this.validateInputs()
+            if(this.error) {
+                return
+            }
+            if (this.isLoading) {
+                return
+            }
+            this.isLoading = true
             const dto = {
                 name: this.roomData.name,
                 cardsValues: this.roomData.cardValues,
