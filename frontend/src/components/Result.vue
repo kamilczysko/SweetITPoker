@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-none text-white w-1/2 h-full rounded-lg flex flex-col xs:justify-start md:justify-center items-center">
+    <div class="bg-none text-white w-full h-full rounded-lg flex flex-col xs:justify-start md:justify-center items-center">
         <h1 class='text-center font-secondary text-xl font-semibold underline mb-4 text-black'>Results</h1>
         <div v-for="row in this.$store.state.result" :key="row"
             class="flex flex-col justify-center items-center gap-2 w-2/3">
