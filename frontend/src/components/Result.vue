@@ -1,6 +1,6 @@
 <template>
     <div class="bg-none text-white w-full h-full rounded-lg flex flex-col xs:justify-start md:justify-center items-center">
-        <h1 class='text-center font-secondary text-xl font-semibold underline mb-4 text-black'>Results</h1>
+        <h1 class='text-center font-secondary text-xl font-semibold underline mb-4 text-white  '>Results</h1>
         <div v-for="row in this.$store.state.result" :key="row"
             class="flex flex-col justify-center items-center gap-2 w-2/3">
             <div class='bg-slate-800 bg-opacity-50 w-full mt-2 xs:text-xs lg:text-lg flex text-lg gap-3 justify-center items-center font-secondary px-4 font-extralight cursor-pointer shadow-black shadow-sm hover:shadow-md hover:shadow-black hover:bg-opacity-40 active:shadow-xl active:bg-slate-500 active:bg-opacity-70 active:shadow-black rounded-lg'
@@ -10,7 +10,7 @@
             </div>
         </div>
         <p class='font-extralight font-secondary text-[10px] mt-3'>(Click to copy to clipboard)</p>
-        <CustomButton v-show="this.$store.getters.admin" label="Reset votes!" @clicked="reset" class="w-1 px-6 mt-5" />
+        <CustomButton v-show="this.$store.getters.admin" label="Reset votes!" @clicked="reset" class="w-0 px-6 mt-5" />
         <CustomButton v-show="!this.$store.getters.admin" label="close" @clicked="close" class="w-2/3 mt-5" />
         <div class="h-16">
             <transition>
