@@ -10,7 +10,7 @@ public class Redirector {
         return "forward:/";
     }
 
-    @RequestMapping(value = "/room/{.*}")
+    @RequestMapping(value = "/poker/{.*}")
     public String redirectErrorPage() {
         return "forward:/";
     }

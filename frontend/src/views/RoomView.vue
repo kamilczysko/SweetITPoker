@@ -89,7 +89,7 @@ export default {
             this.showResult = true
         },
         reset() {
-            this.$store.state.result = null
+            this.$store.commit("resetResult")
             this.showResult = false
         },
         sendResetRoom() {
@@ -109,7 +109,7 @@ export default {
         }
     },
     created() {
-        // axios.defaults.baseURL = 'http://localhost:8080';
+        axios.defaults.baseURL = 'http://localhost:8080';
         this.connect()
 
         window.addEventListener('focus', (event) => {
@@ -118,13 +118,15 @@ export default {
                 this.connect()
 
                 axios.get('/room/' + this.$store.state.roomId)
-                    .then(result => this.updateRoom(result.data))
+                    .then(result => result.data)
+                    .then(data => this.updateRoom(data))
                     .catch(error => console.log(error))
 
                 const shouldGetResult = this.$store.state.players.filter(p => !p.isObserver).filter(p => p.selectedCard == null).length == 0
                 if (shouldGetResult) {
                     axios.get('/room/result/' + this.$store.state.roomId)
-                        .then(result => this.setResult(result.data))
+                        .then(result => result.data)
+                        .then(data => this.setResult(data))
                         .catch(error => console.log(error))
                 }
 
@@ -132,6 +134,10 @@ export default {
         });
 
         this.showResult = this.$store.state.result != null
+    },
+    mounted() {
+        // axios.defaults.baseURL = 'http://localhost:8080';
     }
+    
 }
 </script>

@@ -16,8 +16,8 @@ const router = createRouter({
       component: JoinView
     },
     {
-      path: '/room/:id',
-      name: 'room',
+      path: '/poker/:id',
+      name: 'poker',
       component: RoomView
     }
   ]

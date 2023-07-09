@@ -25,6 +25,7 @@ export default {
     data() {
         return {
             error: null,
+            isLoading: false
         }
     },
     methods: {
@@ -38,7 +39,7 @@ export default {
             axios.post("/room", newRoomData)
                 .then(result => result.data)
                 .then(ids => this.$store.commit('initRoom', { ids: ids, data: newRoomData }))
-                .then(() => this.$router.push({ name: 'room', params: { id: this.$store.state.roomId } }))
+                .then(() => this.$router.push({ name: 'poker', params: { id: this.$store.state.roomId } }))
                 .catch(error => this.error = "Cannot create room")
         }
     },

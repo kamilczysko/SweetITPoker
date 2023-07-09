@@ -70,6 +70,9 @@ const store = new Vuex.Store({
                 role: data.data.roomCreator.role
             }
             state.players.push(admin)
+        },
+        resetResult(state) {
+            state.result = null
         }
     },getters: {
         selectedCard(state) {
