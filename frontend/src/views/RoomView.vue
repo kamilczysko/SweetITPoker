@@ -109,7 +109,6 @@ export default {
         }
     },
     created() {
-        axios.defaults.baseURL = 'http://localhost:8080';
         this.connect()
 
         window.addEventListener('focus', (event) => {
