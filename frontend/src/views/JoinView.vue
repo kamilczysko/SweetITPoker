@@ -43,7 +43,7 @@ export default {
             axios.get('/room/' + roomId)
                 .then(res => res.data)
                 .then(data => this.$store.commit('loadRoom', data))
-                .then(() => this.$router.push({ name: 'room', params: { id: this.$store.state.roomId } }))
+                .then(() => this.$router.push({ name: 'poker', params: { id: this.$store.state.roomId } }))
         },
         create() {
             this.$router.push({ name: 'start' })
