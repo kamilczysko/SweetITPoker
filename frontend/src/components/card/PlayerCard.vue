@@ -41,6 +41,7 @@ export default {
             this.unit = this.units[index + 1]
             if (this.value == this.$store.getters.selectedCard) {
                 this.$store.commit('setUnit', this.unit)
+                this.$emit("select", {card: this.value, unit: this.unit})
             }
         }
     },
