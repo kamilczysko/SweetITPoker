@@ -10,8 +10,10 @@
             </div>
         </div>
         <p class='font-extralight font-secondary text-[10px] mt-3'>(Click to copy to clipboard)</p>
-        <CustomButton v-show="this.$store.getters.admin" label="Reset votes!" @clicked="reset" class="w-[1px]  px-6 mt-5" />
-        <CustomButton v-show="!this.$store.getters.admin" label="close" @clicked="close" class="w-2/3 mt-5" />
+        <div class="xs:w-full md:w-1/2 px-6 mt-5">
+            <CustomButton v-show="this.$store.getters.admin" label="Reset votes!" @clicked="reset"/>
+            <CustomButton v-show="!this.$store.getters.admin" label="close" @clicked="close" class="w-2/3 mt-5" />
+        </div>
         <div class="h-16">
             <transition>
                 <p class="text-white" v-if="showMessage">Copied to clipboard!</p>
