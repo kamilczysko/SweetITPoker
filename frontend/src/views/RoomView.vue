@@ -8,7 +8,7 @@
                 <Result v-if="showResult" isAdmin="this.$store.getters.admin" @closeResult="closeResult"
                     @reset="sendResetRoom"></Result>
             </div>
-            <PlayerList class="xs:hidden md:block"></PlayerList>
+            <PlayerList class="xs:hidden md:block scrollbar-hide"></PlayerList>
             <div class="absolute w-full overflow-y-scroll scrollbar-hide h-[70vh] z-50 bg-slate-900 bg-opacity-60 xs:block md:hidden"
                 v-if="showPlayerList">
                 <CustomButton label="Close" class="sticky top-0 z-50" @clicked="togglePlayerList"></CustomButton>
