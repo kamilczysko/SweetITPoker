@@ -3,7 +3,7 @@
         <RoomHeader @togglePlayerList="togglePlayerList()" @clicked="leave"></RoomHeader>
         <div
             class="grid xs:grid-cols-1 md:grid-cols-roomView_md xl:grid-cols-roomView h-[70vh] bg-slate-700 bg-opacity-30 backdrop-blur-sm xs:overflow-y-scroll scrollbar-hide">
-            <div class="rounded-r-xl flex justify-center items-center">
+            <div class="rounded-r-xl flex justify-center items-center scrollbar-hide">
                 <GameTable></GameTable>
                 <Result v-if="showResult" isAdmin="this.$store.getters.admin" @closeResult="closeResult"
                     @reset="sendResetRoom"></Result>
