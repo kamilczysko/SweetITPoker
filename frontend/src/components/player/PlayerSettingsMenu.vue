@@ -1,5 +1,5 @@
 <template>
-    <ul class="bg-pink-400 md:w-[10vw] xs:w-[25vw] bg-opacity-75 p-1 flex flex-col justify-center items-center rounded-lg md:text-sm" v-on:mouseleave="mouseleave">
+    <ul class="bg-pink-400 md:w-[10vw] xs:w-[25vw] bg-opacity-75 p-1 flex flex-col justify-center items-center rounded-lg md:text-sm scrollbar-hide" v-on:mouseleave="mouseleave">
         <li class="cursor-pointer px-3 py-1 hover:bg-red-500 hover:text-white hover:bg-opacity-80 hover:scale-105 active:scale-110 w-full rounded-l" @click="toggleAdmin" v-if="this.$store.getters.admin  && this.$store.state.playerId != playerId">
             <p class="text-center"><span v-if="isAdmin">✓</span> admin</p>
         </li>
