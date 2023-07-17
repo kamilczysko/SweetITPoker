@@ -109,7 +109,11 @@ export default {
         }
     },
     created() {
-        
+        if (this.$store.state.roomId != this.$route.params.id) {
+            this.$router.push({ name: 'join', params: { id: this.$route.params.id } })
+            return
+        }
+
         this.connect()
 
         window.addEventListener('focus', (event) => {
@@ -138,6 +142,6 @@ export default {
     mounted() {
         // axios.defaults.baseURL = 'http://localhost:8080';
     }
-    
+
 }
 </script>
