@@ -1,7 +1,10 @@
 <template>
     <div class="w-full flex justify-center items-center xs:gap-2 md:gap-5 flex-wrap m-auto p-5 rounded-r-lg scrollbar-hide overflow-y-scroll h-full">
-        <ReversCard v-if="this.$store.state.result == null" v-for="player in nonObservers" :key="player.id" :data="player"></ReversCard>
-        <FrontCard v-else v-for="player in nonObservers" :unit="player.selectedUnit" :value="player.selectedCard"></FrontCard>
+        <div v-for="player in nonObservers" :key="player.id">
+            <ReversCard v-if="this.$store.state.result == null"  :data="player"></ReversCard>
+            <FrontCard v-else :unit="player.selectedUnit" :value="player.selectedCard"></FrontCard>
+            <p class="pt-3 text-center xs:text-sm font-secondary font-light md:text-md text-white hover:font-extrabold">{{ player.name }}</p>
+        </div>
     </div>
 </template>
 <script>

@@ -109,6 +109,7 @@ export default {
         }
     },
     created() {
+        
         this.connect()
 
         window.addEventListener('focus', (event) => {

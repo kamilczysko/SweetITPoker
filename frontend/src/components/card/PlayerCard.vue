@@ -10,10 +10,10 @@
                 <div class="flex items-center justify-evenly -mt-1 mb-[6px] cursor-pointer h-3 lg:text-xs xl:text-sm"
                     @click.stop @click="switchUnit">
                     <button v-if="units.length > 1"
-                        class="bg-none border-none cursor-pointer w-1/3 hover:text-xl text-center hover:scale-110 active:scale-125">◂</button>
+                        class="bg-none border-none cursor-pointer w-3 hover:text-xl text-center hover:font-bold active:scale-125">⊲</button>
                     <p class="font-secondary text-white">{{ unit }}</p>
                     <button v-if="units.length > 1"
-                        class="bg-none border-none xs:mt-1 lg:mt-2 rotate-180 cursor-pointer w-3 hover:text-xl text-center hover:scale-110 active:scale-125">◂</button>
+                        class="bg-none border-none cursor-pointer w-3 hover:text-xl text-center hover:font-bold active:scale-125">⊳</button>
                 </div>
             </div>
         </div>

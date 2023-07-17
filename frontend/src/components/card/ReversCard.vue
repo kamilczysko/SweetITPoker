@@ -3,7 +3,6 @@
         <div class="bg-revers bg-cover aspect-card rounded-md p-[1px] w-full"
         :class="{ [`mb-3 shadow-highlight brightness-110`]: isSelected }, { [`mb-0 brightness-100 shadow-md shadow-black`]: !isSelected }">
         </div>
-        <p class="pt-3 text-center xs:text-sm font-secondary font-light md:text-md text-white hover:font-extrabold">{{ data.name }}</p>
     </div>
 </template>
 <script>
