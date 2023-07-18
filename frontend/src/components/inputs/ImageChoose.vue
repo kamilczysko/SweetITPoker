@@ -1,8 +1,8 @@
 <template>
     <div class='flex items-center justify-center bg-none'>
         <p class='text-left font-light xs:text-xs lg:text-lg'>{{ label }} : </p>
-        <div class='flex justify-center w-3/5 align-middle cursor-pointer relative' v-on:click="toggle">
-            <div class='rounded-full aspect-square xs:w-12 sm:w-14 2xl:w-20 overflow-hidden hover:shadow-bg3 hover: shadow-md'>
+        <div class='flex justify-center w-1/6 align-middle cursor-pointer relative' v-on:click="toggle">
+            <div class='rounded-full aspect-square xs:w-12 sm:w-14 2xl:w-20 overflow-hidden hover:shadow-bg3 hover:shadow-md'>
                 <img v-show="!isOpen" class='scale-100 hover:scale-110 ' :src="getIconUrl(value)" alt="">
             </div>
 
