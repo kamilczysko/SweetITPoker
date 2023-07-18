@@ -86,10 +86,10 @@ export default {
             if (this.playerData.name == null || this.playerData.name.trim() == "") {
                 return "Player name is empty!"
             }
-            if (this.playerData.name.length > 18) {
+            if (this.playerData.name.length >= 15) {
                 return "Player name is too long! (15 characters max)"
             }
-            if (this.roomData.name.length > 18) {
+            if (this.roomData.name.length >= 15) {
                 return "Room name is too long! (15 characters max)"
             }
             return null

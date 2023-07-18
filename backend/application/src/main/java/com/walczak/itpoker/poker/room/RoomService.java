@@ -48,11 +48,11 @@ public class RoomService {
                 .collect(Collectors.toMap(Map.Entry::getKey, entry -> ResultMapper.getAvg(entry.getValue())));
     }
 
-    @Scheduled(fixedRate = 1000*60*60*3)
+    @Scheduled(fixedRate = 1000 * 60 * 60 * 3)
     public void removeOldRooms() {
         Timestamp previous = Timestamp.from(Instant.now().minus(4, ChronoUnit.HOURS));
         List<Room> olderThan = roomRepository.findOlderThan(previous);
-        pokerLogger.info("Sheduled remove old rooms: "+olderThan);
+        pokerLogger.info("Sheduled remove old rooms: " + olderThan);
         deleteRooms(olderThan);
     }
 }
