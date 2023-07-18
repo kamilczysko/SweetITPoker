@@ -37,6 +37,7 @@ import Choose from '@/components/inputs/Choose.vue'
 import ImageChoose from '@/components/inputs/ImageChoose.vue'
 import CaptchaInfo from '../CaptchaInfo.vue'
 import CustomButton from '../controls/CustomButton.vue'
+import axios from 'axios'
 export default {
     name: "StartForm",
     components: { TextInput, Choose, ImageChoose, CaptchaInfo, CustomButton },
@@ -52,7 +53,7 @@ export default {
             roomData: {
                 cardValues: carddeck[0].values,
                 units: units[0].values
-            }
+            },
         }
     },
     methods: {
@@ -95,7 +96,7 @@ export default {
         },
         send() {
             this.error = this.validateInputs()
-            if(this.error) {
+            if (this.error) {
                 return
             }
             if (this.isLoading) {
@@ -108,11 +109,30 @@ export default {
                 units: this.roomData.units,
                 roomCreator: this.playerData
             }
-            this.$emit("startRoom", dto)
-        }
+            this.createNewRoom(dto)
+        },
+        async createNewRoom(newRoomData) {
+            this.$store.commit("cleanup")
+            await this.$recaptchaLoaded()
+            const token = await this.$recaptcha('homepage')
+
+            newRoomData.token = token
+
+            axios.post("/room", newRoomData)
+                .then(result => result.data)
+                .then(ids => this.$store.commit('initRoom', { ids: ids, data: newRoomData }))
+                .then(() => this.$router.push({ name: 'poker', params: { id: this.$store.state.roomId } }))
+                .catch(error => {
+                    this.error = "Cannot create room"
+                    this.isLoading = false
+                })
+        },
     },
     created() {
         this.roles = Array.from(roles)
+    },
+    mounted() {
+        // axios.defaults.baseURL = 'http://localhost:8080';
     }
 }
 </script>

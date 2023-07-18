@@ -1,7 +1,7 @@
 <template>
     <div
-        class='font-secondary flex flex-col justify-center rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-30 w-[95%] mx-auto relative'>
-        <p class="border-2 border-red-500  font-secondary text-red-700 bg-opacity-70 rounded-2xl bg-slate-300 mb-3 min-w-1/2 text-center absolute mx-auto -top-10 z-50 px-3"
+        class='font-secondary flex flex-col items-center rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-30 w-[95%] mx-auto'>
+        <p class="border-2 border-red-500  font-secondary text-red-700 h-7 bg-opacity-70 rounded-2xl bg-slate-300 mb-3 min-w-1/2 text-center absolute mx-auto -top-10 z-50 px-3"
             v-show="error != null">{{ error }}</p>
         <div class='flex flex-col gap-5 items-center pt-3'>
             <h1 class='mb-8 font-main xs:text-lg lg:text-2xl'>Join room!</h1>
@@ -31,7 +31,7 @@ import Choose from '@/components/inputs/Choose.vue'
 import ImageChoose from '@/components/inputs/ImageChoose.vue'
 import CustomButton from '../controls/CustomButton.vue'
 import CaptchaInfo from '../CaptchaInfo.vue'
-
+import axios from 'axios'
 export default {
     name: "JoinForm",
     components: { TextInput, Choose, ImageChoose, CustomButton, CaptchaInfo },
@@ -58,18 +58,6 @@ export default {
         setRole(role) {
             this.playerData.role = role
         },
-        join() {
-            this.error = this.validateInputs()
-            if(this.error) {
-                return
-            }
-            this.error = null
-            if(this.isLoading){
-                return
-            }
-            this.isLoading = true
-            this.$emit('join', this.playerData)
-        },
         validateInputs() {
             if (this.playerData.name == null || this.playerData.name.trim() == "") {
                 return "Player name is empty!"
@@ -79,14 +67,62 @@ export default {
             }
             return null
         },
+        join() {
+            console.log(this.playerData)
+            this.error = this.validateInputs()
+            if (this.error) {
+                return
+            }
+            this.error = null
+            if (this.isLoading) {
+                return
+            }
+            this.isLoading = true
+            
+            this.joinToRoom(this.playerData)
+        },
+        async joinToRoom(data) {
+            this.$store.commit("cleanup")
+            const roomId = this.$route.params.id
+
+            await this.$recaptchaLoaded()
+            const token = await this.$recaptcha('homepage')
+
+            await axios.post('/player', {
+                roomId: roomId,
+                player: {
+                    name: data.name,
+                    avatarIdx: data.avatarIdx,
+                    role: data.role.value
+                },
+                token: token
+            })
+                .then(res => res.data.playerId)
+                .then(playerId => this.$store.commit('joinRoom', { name: data.name, avatarIdx: data.avatarIdx, role: data.role.label, playerId: playerId, roomId: roomId }))
+                .catch(error => {
+                    this.error = "Cannot join room"
+                    this.isLoading = false
+                })
+
+            axios.get('/room/' + roomId)
+                .then(res => res.data)
+                .then(data => this.$store.commit('loadRoom', data))
+                .then(() => this.$router.push({ name: 'poker', params: { id: this.$store.state.roomId } }))
+                .catch(error => {
+                    console.log(error)
+                    this.error = "Room does not exists"
+                    this.isLoading = false
+                })
+        },
         newRoom() {
-            this.$emit('create')
-        }
+            this.$router.push({ name: 'start' })
+        },
     },
     created() {
         this.roles = Array.from(roles)
-
-
+    },
+    mounted() {
+        // axios.defaults.baseURL = 'http://localhost:8080';
     }
 }
 </script>
