@@ -16,7 +16,7 @@
             </div>
         </div>
         <div
-            class="grid grid-cols-roomView h-1/5 bg-slate-700 bg-opacity-30 backdrop-blur-sm overflow-x-scroll scrollbar-hide">
+            class="grid grid-cols-roomView h-1/4 bg-slate-700 bg-opacity-30 backdrop-blur-sm overflow-x-scroll scrollbar-hide">
             <div class="flex flex-col justify-center items-center">
                 <PlayerDeck class="" :deck="this.$store.state.roomSettings.cardsValues"
                     :units="this.$store.state.roomSettings.units" @select="setlectCard"></PlayerDeck>
