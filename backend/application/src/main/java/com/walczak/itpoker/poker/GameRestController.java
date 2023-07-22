@@ -1,12 +1,17 @@
 package com.walczak.itpoker.poker;
 
+import com.walczak.api.dto.CardSelectionDTO;
 import com.walczak.api.dto.PlayerInfoDTO;
+import com.walczak.api.dto.ResultDTO;
 import com.walczak.api.dto.RoomInfoDTO;
 import com.walczak.itpoker.poker.player.Player;
 import com.walczak.itpoker.poker.player.PlayerController;
 import com.walczak.itpoker.poker.room.RoomController;
 import com.walczak.itpoker.poker.room.RoomResultStage;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,5 +57,16 @@ public class GameRestController {
         playerController.resetAllPlayers(players);
         roomResultStage.removeRoomFromResultStage(roomId);
         applicationEventPublisher.publishEvent(new RoomStateChangeEvent(roomId, true));
+    }
+
+    @PostMapping("/vote")
+    public void vote(@RequestBody CardSelectionDTO dto) {
+        String playersRoomId = playerController.getPlayersRoomId(dto.getPlayerId());
+        if (roomResultStage.hasResult(playersRoomId)) {
+            return;
+        }
+        PlayerInfoDTO updatedPlayer = playerController.updatePlayerCard(dto);
+        String roomId = updatedPlayer.getRoomId();
+        applicationEventPublisher.publishEvent(new RoomStateChangeEvent(roomId, false));
     }
 }

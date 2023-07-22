@@ -51,12 +51,17 @@ export default {
             this.showPlayerList = !this.showPlayerList
         },
         setlectCard(data) {
-            this.client.send('/app/player',
-                JSON.stringify({
-                    playerId: this.$store.state.playerId,
-                    cardValue: data.card,
-                    unit: data.unit
-                }))
+            axios.post('/game/vote', {
+                playerId: this.$store.state.playerId,
+                cardValue: data.card,
+                unit: data.unit
+            }).catch( error => console.log(error));
+            // this.client.send('/app/player',
+            //     JSON.stringify({
+            //         playerId: this.$store.state.playerId,
+            //         cardValue: data.card,
+            //         unit: data.unit
+            //     }))
         },
         connect() {
             this.client = new StompClient("/poker")

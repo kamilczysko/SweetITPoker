@@ -32,20 +32,8 @@ public class GameWSController {
         this.playerController = playerController;
         this.roomResultStage = roomResultStage;
     }
-
-    @MessageMapping("/player")
-    public void updatePlayer(@Payload CardSelectionDTO dto) {
-        String playersRoomId = playerController.getPlayersRoomId(dto.getPlayerId());
-        if (roomResultStage.hasResult(playersRoomId)) {
-            return;
-        }
-        PlayerInfoDTO updatedPlayer = playerController.updatePlayerCard(dto);
-        String roomId = updatedPlayer.getRoomId();
-        notifyAboutRoomStateChange(roomId);
-    }
-
     @EventListener
-    void notifyRoomStateChange(RoomStateChangeEvent event) {
+    void notifyRoomStateChange( RoomStateChangeEvent event) {
         String roomId = event.getRoomId();
         notifyAboutRoomStateChange(roomId);
         if(event.shouldResetRoom()) {
