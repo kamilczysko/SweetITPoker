@@ -7,7 +7,7 @@
             <p
                 class="pt-3 text-center xs:text-sm font-secondary font-light md:text-md text-white hover:font-extrabold flex flex-col">
                 {{ player.name }}
-                <span class="font-secondary font-extralight text-white text-[10px]">({{ player.role }})</span>
+                <span class="font-secondary font-extralight text-white text-[10px]">({{ getRoleLabel(player.role) }})</span>
             </p>
         </div>
     </div>
@@ -15,6 +15,7 @@
 <script>
 import ReversCard from '../card/ReversCard.vue';
 import FrontCard from '../card/FrontCard.vue';
+import roles from '../../assets/roles.js';
 export default {
     name: "GameTable",
     components: { ReversCard, FrontCard },
@@ -22,6 +23,11 @@ export default {
         nonObservers() {
             return this.$store.state.players.filter(player => !player.isObserver)
         }
+    },
+    methods: {
+        getRoleLabel(roleId) {
+            return Array.from(roles).filter(role => role.value == roleId)[0].label
+        },
     }
 }
 </script>
