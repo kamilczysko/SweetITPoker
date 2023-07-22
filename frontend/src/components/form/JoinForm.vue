@@ -1,11 +1,11 @@
 <template>
     <div
         class='font-secondary flex flex-col items-center rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-30 w-[95%] mx-auto'>
-        <p class="border-2 border-red-500  font-secondary text-red-700 h-7 bg-opacity-70 rounded-2xl bg-slate-300 mb-3 min-w-1/2 text-center absolute mx-auto -top-10 z-50 px-3"
+        <p class="border-2 border-red-500  font-secondary text-red-700 h-7 bg-opacity-70 rounded-2xl bg-slate-300 mb-3 text-center absolute mx-auto -top-10 z-50 px-3"
             v-show="error != null">{{ error }}</p>
-        <div class='flex flex-col gap-5 items-center pt-3'>
+        <div class='flex flex-col gap-5 w-[90%] items-center pt-3'>
             <h1 class='mb-8 font-main xs:text-lg lg:text-2xl'>Join room!</h1>
-            <div class='flex flex-col xs:gap-10 md:gap-8 w-4/5 py-3 bg-black bg-opacity-5 rounded-lg shadow-xl '>
+            <div class='flex flex-col xs:gap-10 md:gap-8 w-full py-3 bg-black bg-opacity-5 rounded-lg shadow-xl '>
                 <TextInput label="Your name" @inputText="setName" />
                 <Choose label="Your role" :values="roles" @choose="setRole" />
                 <ImageChoose label="Your avatar" :images="prepareAvatars" @select="setAvatar" />

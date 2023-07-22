@@ -1,10 +1,11 @@
 <template>
-    <div class="flex flex-col gap-2 h-fit">
-        <div class="hover:brightness-115 bg-front bg-cover rounded-md p-[1px] hover:shadow-highlight flex flex-col items-center justify-center cursor-pointer "
+    <div class="flex flex-col gap-2 h-fit items-center">
+        <div class="relative hover:brightness-115 bg-front bg-cover rounded-md p-[1px] hover:shadow-highlight flex flex-col items-center cursor-pointer justify-center"
             :class="{ [`mb-3 shadow-highlight  brightness-110`]: isSelected }, { [`mb-0 brightness-100 shadow-md shadow-black`]: !isSelected },
-            { [`bg-front-other`]: unit == 'h' }"
-            v-on:click="selectCard">
-            <div class="w-full h-full flex justify-center items-center xs:w-16 xl:w-20    aspect-card">
+                { [`bg-front-other`]: unit == 'h' }" v-on:click="selectCard">
+            <p v-if="value != 'q' && value != 'c'" class="text-white absolute xs:text-md md:text-xl font-main h-5 w-5 flex justify-center items-center rounded-full bg-black bg-opacity-20 top-1 left-1">{{ unit }}</p>
+            <p v-if="value != 'q' && value != 'c'" class="text-white absolute xs:text-md md:text-xl font-main h-5 w-5 flex justify-center items-center rounded-full bg-black bg-opacity-20 bottom-1 right-1">{{ unit }}</p>
+            <div class="w-full h-full flex justify-center items-center xs:w-16 xl:w-20 aspect-card">
                 <img v-if="value == 'q'" src="../../assets/card/questionmark.png" class="aspect-square w-[75%]">
                 <img v-else-if="value == 'c'" src="../../assets/card/coffee.png" class="aspect-square w-[75%]">
                 <div v-else class="flex justify-center items-center flex-col gap-0 xs:text-xs md:text-2xl text-white">
@@ -12,15 +13,14 @@
                 </div>
 
             </div>
-
         </div>
-        <div class="bg-white brightness-150 rounded-xl bg-opacity-60 bottom-0 flex items-center justify-evenly cursor-pointer xs:h-fit md:h-8 xs:text-xs md:text-xl text-black gap-2 -py-1 hover:shadow-highlight active:shadow-highlight-more"
-            @click.stop @click="switchUnit">
-            <button v-if="units.length > 1"
-                class="w-5 font-light bg-none border-none cursor-pointer hover:scale-125 text-center hover:font-bold active:scale-150">⊲</button>
-            <p class="font-secondary font-light">{{ unit }}</p>
-            <button v-if="units.length > 1"
-                class="w-5 font-light bg-none border-none cursor-pointer hover:scale-125 text-center hover:font-bold active:scale-150">⊳</button>
+        <div class="bg-white brightness-150 rounded-xl text-white bg-unit-bg bg-cover bottom-0 flex items-center justify-evenly cursor-pointer xs:h-fit md:h-8 xs:text-xs md:text-xl gap-2 -py-1 hover:shadow-highlight active:shadow-highlight-more"
+            @click.stop @click="switchUnit" :class="{ [`invisible`]: value == 'q' || value == 'c' }, { [`bg-unit-bg-other`]: unit == 'h' }">
+            <p v-if="units.length > 1"
+                class="select-none w-5 font-light bg-none border-none cursor-pointer hover:scale-125 text-center hover:font-bold active:scale-150">⊲</p>
+            <p class="font-secondary font-light w-5 text-center">{{ unit }}</p>
+            <p v-if="units.length > 1"
+                class="select-none w-5 font-light bg-none border-none cursor-pointer hover:scale-125 text-center hover:font-bold active:scale-150">⊳</p>
         </div>
     </div>
 </template>
@@ -46,7 +46,7 @@ export default {
             this.unit = this.units[index + 1]
             if (this.value == this.$store.getters.selectedCard) {
                 this.$store.commit('setUnit', this.unit)
-                this.$emit("select", { card: this.value, unit: this.unit })
+                // this.$emit("select", { card: this.value, unit: this.unit })
             }
         }
     },

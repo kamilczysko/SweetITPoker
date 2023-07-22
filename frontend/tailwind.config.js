@@ -40,6 +40,8 @@ module.exports = {
         'front': "url('/src/assets/card/front.png')",
         'revers-other': "url('/src/assets/card/revers-other.png')",
         'front-other': "url('/src/assets/card/front-other.png')",
+        'unit-bg': "url('/src/assets/card/units-bg.png')",
+        'unit-bg-other': "url('/src/assets/card/units-bg-other.png')",
         'question': "url('/src/assets/card/questionmark.png')",
         'coffee': "url('/src/assets/card/coffee.png')",
         'background-first': "url('/src/assets/background/background.jpeg')",
