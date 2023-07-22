@@ -1,7 +1,8 @@
 <template>
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 h-fit">
         <div class="hover:brightness-115 bg-front bg-cover rounded-md p-[1px] hover:shadow-highlight flex flex-col items-center justify-center cursor-pointer "
-            :class="{ [`mb-3 shadow-highlight  brightness-110`]: isSelected }, { [`mb-0 brightness-100 shadow-md shadow-black`]: !isSelected }"
+            :class="{ [`mb-3 shadow-highlight  brightness-110`]: isSelected }, { [`mb-0 brightness-100 shadow-md shadow-black`]: !isSelected },
+            { [`bg-front-other`]: unit == 'h' }"
             v-on:click="selectCard">
             <div class="w-full h-full flex justify-center items-center xs:w-16 xl:w-20    aspect-card">
                 <img v-if="value == 'q'" src="../../assets/card/questionmark.png" class="aspect-square w-[75%]">

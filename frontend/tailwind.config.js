@@ -38,6 +38,8 @@ module.exports = {
       backgroundImage: {
         'revers': "url('/src/assets/card/revers.png')",
         'front': "url('/src/assets/card/front.png')",
+        'revers-other': "url('/src/assets/card/revers-other.png')",
+        'front-other': "url('/src/assets/card/front-other.png')",
         'question': "url('/src/assets/card/questionmark.png')",
         'coffee': "url('/src/assets/card/coffee.png')",
         'background-first': "url('/src/assets/background/background.jpeg')",
