@@ -33,6 +33,7 @@ module.exports = {
       },
       fontFamily: {
         main: 'Jost',
+        card: 'Lobster',
         secondary: ['Jost']
       },
       backgroundImage: {
