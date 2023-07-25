@@ -14,8 +14,8 @@
 
             </div>
         </div>
-        <div class="rounded-xl bg-opacity-50 text-white bg-[#e66860]  bg-cover bottom-0 flex items-center justify-evenly cursor-pointer xs:h-fit md:h-8 xs:text-xs md:text-xl gap-2 -py-1 hover:shadow-highlight active:shadow-highlight-more"
-            @click.stop @click="switchUnit" :class="{ [`invisible`]: value == 'q' || value == 'c' }, { [`bg-unit-bg-other`]: unit == 'h' }">
+        <div class="rounded-xl bg-opacity-30 text-white bg-[#e66860]  bg-cover bottom-0 flex items-center justify-evenly cursor-pointer xs:h-fit md:h-8 xs:text-xs md:text-xl gap-2 -py-1 hover:shadow-highlight active:shadow-highlight-more"
+            @click.stop @click="switchUnit" :class="{ [`invisible`]: value == 'q' || value == 'c' }, { [`bg-[#602887]`]: unit == 'h' }">
             <p v-if="units.length > 1"
                 class="select-none w-5 font-light bg-none border-none cursor-pointer hover:scale-125 text-center hover:font-bold active:scale-150">⊲</p>
             <p class="select-none font-secondary font-light w-5 text-center">{{ unit }}</p>

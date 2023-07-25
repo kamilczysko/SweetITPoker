@@ -1,13 +1,13 @@
 <template>
-    <div class='flex items-center justify-center align-middle bg-none relative'>
-        <p class='text-left font-light xs:text-xs lg:text-lg'>{{ label }} : </p>
+    <div class='flex font-normal items-center justify-center align-middle bg-none relative'>
+        <p class='text-left xs:text-xs lg:text-lg'>{{ label }} : </p>
         <div v-on:click="toggle" class='cursor-pointer w-3/5 font-light' v-on:mouseleave="hide">
             <div v-show="isOpen" class='hover:font-normal flex align-middle w-full xs:text-xs lg:text-lg'>
                 <p class='m-auto'>{{ value.label }}</p>
                 <p class='text-right mr-5'>▼</p>
             </div>
-            <div v-show="!isOpen" class='xs:text-xs lg:text-lg hover:font-bold flex align-middle w-full'>
-                <p class='m-auto font-light'>{{ value.label }}</p>
+            <div v-show="!isOpen" class='xs:text-xs lg:text-lg hover:font-normal flex align-middle w-full'>
+                <p class='m-auto'>{{ value.label }}</p>
                 <p class='text-right mr-5'>◀</p>
             </div>
             <ul

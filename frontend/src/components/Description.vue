@@ -1,7 +1,7 @@
 <template>
     <article class="flex justify-center items-center m-auto w-[95%]">
         <div class='flex flex-col justify-center items-center gap-7 py-5 xs:mb-4 rounded-2xl backdrop-blur-sm bg-slate-50 bg-opacity-30'>
-            <h2 class='xs:text-lg lg:text-2xl underline'>Your perfect planning tool</h2>
+            <h2 class='font-main xs:text-lg lg:text-2xl'>Your perfect planning tool</h2>
             <p class='font-secondary xs:text-sm lg:text-md font-light text-center px-5'>
                 <b>UwUstimates</b> is a planning poker tool designed to help development teams. It's an easy-to-use
                 tool,

@@ -17,7 +17,7 @@
             
         </div>
         <div :class="{ ['blur-[1px]']: data.isObserver }" class="w-fit flex flex-col justify-center items-start ">
-            <p class="text-white xs:text-xs md:text-sm lg:text-base">{{ data.name }}</p>
+            <p class="text-white font-extrabold xs:text-xs md:text-sm lg:text-base">{{ data.name }}</p>
             <p class="text-white font-secondary text-xs font-light">{{ getRoleLabel(data.role) }}</p>
             <p class="text-white font-secondary text-xs font-extralight" v-if="data.isAdmin">Senpai (Admin)</p>
         </div>

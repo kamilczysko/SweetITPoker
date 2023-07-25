@@ -32,8 +32,8 @@ module.exports = {
         roomView_md: '12fr 3fr'
       },
       fontFamily: {
-        main: 'Lobster',
-        secondary: ['Poppins']
+        main: 'Jost',
+        secondary: ['Jost']
       },
       backgroundImage: {
         'revers': "url('/src/assets/card/revers.png')",
