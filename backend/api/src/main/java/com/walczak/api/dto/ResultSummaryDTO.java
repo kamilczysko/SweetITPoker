@@ -17,4 +17,6 @@ public class ResultSummaryDTO {
     private boolean hasSelectedCoffee = false;
     @Builder.Default
     private boolean hasSelectedQuestion = false;
+    @Builder.Default
+    private String unit = "h";
 }

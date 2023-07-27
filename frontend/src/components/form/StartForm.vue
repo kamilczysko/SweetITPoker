@@ -6,6 +6,7 @@
         <div class='flex justify-center relative'>
             <h1 class='xs:mb-3 lg:mb-10 font-main xs:text-sm lg:text-2xl pt-3'>Create new room</h1>
         </div>
+        <Checkbox class="absolute left-3 top-3" label="Play with story points" @select="setStoryPoint"></Checkbox>
         <div class='border-spacing-3 flex flex-col gap-10 items-stretch w-[95%] rounded-xl'>
             <TextInput label="Room name" @inputText="setRoomName" />
             <div
@@ -58,6 +59,10 @@ export default {
         }
     },
     methods: {
+        setStoryPoint(isSelected) {
+            const unitIndex = isSelected ? 1 : 0 // 1 story point, 0 day hour
+            this.roomData.units = units[unitIndex].values //todo change on enums
+        },
         prepareAvatars() {
             return Object.values(avatars)
                 .map(a => a.default)

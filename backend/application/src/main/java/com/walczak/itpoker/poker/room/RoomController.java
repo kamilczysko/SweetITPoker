@@ -98,9 +98,11 @@ public class RoomController {
     }
 
     private ResultSummaryDTO buildResult(String roomId) {
-        List<Player> players = roomService.getRoom(roomId).getPlayers();
+        Room room = roomService.getRoom(roomId);
+        List<Player> players = room.getPlayers();
         boolean isCoffeeSelected = players.stream().anyMatch(Player::hasSelectedCoffee);
         boolean isQuestionSelected = players.stream().anyMatch(Player::hasSelectedQuestion);
+        String unit = room.getUnits().stream().findFirst().orElse("h");
         List<ResultDTO> resultsList = roomResultStage.getResult(roomId).entrySet().stream()
                 .map(entry -> new ResultDTO(entry.getKey().toString(), entry.getValue(), "h"))
                 .toList();
@@ -108,6 +110,7 @@ public class RoomController {
                 .results(resultsList)
                 .hasSelectedCoffee(isCoffeeSelected)
                 .hasSelectedQuestion(isQuestionSelected)
+                .unit(unit)
                 .build();
     }
 

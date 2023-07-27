@@ -3,6 +3,7 @@ package com.walczak.itpoker.poker.player;
 import com.walczak.itpoker.poker.room.Room;
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.logging.log4j.util.Strings;
 
 import java.util.UUID;
 
@@ -24,11 +25,11 @@ public class Player {
     private PlayerRole role;
     private boolean isObsoleted = false;
     public boolean hasSelectedCoffee() {
-        return this.selectedCard.equals("c");
+        return Strings.isNotBlank(this.selectedCard) && this.selectedCard.equals("c");
     }
 
     public boolean hasSelectedQuestion() {
-        return this.selectedCard.equals("q");
+        return Strings.isNotBlank(this.selectedCard) && this.selectedCard.equals("q");
     }
 
     public boolean hasSelectedNoValueCard() {

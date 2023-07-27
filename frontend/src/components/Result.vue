@@ -7,7 +7,7 @@
                 <div class='bg-slate-800 bg-opacity-50 w-full mt-2 xs:text-xs lg:text-lg flex text-lg gap-3 justify-center items-center font-secondary px-4 font-extralight cursor-pointer shadow-black shadow-sm hover:shadow-md hover:shadow-black hover:bg-opacity-40 active:shadow-xl active:bg-slate-500 active:bg-opacity-70 active:shadow-black rounded-lg'
                     @click="copyToClipboard(row.avg + 'h')">
                     <p>{{ getRoleLabel(row.role) }}</p>
-                    <p>{{ row.avg }}h</p>
+                    <p>{{ row.avg }} {{ resultUnit }}</p>
                 </div>
             </div>
             <p class='font-extralight font-secondary text-[10px] mt-3'>(Click to copy to clipboard)</p>
@@ -89,6 +89,10 @@ export default {
         },
         isQuestionSelected() {
             return this.$store.state.result.hasSelectedQuestion
+        },
+        resultUnit() {
+            const unit =  this.$store.state.result.unit
+            return unit
         }
     }
 }
