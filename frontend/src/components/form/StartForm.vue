@@ -1,6 +1,6 @@
 <template>
     <div
-        class='font-secondary flex flex-col items-center rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-30 w-[95%] mx-auto'>
+        class='font-secondary flex flex-col items-center rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-50 w-[95%] mx-auto'>
         <p class="border-2 border-red-500  font-secondary text-red-700 h-7 bg-opacity-70 rounded-2xl bg-slate-300 mb-3 min-w-1/2 text-center absolute mx-auto -top-10 z-50 px-3"
             v-show="error != null">{{ error }}</p>
         <div class='flex justify-center relative'>
@@ -38,9 +38,10 @@ import ImageChoose from '@/components/inputs/ImageChoose.vue'
 import CaptchaInfo from '../CaptchaInfo.vue'
 import CustomButton from '../controls/CustomButton.vue'
 import axios from 'axios'
+import Checkbox from '@/components/inputs/Checkbox.vue'
 export default {
     name: "StartForm",
-    components: { TextInput, Choose, ImageChoose, CaptchaInfo, CustomButton },
+    components: { TextInput, Choose, ImageChoose, CaptchaInfo, CustomButton, Checkbox },
     data() {
         return {
             errorMessage: "sdf",
@@ -132,7 +133,7 @@ export default {
         this.roles = Array.from(roles)
     },
     mounted() {
-        // axios.defaults.baseURL  = 'http://localhost:8080';
+        axios.defaults.baseURL  = 'http://localhost:8080';
     }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div
-        class='font-secondary flex flex-col items-center rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-30 w-[95%] mx-auto'>
+        class='font-secondary flex flex-col items-center rounded-xl backdrop-blur-sm bg-slate-50 bg-opacity-50 w-[95%] mx-auto'>
         <p class="border-2 border-red-500  font-secondary text-red-700 h-7 bg-opacity-70 rounded-2xl bg-slate-300 mb-3 text-center absolute mx-auto -top-10 z-50 px-3"
             v-show="error != null">{{ error }}</p>
         <div class='flex flex-col gap-5 w-[90%] items-center pt-3'>

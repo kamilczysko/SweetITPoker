@@ -1,5 +1,5 @@
 <template>
-    <div class='flex font-normal items-center justify-center align-middle bg-none relative'>
+    <div class='flex font-light items-center justify-center align-middle bg-none relative'>
         <p class='text-left xs:text-xs lg:text-lg'>{{ label }} : </p>
         <div v-on:click="toggle" class='cursor-pointer w-3/5 font-light' v-on:mouseleave="hide">
             <div v-show="isOpen" class='hover:font-normal flex align-middle w-full xs:text-xs lg:text-lg'>
