@@ -133,7 +133,7 @@ export default {
         this.roles = Array.from(roles)
     },
     mounted() {
-        axios.defaults.baseURL  = 'http://localhost:8080';
+        // axios.defaults.baseURL  = 'http://localhost:8080';
     }
 }
 </script>
