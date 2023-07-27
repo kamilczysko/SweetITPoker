@@ -1,6 +1,6 @@
 <template>
     <div class="max-h-24 w-full pl-4 py-2 flex flex-row xs:justify-center xs:gap-5 md:justify-start xs:items-center md:items-center rounded-l-full cursor-pointer relative hover:shadow-md hover:shadow-black"
-        :class="{ ['shadow-highlight']: data.selectedCard }">
+        :class="{ ['shadow-highlight-more border-pink-300 border-2 brightness-125 bg-pink-700 bg-opacity-50']: data.selectedCard }">
         <div class="relative inset-0">
             <img :src="getAvatar(data.avatarIdx)"
                 class="cursor-pointer hover:shadow-md hover:shadow-black rounded-full resize-none xs:w-10 md:w-12 z-10"
@@ -17,7 +17,7 @@
             
         </div>
         <div :class="{ ['blur-[1px]']: data.isObserver }" class="w-fit flex flex-col justify-center items-start ">
-            <p class="text-white font-extrabold xs:text-xs md:text-sm lg:text-base">{{ data.name }}</p>
+            <p class="text-white font-main font-extrabold xs:text-xs md:text-sm lg:text-base">{{ data.name }}</p>
             <p class="text-white font-secondary text-xs font-light">{{ getRoleLabel(data.role) }}</p>
             <p class="text-white font-secondary text-xs font-extralight" v-if="data.isAdmin">Senpai (Admin)</p>
         </div>

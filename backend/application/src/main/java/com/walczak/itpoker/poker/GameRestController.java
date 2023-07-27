@@ -2,21 +2,19 @@ package com.walczak.itpoker.poker;
 
 import com.walczak.api.dto.CardSelectionDTO;
 import com.walczak.api.dto.PlayerInfoDTO;
-import com.walczak.api.dto.ResultDTO;
 import com.walczak.api.dto.RoomInfoDTO;
-import com.walczak.itpoker.poker.player.Player;
 import com.walczak.itpoker.poker.player.PlayerController;
 import com.walczak.itpoker.poker.room.RoomController;
 import com.walczak.itpoker.poker.room.RoomResultStage;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/game")

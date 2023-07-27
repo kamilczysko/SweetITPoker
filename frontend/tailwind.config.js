@@ -55,8 +55,7 @@ module.exports = {
       boxShadow: {
         'round': '0 0 15px hotpink',
         'highlight': '0px 0px 15px hotpink',
-        'highlight-more': '0px 0px 25px hotpink',
-        'highlight-more': '0px 0px 10px hotpink'
+        'highlight-more': '0px 0px 25px hotpink'
       }
     },
   },

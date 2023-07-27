@@ -89,14 +89,26 @@ public class RoomController {
     }
 
     @GetMapping("/result/{id}")
-    public List<ResultDTO> getResult(@PathVariable("id") String roomId) {
+    public ResultSummaryDTO getResult(@PathVariable("id") String roomId) {
         if (!roomResultStage.hasResult(roomId)) {
             Map<PlayerRole, Double> roomResult = roomService.calculateRoomResult(roomId);
             roomResultStage.setRoomInResultStage(roomId, roomResult);
         }
-        return roomResultStage.getResult(roomId).entrySet().stream()
+        return buildResult(roomId);
+    }
+
+    private ResultSummaryDTO buildResult(String roomId) {
+        List<Player> players = roomService.getRoom(roomId).getPlayers();
+        boolean isCoffeeSelected = players.stream().anyMatch(Player::hasSelectedCoffee);
+        boolean isQuestionSelected = players.stream().anyMatch(Player::hasSelectedQuestion);
+        List<ResultDTO> resultsList = roomResultStage.getResult(roomId).entrySet().stream()
                 .map(entry -> new ResultDTO(entry.getKey().toString(), entry.getValue(), "h"))
                 .toList();
+        return ResultSummaryDTO.builder()
+                .results(resultsList)
+                .hasSelectedCoffee(isCoffeeSelected)
+                .hasSelectedQuestion(isQuestionSelected)
+                .build();
     }
 
     @PostMapping("/result/reset/{id}")

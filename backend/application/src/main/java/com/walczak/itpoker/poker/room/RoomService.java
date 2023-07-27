@@ -43,6 +43,7 @@ public class RoomService {
         Map<PlayerRole, List<Player>> roleToPlayers = room.getPlayers().stream()
                 .filter(player -> !player.isObserver())
                 .filter(player -> Strings.isNotBlank(player.getSelectedCard()))
+                .filter(player -> !player.hasSelectedNoValueCard())
                 .collect(Collectors.groupingBy((Player::getRole)));
         return roleToPlayers.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, entry -> ResultMapper.getAvg(entry.getValue())));

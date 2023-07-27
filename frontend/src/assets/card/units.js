@@ -1,6 +1,6 @@
 const units = [
     {
-        values: ["d", "h"]
+        values: ["h", "d"]
     },{
         values: ["sp"]
     }

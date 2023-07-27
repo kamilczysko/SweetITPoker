@@ -4,8 +4,7 @@
         <div v-for="player in nonObservers" :key="player.id">
             <ReversCard v-if="this.$store.state.result == null" :data="player"></ReversCard>
             <FrontCard v-else :unit="player.selectedUnit" :value="player.selectedCard"></FrontCard>
-            <p
-                class="pt-3 text-center xs:text-sm font-secondary font-light md:text-md text-white hover:font-extrabold flex flex-col">
+            <p class="pt-3 text-center xs:text-sm font-secondary md:text-md text-white font-extrabold flex flex-col">
                 {{ player.name }}
                 <span class="font-secondary font-extralight text-white text-[10px]">({{ getRoleLabel(player.role) }})</span>
             </p>

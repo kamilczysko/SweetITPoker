@@ -1,9 +1,6 @@
 package com.walczak.itpoker.poker;
 
-import com.walczak.api.dto.CardSelectionDTO;
-import com.walczak.api.dto.PlayerInfoDTO;
-import com.walczak.api.dto.ResultDTO;
-import com.walczak.api.dto.RoomInfoDTO;
+import com.walczak.api.dto.*;
 import com.walczak.itpoker.poker.player.Player;
 import com.walczak.itpoker.poker.player.PlayerController;
 import com.walczak.itpoker.poker.room.RoomController;
@@ -51,7 +48,7 @@ public class GameWSController {
         boolean allPlayersVoted = nonObservers.stream()
                 .noneMatch(player -> Strings.isBlank(player.getSelectedCard()));
         if (allPlayersVoted && !roomResultStage.hasResult(roomId)) {
-            List<ResultDTO> result = roomController.getResult(roomId);
+            ResultSummaryDTO result = roomController.getResult(roomId);
             simpMessagingTemplate.convertAndSend("/topic/room/result/" + roomId, result);
         }
     }

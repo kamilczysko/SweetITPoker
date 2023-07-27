@@ -1,6 +1,6 @@
 <template>
     <div class="relative hover:brightness-115 shadow-highlight bg-front bg-cover rounded-md p-[1px] hover:shadow-highlight flex flex-col items-center justify-center cursor-pointer"
-    :class="{ [`bg-front-other`]: unit == 'h' }"
+    :class="{ [`bg-front-other`]: unit == 'd' }"
         v-on:click="selectCard">
         <p v-if="value != 'q' && value != 'c'" class="text-white absolute xs:text-md md:text-xl font-card h-5 w-5 flex justify-center items-center rounded-full bg-black bg-opacity-20 top-1 left-1">{{ unit }}</p>
         <p v-if="value != 'q' && value != 'c'" class="text-white absolute xs:text-md md:text-xl font-card h-5 w-5 flex justify-center items-center rounded-full bg-black bg-opacity-20 bottom-1 right-1">{{ unit }}</p>

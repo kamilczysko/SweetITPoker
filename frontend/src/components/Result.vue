@@ -1,17 +1,31 @@
 <template>
     <div class="bg-none text-white w-full h-full rounded-lg flex flex-col xs:justify-start md:justify-center items-center">
         <h1 class='text-center font-secondary text-xl font-semibold underline mb-4 text-white  '>Results</h1>
-        <div v-for="row in this.$store.state.result" :key="row"
-            class="flex flex-col justify-center items-center gap-2 w-2/3">
-            <div class='bg-slate-800 bg-opacity-50 w-full mt-2 xs:text-xs lg:text-lg flex text-lg gap-3 justify-center items-center font-secondary px-4 font-extralight cursor-pointer shadow-black shadow-sm hover:shadow-md hover:shadow-black hover:bg-opacity-40 active:shadow-xl active:bg-slate-500 active:bg-opacity-70 active:shadow-black rounded-lg'
-                @click="copyToClipboard(row.avg + 'h')">
-                <p>{{ getRoleLabel(row.role) }}</p>
-                <p>{{ row.avg }}h</p>
+        <div v-if="this.$store.state.result.results.length > 0" class="flex flex-col justify-center items-center w-2/3">
+            <div v-for="row in this.$store.state.result.results" :key="row"
+                class="flex flex-col justify-center items-center gap-2 w-full">
+                <div class='bg-slate-800 bg-opacity-50 w-full mt-2 xs:text-xs lg:text-lg flex text-lg gap-3 justify-center items-center font-secondary px-4 font-extralight cursor-pointer shadow-black shadow-sm hover:shadow-md hover:shadow-black hover:bg-opacity-40 active:shadow-xl active:bg-slate-500 active:bg-opacity-70 active:shadow-black rounded-lg'
+                    @click="copyToClipboard(row.avg + 'h')">
+                    <p>{{ getRoleLabel(row.role) }}</p>
+                    <p>{{ row.avg }}h</p>
+                </div>
+            </div>
+            <p class='font-extralight font-secondary text-[10px] mt-3'>(Click to copy to clipboard)</p>
+        </div>
+        <div>
+            <div v-if="isCoffeeSelected && isQuestionSelected">
+                <p class="font-main font-lg font-light"><b>Someone</b> still need some explanation and coffee!</p>
+            </div>
+            <div v-else-if="isCoffeeSelected || isQuestionSelected">
+                <p v-if="isCoffeeSelected" class="font-main font-lg font-light"><b>Someone</b> need coffee! Maybe go to
+                    coffee shop
+                    instead of work?</p>
+                <p v-else-if="isQuestionSelected" class="font-main font-lg font-light"><b>Someone</b> still need some
+                    explanation!</p>
             </div>
         </div>
-        <p class='font-extralight font-secondary text-[10px] mt-3'>(Click to copy to clipboard)</p>
         <div class="xs:w-full md:w-1/2 px-6 mt-5">
-            <CustomButton v-show="this.$store.getters.admin" label="Reset votes!" @clicked="reset"/>
+            <CustomButton v-show="this.$store.getters.admin" label="Reset!" @clicked="reset" />
             <CustomButton v-show="!this.$store.getters.admin" label="close" @clicked="close" class="w-2/3 mt-5" />
         </div>
         <div class="h-16">
@@ -70,6 +84,12 @@ export default {
         }
     },
     computed: {
+        isCoffeeSelected() {
+            return this.$store.state.result.hasSelectedCoffee
+        },
+        isQuestionSelected() {
+            return this.$store.state.result.hasSelectedQuestion
+        }
     }
 }
 </script>

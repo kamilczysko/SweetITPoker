@@ -23,6 +23,18 @@ public class Player {
     private String selectedUnit;
     private PlayerRole role;
     private boolean isObsoleted = false;
+    public boolean hasSelectedCoffee() {
+        return this.selectedCard.equals("c");
+    }
+
+    public boolean hasSelectedQuestion() {
+        return this.selectedCard.equals("q");
+    }
+
+    public boolean hasSelectedNoValueCard() {
+        return this.hasSelectedCoffee() || this.hasSelectedQuestion();
+    }
+
     @ManyToOne
     @JoinColumn(name = "ROOM_ID")
     private Room room;

@@ -34,4 +34,27 @@ public class ResultMapperTest {
 
         assertEquals(5.5, avg, 0.0);
     }
+    @Test
+    public void testForPlayersWithNoValuesVotes() {
+        Player player1 = Player.builder()
+                .role(PlayerRole.DEVELOPER)
+                .selectedUnit("h")
+                .selectedCard("3")
+                .build();
+        Player player2 = Player.builder()
+                .role(PlayerRole.DEVELOPER)
+                .selectedUnit("h")
+                .selectedCard("3")
+                .build();
+        Player player3 = Player.builder()
+                .role(PlayerRole.DEVELOPER)
+                .selectedUnit("h")
+                .selectedCard("q")
+                .build();
+
+        double avg = ResultMapper.getAvg(List.of(player1, player2, player3));
+
+        assertEquals(3, avg, 0.0);
+    }
+
 }

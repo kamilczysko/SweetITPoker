@@ -10,11 +10,14 @@ public class ResultMapper {
     private final static Map<String, Integer> UNITS = Map.of("d", 8, "sp", 1, "h", 1);
 
     public static double getAvg(List<Player> players) {
-        int numberOfVotes = players.size();
+        List<Player> filteredPlayers = players.stream()
+                .filter(player -> !player.hasSelectedNoValueCard())
+                .toList();
+        int numberOfVotes = filteredPlayers.size();
         if (numberOfVotes == 0) {
             return 0.0;
         }
-        Map<String, List<String>> unitToValues = players.stream()
+        Map<String, List<String>> unitToValues = filteredPlayers.stream()
                 .collect(Collectors.groupingBy(Player::getSelectedUnit,
                         Collectors.mapping(Player::getSelectedCard, Collectors.toList())
                 ));
@@ -33,10 +36,7 @@ public class ResultMapper {
     }
 
     private static int convertValue(String value) {
-        if (value.equals("q")) {
-            return 0;
-        }
-        if (value.equals("c")) {
+        if (value.equals("q") || value.equals("c")) {
             return 0;
         }
         return Integer.parseInt(value);

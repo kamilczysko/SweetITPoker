@@ -1,7 +1,7 @@
 <template>
     <div class="flex xs:flex-row md:flex-col items-center justify-center gap-2 relative">
         <transition>
-            <p class="text-white absolute top-0" v-show="showInfo">Copied to clipboard!</p>
+            <p class="text-white absolute top-8 font-main" v-show="showInfo">Copied to clipboard!</p>
         </transition>
         <CustomButton label="Copy link!" class='w-full' @clicked="copyToClipboard" />
         <CustomButton label="Reset votes!" class='w-full' @clicked="resetVotes" v-if="this.$store.getters.admin" />
