@@ -14,13 +14,13 @@
         </div>
         <div>
             <div v-if="isCoffeeSelected && isQuestionSelected">
-                <p class="font-main font-lg font-light"><b>Someone</b> still need some explanation and coffee!</p>
+                <p class="font-main font-lg font-light"><b>Someone</b> still needs some explanation and coffee!</p>
             </div>
             <div v-else-if="isCoffeeSelected || isQuestionSelected">
-                <p v-if="isCoffeeSelected" class="font-main font-lg font-light"><b>Someone</b> need coffee! Maybe go to
+                <p v-if="isCoffeeSelected" class="font-main font-lg font-light"><b>Someone</b> needs coffee! Maybe go to
                     coffee shop
                     instead of work?</p>
-                <p v-else-if="isQuestionSelected" class="font-main font-lg font-light"><b>Someone</b> still need some
+                <p v-else-if="isQuestionSelected" class="font-main font-lg font-light"><b>Someone</b> still needs some
                     explanation!</p>
             </div>
         </div>
