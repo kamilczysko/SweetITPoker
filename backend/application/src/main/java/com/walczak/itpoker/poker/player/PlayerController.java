@@ -2,6 +2,7 @@ package com.walczak.itpoker.poker.player;
 
 import com.walczak.api.dto.*;
 import com.walczak.itpoker.infrastructure.captcha.CaptchaService;
+import com.walczak.itpoker.poker.RoomMessageEvent;
 import com.walczak.itpoker.poker.RoomStateChangeEvent;
 import com.walczak.itpoker.poker.room.Room;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ public class PlayerController {
         Player savedPlayer = playerService.savePlayer(mapToNewPlayer(dto));
         String playerId = savedPlayer.getId().toString();
         notifyRoomChange(savedPlayer.getRoom().getId());
+        publishMessage(dto.getRoomId(), playerId, "has joined room");
         return new NewPlayerResponseDTO(playerId);
     }
 
@@ -51,6 +53,13 @@ public class PlayerController {
     private void notifyRoomChange(UUID id) {
         applicationEventPublisher.publishEvent(new RoomStateChangeEvent(id.toString()));
     }
+    private void publishMessage(String playersRoomId, String playerId, String message) {
+        applicationEventPublisher.publishEvent(RoomMessageEvent.Builder.builder()
+                .roomId(playersRoomId)
+                .playerId(playerId)
+                .message(message)
+                .build());
+    }
     public String getPlayersRoomId(String playerId) {
         return playerService.getPlayerById(playerId).getRoom().getId().toString();
     }
@@ -71,7 +80,13 @@ public class PlayerController {
                 .isObserver(!playerById.isObserver())
                 .build();
         playerService.savePlayer(modifiedPlayer);
-        notifyRoomChange(playerById.getRoom().getId());
+        UUID roomId = playerById.getRoom().getId();
+        notifyRoomChange(roomId);
+        if (playerById.isObserver()) {
+            publishMessage(roomId.toString(), id, "is observer now");
+        }else {
+            publishMessage(roomId.toString(), id, "is not observer anymore");
+        }
     }
 
     @PostMapping("/update/toggle/admin/{id}")

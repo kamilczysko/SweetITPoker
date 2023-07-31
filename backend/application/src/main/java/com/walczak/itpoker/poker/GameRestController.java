@@ -35,6 +35,7 @@ public class GameRestController {
     @DeleteMapping("/delete/{playerId}")
     public void deletePlayer(@PathVariable("playerId") String playerId) {
         String roomId = playerController.getPlayersRoomId(playerId);
+        publishMessage(roomId, playerId, "has left room");
         roomController.detachPlayer(playerId, roomId);
         setAdminIfNonLeftInTheRoom(roomId);
         applicationEventPublisher.publishEvent(new RoomStateChangeEvent(roomId));
@@ -42,9 +43,12 @@ public class GameRestController {
 
     private void setAdminIfNonLeftInTheRoom(String roomId) {
         RoomInfoDTO roomInfo = roomController.getRoomInfo(roomId);
-        if(roomInfo.getPlayers().stream().noneMatch(PlayerInfoDTO::isAdmin)){
+        if (roomInfo.getPlayers().stream().noneMatch(PlayerInfoDTO::isAdmin)) {
             roomInfo.getPlayers().stream().findFirst()
-                    .ifPresent(p -> playerController.toggleAdmin(p.getId()));
+                    .ifPresent(p -> {
+                        publishMessage(roomId, p.getId(), "is now new admin");
+                        playerController.toggleAdmin(p.getId());
+                    });
         }
     }
 
@@ -60,11 +64,20 @@ public class GameRestController {
     @PostMapping("/vote")
     public void vote(@RequestBody CardSelectionDTO dto) {
         String playersRoomId = playerController.getPlayersRoomId(dto.getPlayerId());
+        publishMessage(playersRoomId, dto.getPlayerId(), "has voted");
         if (roomResultStage.hasResult(playersRoomId)) {
             return;
         }
         PlayerInfoDTO updatedPlayer = playerController.updatePlayerCard(dto);
         String roomId = updatedPlayer.getRoomId();
         applicationEventPublisher.publishEvent(new RoomStateChangeEvent(roomId, false));
+    }
+
+    private void publishMessage(String roomId, String playerId, String message) {
+        applicationEventPublisher.publishEvent(RoomMessageEvent.Builder.builder()
+                .roomId(roomId)
+                .playerId(playerId)
+                .message(message)
+                .build());
     }
 }

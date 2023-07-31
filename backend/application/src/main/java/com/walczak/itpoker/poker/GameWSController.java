@@ -29,6 +29,11 @@ public class GameWSController {
         this.playerController = playerController;
         this.roomResultStage = roomResultStage;
     }
+
+    @EventListener
+    void sendMessage(RoomMessageEvent event) {
+        simpMessagingTemplate.convertAndSend("/topic/room/message/" + event.getRoomId(), event);
+    }
     @EventListener
     void notifyRoomStateChange( RoomStateChangeEvent event) {
         String roomId = event.getRoomId();

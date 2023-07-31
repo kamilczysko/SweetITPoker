@@ -14,6 +14,13 @@
                 <CustomButton label="Close" class="sticky top-0 z-50" @clicked="togglePlayerList"></CustomButton>
                 <PlayerList></PlayerList>
             </div>
+            <div class="absolute left-0 top-5 w-fit px-5 h-2/3 font-main text-white overflow-hidden">
+                <transition-group>
+                    <p class="text-white font-thin" v-for="message in messages" :key="message">
+                        <b>{{ message.player }}</b> {{ message.message }}
+                    </p>
+                </transition-group>
+            </div>
         </div>
         <div
             class="grid grid-cols-roomView h-1/4 bg-slate-700 bg-opacity-30 backdrop-blur-sm overflow-x-scroll scrollbar-hide">
@@ -42,7 +49,8 @@ export default {
     data() {
         return {
             showPlayerList: false,
-            showResult: false
+            showResult: false,
+            messages: []
         }
     },
     methods: {
@@ -54,7 +62,7 @@ export default {
                 playerId: this.$store.state.playerId,
                 cardValue: data.card,
                 unit: data.unit
-            }).catch( error => console.log(error));
+            }).catch(error => console.log(error));
             // this.client.send('/app/player',
             //     JSON.stringify({
             //         playerId: this.$store.state.playerId,
@@ -62,23 +70,52 @@ export default {
             //         unit: data.unit
             //     }))
         },
+        addMessage(message) {
+            console.log(message)
+            this.messages.push({player:"", message:message})
+            setTimeout(() => { this.messages.pop(0) }, 1000);
+        },
+        addMessageWithPlayer(player, message) {
+            console.log(message)
+            this.messages.push({player: player, message:message})
+            setTimeout(() => { this.messages.pop(0) }, 1000);
+        },
         connect() {
             this.client = new StompClient("/poker")
             const subscriptions = [
                 {
                     path: "/topic/room/" + this.$store.state.roomId,
-                    callback: (data) => this.updateRoom(JSON.parse(data.body))
+                    callback: (data) => {
+                        const newData = JSON.parse(data.body)
+                        this.updateRoom(newData)
+                    }
                 },
                 {
                     path: "/topic/room/result/" + this.$store.state.roomId,
-                    callback: (data) => this.setResult(JSON.parse(data.body))
+                    callback: (data) => {
+                        this.setResult(JSON.parse(data.body))
+                        this.addMessage("We've got result!")
+                    }
                 },
                 {
                     path: "/topic/room/reset/" + this.$store.state.roomId,
-                    callback: () => this.reset()
+                    callback: () => {
+                        this.addMessage("Admin has reset votes!")
+                        this.reset()
+                    }
+                },
+                {
+                    path: "/topic/room/message/" + this.$store.state.roomId,
+                    callback: (msg) => {
+                        const messageData = JSON.parse(msg.body)
+                        this.addMessageWithPlayer(this.getPlayerName(messageData.playerId), messageData.message)
+                    }
                 }
             ]
             this.client.bulkSubscribe(subscriptions)
+        },
+        getPlayerName(id) {
+            return this.$store.state.players.filter(player => player.id == id)[0].name
         },
         updateRoom(data) {
             const amIRemoved = data.filter(player => player.id == this.$store.state.playerId).length <= 0
@@ -149,3 +186,15 @@ export default {
 
 }
 </script>
+
+<style scoped>
+/* .v-enter-active, */
+.v-leave-active {
+    transition: opacity 1s ease;
+}
+
+/* .v-enter-from, */
+.v-leave-to {
+    opacity: 0;
+}
+</style>

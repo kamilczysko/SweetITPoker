@@ -2,9 +2,11 @@ package com.walczak.itpoker.poker.room;
 
 import com.walczak.api.dto.*;
 import com.walczak.itpoker.infrastructure.captcha.CaptchaService;
+import com.walczak.itpoker.poker.RoomMessageEvent;
 import com.walczak.itpoker.poker.player.Player;
 import com.walczak.itpoker.poker.player.PlayerRole;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -86,6 +88,7 @@ public class RoomController {
         Room roomToUpdate = room.toBuilder()
                 .players(playerList).build();
         roomService.saveNewRoom(roomToUpdate);
+
     }
 
     @GetMapping("/result/{id}")
