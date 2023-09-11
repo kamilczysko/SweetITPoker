@@ -18,9 +18,13 @@ const store = new Vuex.Store({
             players: [],
             result: null,
             cookiesAccepted: false,
+            playWithSP: false
         }
     },
     mutations: {
+        saveSPSetting(state, value) {
+          state.playWithSP = value  
+        },
         cleanup(state) {
             state.roomId = null
             state.playerId = null
@@ -73,6 +77,9 @@ const store = new Vuex.Store({
         },
         resetResult(state) {
             state.result = null
+        },
+        acceptCookies(state) {
+            state.cookiesAccepted = true
         }
     },getters: {
         selectedCard(state) {
