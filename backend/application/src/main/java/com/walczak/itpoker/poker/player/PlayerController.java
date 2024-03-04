@@ -1,7 +1,6 @@
 package com.walczak.itpoker.poker.player;
 
 import com.walczak.api.dto.*;
-import com.walczak.itpoker.infrastructure.captcha.CaptchaService;
 import com.walczak.itpoker.poker.RoomMessageEvent;
 import com.walczak.itpoker.poker.RoomStateChangeEvent;
 import com.walczak.itpoker.poker.room.Room;
@@ -17,16 +16,13 @@ import java.util.UUID;
 public class PlayerController {
     private final PlayerService playerService;
     private final ApplicationEventPublisher applicationEventPublisher;
-    private final CaptchaService captchaService;
-    public PlayerController(PlayerService playerService, ApplicationEventPublisher applicationEventPublisher, CaptchaService captchaService) {
+    public PlayerController(PlayerService playerService, ApplicationEventPublisher applicationEventPublisher) {
         this.playerService = playerService;
         this.applicationEventPublisher = applicationEventPublisher;
-        this.captchaService = captchaService;
     }
 
     @PostMapping
     public NewPlayerResponseDTO saveNewPlayer(HttpServletRequest request, @RequestBody AddPlayerDTO dto) {
-        captchaService.processResponse(dto.getToken(), request.getRemoteAddr());
         Player savedPlayer = playerService.savePlayer(mapToNewPlayer(dto));
         String playerId = savedPlayer.getId().toString();
         notifyRoomChange(savedPlayer.getRoom().getId());

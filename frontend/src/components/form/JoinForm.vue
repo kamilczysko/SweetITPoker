@@ -16,9 +16,8 @@
                 </p>
                 <CustomButton label="Join!" @clicked="join" class=' bg-opacity-70' />
                 <p class='font-extralight'>or</p>
-                <CustomButton label="Create new one!" v-on:clicked="newRoom" class=' bg-opacity-70' />
+                <CustomButton label="Create new one!" v-on:clicked="newRoom" class=' bg-opacity-70 mb-3' />
             </div>
-            <CaptchaInfo></CaptchaInfo>
         </div>
     </div>
 </template>
@@ -30,11 +29,10 @@ import TextInput from '@/components/inputs/TextInput.vue'
 import Choose from '@/components/inputs/Choose.vue'
 import ImageChoose from '@/components/inputs/ImageChoose.vue'
 import CustomButton from '../controls/CustomButton.vue'
-import CaptchaInfo from '../CaptchaInfo.vue'
 import axios from 'axios'
 export default {
     name: "JoinForm",
-    components: { TextInput, Choose, ImageChoose, CustomButton, CaptchaInfo },
+    components: { TextInput, Choose, ImageChoose, CustomButton },
     data() {
         return {
             roles: [],
@@ -85,17 +83,13 @@ export default {
             this.$store.commit("cleanup")
             const roomId = this.$route.params.id
 
-            await this.$recaptchaLoaded()
-            const token = await this.$recaptcha('homepage')
-
             await axios.post('/player', {
                 roomId: roomId,
                 player: {
                     name: data.name,
                     avatarIdx: data.avatarIdx,
                     role: data.role.value
-                },
-                token: token
+                }
             })
                 .then(res => res.data.playerId)
                 .then(playerId => this.$store.commit('joinRoom', { name: data.name, avatarIdx: data.avatarIdx, role: data.role.label, playerId: playerId, roomId: roomId }))

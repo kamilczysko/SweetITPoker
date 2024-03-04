@@ -22,9 +22,8 @@
                 Loading...
             </p>
             <CustomButton @clicked="send" :class="{ ['opacity-60']: isLoading }" label="Create new room!"
-                class='mt-5 bg-opacity-70' />
+                class='mt-5 mb-3 bg-opacity-70' />
         </div>
-        <CaptchaInfo></CaptchaInfo>
     </div>
 </template>
 <script>
@@ -36,13 +35,12 @@ import units from '@/assets/card/units.js'
 import TextInput from '@/components/inputs/TextInput.vue'
 import Choose from '@/components/inputs/Choose.vue'
 import ImageChoose from '@/components/inputs/ImageChoose.vue'
-import CaptchaInfo from '../CaptchaInfo.vue'
 import CustomButton from '../controls/CustomButton.vue'
 import axios from 'axios'
 import Checkbox from '@/components/inputs/Checkbox.vue'
 export default {
     name: "StartForm",
-    components: { TextInput, Choose, ImageChoose, CaptchaInfo, CustomButton, Checkbox },
+    components: { TextInput, Choose, ImageChoose, CustomButton, Checkbox },
     data() {
         return {
             errorMessage: "sdf",
@@ -120,11 +118,7 @@ export default {
         },
         async createNewRoom(newRoomData) {
             this.$store.commit("cleanup")
-            await this.$recaptchaLoaded()
-            const token = await this.$recaptcha('homepage')
-
-            newRoomData.token = token
-
+        
             axios.post("/room", newRoomData)
                 .then(result => result.data)
                 .then(ids => this.$store.commit('initRoom', { ids: ids, data: newRoomData }))
